@@ -14,7 +14,7 @@ public class UserDaoImpl implements IUserDao {
     private EntityManager entityManager;
 
     public UserDaoImpl() {
-        entityManagerFactory = Persistence.createEntityManagerFactory(ConstantesDao.PERSISTENCE_NAME);
+        entityManagerFactory = Persistence.createEntityManagerFactory(ConstantesDao.PERSISTENCE_USER);
         entityManager = entityManagerFactory.createEntityManager();
     }
     
