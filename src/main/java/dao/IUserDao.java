@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.util.List;
 import modele.User;
 
 /**
@@ -48,6 +49,12 @@ public interface IUserDao {
      * @return the id of the queried User, else null
      */
     Integer getUserIdByEmailPassword(String email, String password);
+    
+    /**
+     * Gets all the users saved in the database. 
+     * @return a list of all the users
+     */
+    List<User> getAllUsers();
     
     /**
      * Persists the whole user to the database.
