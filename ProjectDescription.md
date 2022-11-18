@@ -42,9 +42,6 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 - courriel
 - password
 - suspendre
-- panier_courant (FK, 1-1) ???
-- paniers_sauvegardes (FK, 1-*) ???
-- achats_recurrants (FK)
 
 ### Produit
 - nom
@@ -54,16 +51,23 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 - actif
 - recurrent_possible
 
-### Internationalisation
-- id
-- locale_fr
-- locale_en
-
 ### Panier
 - id
 - utilisateur (FK - indexed?, 1-*)
 - courrant
 - produits (comment on fait ça? Ça me vient pas, là..)
+
+### Panier_produit
+- id
+- id_panier
+- id_produit
+- quantite
+- date_ajout
+
+### Internationalisation
+- id
+- locale_fr
+- locale_en
 
 ### Achat récurrent
 - id
