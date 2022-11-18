@@ -1,3 +1,4 @@
 /target/
 /nbproject/
 *.class
+*/src/main/resources/META-INF/persistence.xml
