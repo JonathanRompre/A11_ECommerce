@@ -5,8 +5,10 @@
 package modele;
 
 import java.util.Objects;
+import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -17,6 +19,7 @@ import javax.persistence.Id;
 public class User {
     @Id
     @Column(name = "id_user")
+    @GeneratedValue
     private Integer idUser;
     private String firstName;
     private String lastName;

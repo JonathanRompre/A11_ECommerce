@@ -31,6 +31,7 @@ public class UserDaoImpl implements IUserDao {
             return true;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
+            e.printStackTrace();
             return false;
         }
     }
@@ -45,6 +46,7 @@ public class UserDaoImpl implements IUserDao {
             return idExists;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
+            e.printStackTrace();
             return false;
         }
     }
@@ -59,6 +61,7 @@ public class UserDaoImpl implements IUserDao {
             return emailExists;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
+            e.printStackTrace();
             return false;
         }
     }
@@ -76,6 +79,7 @@ public class UserDaoImpl implements IUserDao {
             return user;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
+            e.printStackTrace();
             return null;
         }
     }
@@ -107,6 +111,7 @@ public class UserDaoImpl implements IUserDao {
             return users;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
+            e.printStackTrace();
             return null;
         }
     }
