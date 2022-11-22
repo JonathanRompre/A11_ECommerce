@@ -53,10 +53,10 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public boolean userEmailExists(String email) {
-        boolean emailExists = false;
+        boolean emailExists = true;
         try {
             entityManager.getTransaction().begin();
-            emailExists = !entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL + email).getResultList().isEmpty();
+            emailExists = !entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL +"'"+email+"'").getResultList().isEmpty();
             entityManager.getTransaction().commit();
             return emailExists;
         } catch (Exception e) {
@@ -180,4 +180,23 @@ public class UserDaoImpl implements IUserDao {
         }
     }
 
+    @Override
+    public boolean deleteAllUsers() {
+        try{
+            // start by getting all users
+            List<User> userList = this.getAllUsers();
+            // delete each user.
+            for(User u: userList){
+                this.deleteUser(u);
+            }
+            // reset the id autoincrement count
+            entityManager.getTransaction().begin();
+            entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE).executeUpdate();
+            entityManager.getTransaction().commit();
+            return true;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

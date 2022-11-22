@@ -18,39 +18,39 @@ import static org.junit.Assert.*;
  * @author Jon
  */
 public class UserDaoImplTest {
+    UserDaoImpl userDaoImpl = new UserDaoImpl();
     
     public UserDaoImplTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
+        System.out.println("Delete all users: "+userDaoImpl.deleteAllUsers());
     }
 
     /**
      * Test of saveUser method, of class UserDaoImpl.
      */
     @Test
-    public void testSaveUser() {
+    public void testSaveUserSuccessReturnTrue() {
         System.out.println("saveUser");
-        User user = new User("user","test","test@mail.com");
+        User user = new User("user", "test", "test@mail.com");
         user.setPassword("password");
-        UserDaoImpl instance = new UserDaoImpl();
         boolean expResult = true;
-        boolean result = instance.saveUser(user);
+        boolean result = userDaoImpl.saveUser(user);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
@@ -59,13 +59,16 @@ public class UserDaoImplTest {
     @Test
     public void testUserIdExists() {
         System.out.println("userIdExists");
-        Integer id = null;
-        UserDaoImpl instance = new UserDaoImpl();
-        boolean expResult = false;
-        boolean result = instance.userIdExists(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // set up for test
+        User userSet = new User("user", "test", "test@mail.com");
+        userSet.setPassword("password");
+        boolean result = userDaoImpl.saveUser(userSet);
+        assertTrue("Set up for userIdExists",result);
+        /// actual test
+        // Get all users
+        User userGet = userDaoImpl.getAllUsers().get(0);
+        result = userDaoImpl.userIdExists(userGet.getIdUser());
+        assertTrue("Test for id exists",result);
     }
 
     /**
@@ -74,13 +77,17 @@ public class UserDaoImplTest {
     @Test
     public void testUserEmailExists() {
         System.out.println("userEmailExists");
-        String email = "";
-        UserDaoImpl instance = new UserDaoImpl();
-        boolean expResult = false;
-        boolean result = instance.userEmailExists(email);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("==========setup");
+        // set up for test
+        User user = new User("user", "test", "test@mail.com");
+        user.setPassword("password");
+        boolean result1 = userDaoImpl.saveUser(user);
+        assertTrue("Set up for userEmailExists",result1);
+        /// actual test
+        // Get all users
+        System.out.println("==========exec");
+        boolean result2 = userDaoImpl.userEmailExists(user.getEmail());
+        assertTrue("Test for email ("+user.getEmail()+") exists: "+result2,result2);
     }
 
     /**
@@ -189,5 +196,5 @@ public class UserDaoImplTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }

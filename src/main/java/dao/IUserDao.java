@@ -90,4 +90,11 @@ public interface IUserDao {
      * @return true if sucess, else false
      */
     boolean deleteUser(User user);
+    
+    /**
+     * Deletes every user from the database and resets the 
+     * ID autoincrement counter
+     * @return true on success, else false.
+     */
+    boolean deleteAllUsers();
 }
