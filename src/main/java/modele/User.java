@@ -4,8 +4,11 @@
  */
 package modele;
 
+import java.util.Objects;
+import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -16,10 +19,12 @@ import javax.persistence.Id;
 public class User {
     @Id
     @Column(name = "id_user")
+    @GeneratedValue
     private Integer idUser;
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
     private boolean isSuspended;
 
     public User() {
@@ -71,11 +76,46 @@ public class User {
         this.isSuspended = isSuspended;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "User{" + "idUser=" + idUser + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", isSuspended=" + isSuspended + '}';
     }
     
-    
-    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (this.isSuspended != other.isSuspended) {
+            return false;
+        }
+        if (!Objects.equals(this.firstName, other.firstName)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastName, other.lastName)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        return Objects.equals(this.idUser, other.idUser);
+    }
 }
