@@ -181,7 +181,7 @@ public class UserDaoImplTest {
         userDaoImpl.saveUser(new User("fn1","ln1","testmail1"));
         User user = userDaoImpl.getAllUsers().get(0);
         Integer id = user.getIdUser();
-        String newPassword = "testmail2";
+        String newPassword = "testPw1";
         boolean result = userDaoImpl.updateUserPasswordFromId(id, newPassword);
         assertTrue(result);
         user.setPassword(newPassword);
@@ -195,13 +195,11 @@ public class UserDaoImplTest {
     @Test
     public void testDeleteUser() {
         System.out.println("deleteUser");
-        User user = null;
-        UserDaoImpl instance = new UserDaoImpl();
-        boolean expResult = false;
-        boolean result = instance.deleteUser(user);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        userDaoImpl.saveUser(new User("fn1","ln1","testmail1"));
+        User user = userDaoImpl.getAllUsers().get(0);
+        boolean result = userDaoImpl.deleteUser(user);
+        assertTrue(result);
+        assertTrue(userDaoImpl.getAllUsers().isEmpty());
     }
 
 }

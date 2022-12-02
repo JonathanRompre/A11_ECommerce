@@ -151,11 +151,11 @@ public class UserDaoImpl implements IUserDao {
     @Override
     public boolean updateUserPasswordFromId(Integer id, String newPassword) {
         try{
-            entityManager.getTransaction().begin();
             // get user from id
-            User user = this.getUserById(id);
-            user.setPassword(newPassword);
+            User user = getUserById(id);
             // update user
+            user.setPassword(newPassword);
+            entityManager.getTransaction().begin();
             entityManager.merge(user);
             entityManager.getTransaction().commit();
             return true;
