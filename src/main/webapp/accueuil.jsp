@@ -13,6 +13,6 @@
         <title>Acceuil</title>
     </head>
     <body>
-        <jsp:forward page="AccueuilTest"></jsp:forward>
+        
     </body>
 </html>
