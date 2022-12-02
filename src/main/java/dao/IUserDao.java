@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.util.List;
 import modele.User;
 
 /**
@@ -50,6 +51,12 @@ public interface IUserDao {
     Integer getUserIdByEmailPassword(String email, String password);
     
     /**
+     * Gets all the users saved in the database. 
+     * @return a list of all the users
+     */
+    List<User> getAllUsers();
+    
+    /**
      * Persists the whole user to the database.
      * @param user to update
      * @return true if success, else false
@@ -83,4 +90,11 @@ public interface IUserDao {
      * @return true if sucess, else false
      */
     boolean deleteUser(User user);
+    
+    /**
+     * Deletes every user from the database and resets the 
+     * ID autoincrement counter
+     * @return true on success, else false.
+     */
+    boolean deleteAllUsers();
 }
