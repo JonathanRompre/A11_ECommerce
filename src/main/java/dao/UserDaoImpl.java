@@ -133,11 +133,11 @@ public class UserDaoImpl implements IUserDao {
     @Override
     public boolean updateUserEmailFromId(Integer id, String newEmail) {
         try{
-            entityManager.getTransaction().begin();
             // get user from id
-            User user = this.getUserById(id);
-            user.setEmail(newEmail);
+            User user = getUserById(id);
             // update user
+            user.setEmail(newEmail);
+            entityManager.getTransaction().begin();
             entityManager.merge(user);
             entityManager.getTransaction().commit();
             return true;

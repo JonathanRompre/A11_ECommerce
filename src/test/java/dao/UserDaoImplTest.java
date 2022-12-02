@@ -166,11 +166,9 @@ public class UserDaoImplTest {
         Integer id = user.getIdUser();
         String newEmail = "testmail2";
         boolean result = userDaoImpl.updateUserEmailFromId(id, newEmail);
-        System.out.println("update result: "+ result);
         assertTrue(result);
         user.setEmail(newEmail);
         User resultUser = userDaoImpl.getAllUsers().get(0);
-        System.out.println("compare result");
         assertEquals(user, resultUser);
     }
 
@@ -180,14 +178,15 @@ public class UserDaoImplTest {
     @Test
     public void testUpdateUserPasswordFromId() {
         System.out.println("updateUserPasswordFromId");
-        Integer id = null;
-        String newPassword = "";
-        UserDaoImpl instance = new UserDaoImpl();
-        boolean expResult = false;
-        boolean result = instance.updateUserPasswordFromId(id, newPassword);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        userDaoImpl.saveUser(new User("fn1","ln1","testmail1"));
+        User user = userDaoImpl.getAllUsers().get(0);
+        Integer id = user.getIdUser();
+        String newPassword = "testmail2";
+        boolean result = userDaoImpl.updateUserPasswordFromId(id, newPassword);
+        assertTrue(result);
+        user.setPassword(newPassword);
+        User resultUser = userDaoImpl.getAllUsers().get(0);
+        assertEquals(user, resultUser);
     }
 
     /**
