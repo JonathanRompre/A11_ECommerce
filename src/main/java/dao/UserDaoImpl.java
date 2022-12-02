@@ -53,7 +53,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public boolean userEmailExists(String email) {
-        boolean emailExists = true;
+        boolean emailExists;
         try {
             entityManager.getTransaction().begin();
             emailExists = !entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL +"'"+email+"'").getResultList().isEmpty();
@@ -103,7 +103,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
+        List<User> users;
         try {
             entityManager.getTransaction().begin();
             users = entityManager.createNativeQuery(ConstantesDao.GET_ALL_USERS, User.class).getResultList();
