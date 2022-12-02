@@ -189,7 +189,6 @@ public class UserDaoImpl implements IUserDao {
             for(User u: userList){
                 this.deleteUser(u);
             }
-            // reset the id autoincrement count
             entityManager.getTransaction().begin();
             entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE).executeUpdate();
             entityManager.getTransaction().commit();

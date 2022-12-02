@@ -6,6 +6,7 @@ package modele;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -15,9 +16,10 @@ import javax.persistence.Id;
 @Entity
 public class Product {
     @Id
+    @GeneratedValue
     @Column(name = "product_id")
     private Integer id;
-    private String description; // changer pour FK internationalisation
+    private String description;
     private String imageName;
     private Integer quantity;
     private double price;
@@ -28,13 +30,16 @@ public class Product {
     public Product() {
     }
 
-    public Product(String description, String imageName, Integer quantite, boolean actif, boolean recurrent_possible) {
+    public Product(String description, String imageName, Integer quantity, double price, boolean active, boolean recurrentPossible) {
         this.description = description;
         this.imageName = imageName;
-        this.quantity = quantite;
-        this.active = actif;
-        this.recurrentPossible = recurrent_possible;
+        this.quantity = quantity;
+        this.price = price;
+        this.active = active;
+        this.recurrentPossible = recurrentPossible;
     }
+    
+    
 
     public Integer getId() {
         return id;
