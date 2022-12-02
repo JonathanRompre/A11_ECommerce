@@ -1,6 +1,0 @@
-dao\UserDaoImpl.class
-modele\Constantes.class
-dao\IUserDao.class
-dao\ConstantesDao.class
-modele\User.class
-servlets\CheckSessionAccueuil.class

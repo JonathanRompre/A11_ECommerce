@@ -85,7 +85,6 @@ public class UserDaoImplTest {
         assertTrue("Set up for userEmailExists",result1);
         /// actual test
         // Get all users
-        System.out.println("==========exec");
         boolean result2 = userDaoImpl.userEmailExists(user.getEmail());
         assertTrue("Test for email ("+user.getEmail()+") exists: "+result2,result2);
     }
@@ -96,13 +95,16 @@ public class UserDaoImplTest {
     @Test
     public void testGetUserById() {
         System.out.println("getUserById");
-        Integer id = null;
-        UserDaoImpl instance = new UserDaoImpl();
-        User expResult = null;
-        User result = instance.getUserById(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // set up for test
+        User userSet = new User("user", "test", "test@mail.com");
+        userSet.setPassword("password");
+        boolean result = userDaoImpl.saveUser(userSet);
+        assertTrue("Set up for getUserById",result);
+        /// actual test
+        // Get all users
+        User userGet = userDaoImpl.getAllUsers().get(0);
+        User resultUser = userDaoImpl.getUserById(userGet.getIdUser());
+        assertEquals(userGet, resultUser);
     }
 
     /**
@@ -111,14 +113,11 @@ public class UserDaoImplTest {
     @Test
     public void testGetUserIdByEmailPassword() {
         System.out.println("getUserIdByEmailPassword");
-        String email = "";
-        String password = "";
-        UserDaoImpl instance = new UserDaoImpl();
-        Integer expResult = null;
-        Integer result = instance.getUserIdByEmailPassword(email, password);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        // set up for test
+        User userSet = new User("user", "test", "test@mail.com");
+        userSet.setPassword("password");
+        boolean result = userDaoImpl.saveUser(userSet);
+        assertTrue("Set up for getUserIdByEmailPassword",result);
     }
 
     /**

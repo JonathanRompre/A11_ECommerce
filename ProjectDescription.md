@@ -44,8 +44,9 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 - suspendre
 
 ### Produit
-- nom
-- description (FK, 1-*)
+- id
+- nom - Internationalisation:Produit.idProduit.nom
+- description (FK, 1-*) - Internationalisation:Produit.idProduit.desc
 - image name ?
 - quantite
 - actif
@@ -55,7 +56,6 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 - id
 - utilisateur (FK - indexed?, 1-*)
 - courrant
-- produits (comment on fait ça? Ça me vient pas, là..)
 
 ### Panier_produit
 - id
@@ -64,12 +64,16 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 - quantite
 - date_ajout
 
-### Internationalisation
-- id
+### Internationalisation - delay for if time allows
+- ~id~
+- type (ex. Produit)
+- idType (ex. idProduit)
+- champs (ex. desc)
 - locale_fr
 - locale_en
+- PK: [type, idType, champs]
 
-### Achat récurrent
+### Achat récurrent - delay for if time allows
 - id
 - date_prochain_achat
 - frequence_achat
@@ -84,13 +88,13 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 - Login (link)
 - Logout (link)
 - Profile (link)
-- Panier (sidebar + full view?) (on page + link)
+- Panier (sidebar + full view?) (on page + link) - delay for if time allows
 - Affichage des produits
 
 ### Login
 - Input username/password
 - créer compte (link)
-- recover pw ? (link)
+- recover pw ? (link) - delay for if time allows
 
 ### Admin
 - Visionner la liste des utilisateurs
