@@ -53,7 +53,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public boolean userEmailExists(String email) {
-        boolean emailExists = true;
+        boolean emailExists;
         try {
             entityManager.getTransaction().begin();
             emailExists = !entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL +"'"+email+"'").getResultList().isEmpty();
@@ -103,7 +103,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
+        List<User> users;
         try {
             entityManager.getTransaction().begin();
             users = entityManager.createNativeQuery(ConstantesDao.GET_ALL_USERS, User.class).getResultList();
@@ -133,11 +133,11 @@ public class UserDaoImpl implements IUserDao {
     @Override
     public boolean updateUserEmailFromId(Integer id, String newEmail) {
         try{
-            entityManager.getTransaction().begin();
             // get user from id
-            User user = this.getUserById(id);
-            user.setEmail(newEmail);
+            User user = getUserById(id);
             // update user
+            user.setEmail(newEmail);
+            entityManager.getTransaction().begin();
             entityManager.merge(user);
             entityManager.getTransaction().commit();
             return true;
@@ -151,11 +151,11 @@ public class UserDaoImpl implements IUserDao {
     @Override
     public boolean updateUserPasswordFromId(Integer id, String newPassword) {
         try{
-            entityManager.getTransaction().begin();
             // get user from id
-            User user = this.getUserById(id);
-            user.setPassword(newPassword);
+            User user = getUserById(id);
             // update user
+            user.setPassword(newPassword);
+            entityManager.getTransaction().begin();
             entityManager.merge(user);
             entityManager.getTransaction().commit();
             return true;
@@ -189,7 +189,6 @@ public class UserDaoImpl implements IUserDao {
             for(User u: userList){
                 this.deleteUser(u);
             }
-            // reset the id autoincrement count
             entityManager.getTransaction().begin();
             entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE).executeUpdate();
             entityManager.getTransaction().commit();
