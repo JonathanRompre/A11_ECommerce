@@ -5,10 +5,11 @@
              version="2.2">
     <persistence-unit name="persistence">
 
+        <!--<class>entity.Student</class>-->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
 
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/A11_tp2_1142718_0644434?createDatabaseIfNotExist=true"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/a11_tp2_1142718_0644434?createDatabaseIfNotExist=true"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="Prince beigne patate 42069"/>

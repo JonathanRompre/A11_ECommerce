@@ -4,12 +4,16 @@
  */
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import modele.User;
 
 public class UserDaoImpl implements IUserDao {
+
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
@@ -17,60 +21,182 @@ public class UserDaoImpl implements IUserDao {
         entityManagerFactory = Persistence.createEntityManagerFactory(ConstantesDao.PERSISTENCE_NAME);
         entityManager = entityManagerFactory.createEntityManager();
     }
-    
-    
-    
+
     @Override
     public boolean saveUser(User user) {
-        try{
+        try {
             entityManager.getTransaction().begin();
             entityManager.persist(user);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
+            e.printStackTrace();
             return false;
         }
     }
 
     @Override
     public boolean userIdExists(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean idExists = false;
+        try {
+            entityManager.getTransaction().begin();
+            idExists = entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_ID + id).getResultList().size() > 0;
+            entityManager.getTransaction().commit();
+            return idExists;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean userEmailExists(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean emailExists = true;
+        try {
+            entityManager.getTransaction().begin();
+            emailExists = !entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL +"'"+email+"'").getResultList().isEmpty();
+            entityManager.getTransaction().commit();
+            return emailExists;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public User getUserById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        User user = null;
+        try {
+            entityManager.getTransaction().begin();
+            List<User> tmpUserList = entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_ID + id, User.class).getResultList();
+            if(!tmpUserList.isEmpty()){
+                user = tmpUserList.get(0);
+            }
+            entityManager.getTransaction().commit();
+            return user;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public Integer getUserIdByEmailPassword(String email, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createQuery(ConstantesDao.GET_USER_ID_FROM_EMAIL_PASSWORD);
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+            Integer returnId = query.executeUpdate();
+            entityManager.getTransaction().commit();
+            return returnId;
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        try {
+            entityManager.getTransaction().begin();
+            users = entityManager.createNativeQuery(ConstantesDao.GET_ALL_USERS, User.class).getResultList();
+            entityManager.getTransaction().commit();
+            return users;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public boolean updateUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(user);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean updateUserEmailFromId(Integer id, String newEmail) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            entityManager.getTransaction().begin();
+            // get user from id
+            User user = this.getUserById(id);
+            user.setEmail(newEmail);
+            // update user
+            entityManager.merge(user);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean updateUserPasswordFromId(Integer id, String newPassword) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        try{
+            entityManager.getTransaction().begin();
+            // get user from id
+            User user = this.getUserById(id);
+            user.setPassword(newPassword);
+            // update user
+            entityManager.merge(user);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }    }
 
     @Override
     public boolean deleteUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try{
+            entityManager.getTransaction().begin();
+            User userMerged = entityManager.merge(user);
+            entityManager.remove(userMerged);
+            entityManager.getTransaction().commit();
+            return true;
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        }
     }
 
+    @Override
+    public boolean deleteAllUsers() {
+        try{
+            // start by getting all users
+            List<User> userList = this.getAllUsers();
+            // delete each user.
+            for(User u: userList){
+                this.deleteUser(u);
+            }
+            // reset the id autoincrement count
+            entityManager.getTransaction().begin();
+            entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE).executeUpdate();
+            entityManager.getTransaction().commit();
+            return true;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
