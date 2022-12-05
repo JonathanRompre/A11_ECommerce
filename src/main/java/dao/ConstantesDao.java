@@ -10,27 +10,27 @@ package dao;
  */
 class ConstantesDao {
     protected static final String PERSISTENCE_NAME = "persistence";
-    
+
     /// USER
     // SQL
     protected static final String GET_USER_FROM_ID = "SELECT user_id FROM USER WHERE user_id = ";
 
     protected static final String GET_USER_FROM_EMAIL = "SELECT * FROM USER WHERE email = ";
-        
+
     protected static final String GET_ALL_USERS = "SELECT * FROM USER";
-    
+
     protected static final String RESET_HIBERNATE_SEQUENCE = "UPDATE hibernate_sequence SET next_val = 1";
     // HQL
     protected static final String GET_USER_ID_FROM_EMAIL_PASSWORD = "SELECT u.id FROM User u where u.email = :email AND u.password = :password";
-    
+
     /// PRODUCT
     // SQL
     protected static final String GET_PRODUCT_FROM_ID = "SELECT product_id FROM PRODUCT WHERE product_id = ";
-    
+
     protected static final String GET_PRODUCT_ACTIVE_STATUS = "SELECT active FROM PRODUCT WHERE product_id = ";
-    
+
     protected static final String GET_ALL_PRODUCTS = "SELECT * FROM PRODUCT";
-    
+
     /// Cart
     // SQL
     protected static final String GET_CART_FROM_ID = "SELECT * FROM CART WHERE panier_id = ";
@@ -48,6 +48,7 @@ class ConstantesDao {
     //HQL
     protected static final String GET_CURRENT_CART_EXISTS_FOR_USER_ID_HQL = "SELECT c.current FROM Cart c WHERE c.user.id = :id";
     
-    
-    
+    ///Config database
+    protected static final String PRODUCT_EXIST = "SELECT description FROM product where description = :description";
+
 }
