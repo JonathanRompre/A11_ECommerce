@@ -25,7 +25,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private boolean isSuspended;
+    private boolean Suspended;
 
     public User() {
     }
@@ -68,12 +68,12 @@ public class User {
         this.email = email;
     }
 
-    public boolean isIsSuspended() {
-        return isSuspended;
+    public boolean isSuspended() {
+        return Suspended;
     }
 
-    public void setIsSuspended(boolean isSuspended) {
-        this.isSuspended = isSuspended;
+    public void setSuspended(boolean isSuspended) {
+        this.Suspended = isSuspended;
     }
 
     public String getPassword() {
@@ -86,7 +86,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "idUser=" + idUser + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", isSuspended=" + isSuspended + '}';
+        return "User{" + "idUser=" + idUser + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", isSuspended=" + Suspended + '}';
     }
     
     @Override
@@ -101,7 +101,7 @@ public class User {
             return false;
         }
         final User other = (User) obj;
-        if (this.isSuspended != other.isSuspended) {
+        if (this.Suspended != other.Suspended) {
             return false;
         }
         if (!Objects.equals(this.firstName, other.firstName)) {
