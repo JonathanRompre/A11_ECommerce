@@ -9,6 +9,7 @@ package dao;
  * @author Jon
  */
 class ConstantesDao {
+
     protected static final String PERSISTENCE_NAME = "persistence";
 
     /// USER
