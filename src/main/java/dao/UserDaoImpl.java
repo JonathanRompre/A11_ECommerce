@@ -189,8 +189,9 @@ public class UserDaoImpl implements IUserDao {
             for(User u: userList){
                 this.deleteUser(u);
             }
+            // reset sequence
             entityManager.getTransaction().begin();
-            entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE).executeUpdate();
+            entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE_USER).executeUpdate();
             entityManager.getTransaction().commit();
             return true;
         }catch(Exception e){

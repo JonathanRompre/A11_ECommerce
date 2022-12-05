@@ -153,7 +153,7 @@ public class ProductDaoImpl implements IProductDao {
                 this.deleteProduct(p);
             }
             entityManager.getTransaction().begin();
-            entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE).executeUpdate();
+            entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE_USER).executeUpdate();
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {

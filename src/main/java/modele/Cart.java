@@ -27,7 +27,7 @@ public class Cart {
     private Integer id;
     
     @OneToOne
-    @JoinColumn(name ="id_user")
+    @JoinColumn(name ="user_id")
     private User user;
     
     private boolean current;
@@ -38,8 +38,7 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(Integer id, User user, boolean current) {
-        this.id = id;
+    public Cart(User user, boolean current) {
         this.user = user;
         this.current = current;
     }

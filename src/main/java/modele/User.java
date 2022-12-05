@@ -18,7 +18,7 @@ import javax.persistence.Id;
 @Entity
 public class User {
     @Id
-    @Column(name = "id_user")
+    @Column(name = "user_id")
     @GeneratedValue
     private Integer idUser;
     private String firstName;

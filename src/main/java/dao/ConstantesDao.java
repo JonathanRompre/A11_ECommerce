@@ -11,23 +11,39 @@ package dao;
 class ConstantesDao {
     protected static final String PERSISTENCE_NAME = "persistence";
     
-    // SQL
     /// USER
-    protected static final String GET_USER_FROM_ID = "SELECT id_user FROM USER WHERE id_user = ";
+    // SQL
+    protected static final String GET_USER_FROM_ID = "SELECT user_id FROM USER WHERE user_id = ";
 
     protected static final String GET_USER_FROM_EMAIL = "SELECT * FROM USER WHERE email = ";
         
     protected static final String GET_ALL_USERS = "SELECT * FROM USER";
     
-    protected static final String RESET_HIBERNATE_SEQUENCE = "UPDATE hibernate_sequence SET next_val = 1";
+    protected static final String RESET_HIBERNATE_SEQUENCE_USER = "UPDATE hibernate_sequence SET next_val = 1";
+    // HQL
+    protected static final String GET_USER_ID_FROM_EMAIL_PASSWORD = "SELECT user_id FROM USER where email=:email AND password=:password";
     
     /// PRODUCT
+    // SQL
     protected static final String GET_PRODUCT_FROM_ID = "SELECT product_id FROM PRODUCT WHERE product_id = ";
     
     protected static final String GET_PRODUCT_ACTIVE_STATUS = "SELECT active FROM PRODUCT WHERE product_id = ";
     
     protected static final String GET_ALL_PRODUCTS = "SELECT * FROM PRODUCT";
     
-    // HQL
-    protected static final String GET_USER_ID_FROM_EMAIL_PASSWORD = "SELECT user_id FROM USER where email=:email AND password=:password";
+    /// Cart
+    protected static final String GET_CART_FROM_ID = "SELECT * FROM CART WHERE panier_id = ";
+    
+    protected static final String GET_CURRENT_CART_ID_FOR_USER_ID = "SELECT panier_id FROM CART WHERE current = 1 AND user_id = ";
+    
+    protected static final String GET_CURRENT_CART_EXISTS_FOR_USER_ID = "SELECT COUNT(*) FROM CART WHERE current = 1 AND user_id = ";
+    
+    protected static final String GET_ALL_CARTS_FOR_USER_ID = "SELECT * FROM CART WHERE user_id = ";
+    
+    protected static final String GET_ALL_CARTS = "SELECT * FROM CART";
+    
+    protected static final String SET_CART_CURRENT_FALSE_FOR_USER_ID = "UPDATE CART SET current = 0 WHERE user_id = ";
+    
+    
+    
 }
