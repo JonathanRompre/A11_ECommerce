@@ -4,10 +4,12 @@
  */
 package dao;
 
+import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import modele.Cart;
 
 /**
@@ -42,7 +44,7 @@ public class CartDaoImpl implements ICartDao {
     public Cart getCartById(Integer id) {
         try {
             entityManager.getTransaction().begin();
-            List<Cart> tmpList = entityManager.createNativeQuery(ConstantesDao.GET_CART_FROM_ID, Cart.class).getResultList();
+            List<Cart> tmpList = entityManager.createNativeQuery(ConstantesDao.GET_CART_FROM_ID+id, Cart.class).getResultList();
             if (tmpList.isEmpty()) {
                 return null;
             }
@@ -59,7 +61,8 @@ public class CartDaoImpl implements ICartDao {
     public Integer getCurrentCartIdByUserId(Integer id) {
         try {
             entityManager.getTransaction().begin();
-            List<Integer> tmpList = entityManager.createNativeQuery(ConstantesDao.GET_CURRENT_CART_ID_FOR_USER_ID, Integer.class).getResultList();
+            List<Integer> tmpList = entityManager.createNativeQuery(ConstantesDao.GET_CURRENT_CART_ID_FOR_USER_ID+id).getResultList();
+            entityManager.getTransaction().commit();
             if (tmpList.isEmpty()) {
                 return null;
             }
@@ -75,8 +78,14 @@ public class CartDaoImpl implements ICartDao {
     public boolean hasActiveCartForUserId(Integer id) {
         try {
             entityManager.getTransaction().begin();
-            List<Boolean> tmpList = entityManager.createNativeQuery(ConstantesDao.GET_CURRENT_CART_EXISTS_FOR_USER_ID).getResultList();
-            return !tmpList.isEmpty();
+            Query query = entityManager.createQuery(ConstantesDao.GET_CURRENT_CART_EXISTS_FOR_USER_ID_HQL);
+            query.setParameter("id", id);
+            List<Boolean> tmpList = query.getResultList();
+            //List<BigInteger> tmpList = entityManager.createNativeQuery(ConstantesDao.GET_CURRENT_CART_EXISTS_FOR_USER_ID+id).getResultList();
+            entityManager.getTransaction().commit();
+            if(tmpList.isEmpty())
+                return false;
+            return tmpList.get(0);
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
@@ -88,10 +97,8 @@ public class CartDaoImpl implements ICartDao {
     public List<Cart> getAllCartsForUserId(Integer id) {
         try {
             entityManager.getTransaction().begin();
-            List<Cart> tmpList = entityManager.createNativeQuery(ConstantesDao.GET_ALL_CARTS_FOR_USER_ID).getResultList();
-            if (tmpList.isEmpty()) {
-                return null;
-            }
+            List<Cart> tmpList = entityManager.createNativeQuery(ConstantesDao.GET_ALL_CARTS_FOR_USER_ID+id, Cart.class).getResultList();
+            entityManager.getTransaction().commit();
             return tmpList;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
@@ -118,8 +125,8 @@ public class CartDaoImpl implements ICartDao {
     @Override
     public boolean deleteCartByCartId(Integer id) {
         try {
-            entityManager.getTransaction().begin();
             Cart cart = getCartById(id);
+            entityManager.getTransaction().begin();
             entityManager.remove(cart);
             entityManager.getTransaction().commit();
             return true;
@@ -149,7 +156,8 @@ public class CartDaoImpl implements ICartDao {
     @Override
     public boolean setCartCurrentFalseForUserId(Integer id) {
         try {
-            Cart cart = getCartById(id);
+            Integer cartId = getCurrentCartIdByUserId(id);
+            Cart cart = getCartById(cartId);
             cart.setCurrent(false);
             entityManager.getTransaction().begin();
             entityManager.merge(cart);

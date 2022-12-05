@@ -20,12 +20,13 @@ public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue
-    private Integer idUser;
+    private Integer id;
     private String firstName;
     private String lastName;
+    @Column(unique=true)
     private String email;
     private String password;
-    private boolean isSuspended;
+    private boolean suspended;
 
     public User() {
     }
@@ -36,12 +37,12 @@ public class User {
         this.email = email;
     }
 
-    public Integer getIdUser() {
-        return idUser;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -68,12 +69,12 @@ public class User {
         this.email = email;
     }
 
-    public boolean isIsSuspended() {
-        return isSuspended;
+    public boolean isSuspended() {
+        return suspended;
     }
 
-    public void setIsSuspended(boolean isSuspended) {
-        this.isSuspended = isSuspended;
+    public void setSuspended(boolean suspended) {
+        this.suspended = suspended;
     }
 
     public String getPassword() {
@@ -86,7 +87,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "idUser=" + idUser + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", isSuspended=" + isSuspended + '}';
+        return "User{" + "idUser=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", isSuspended=" + suspended + '}';
     }
     
     @Override
@@ -101,7 +102,7 @@ public class User {
             return false;
         }
         final User other = (User) obj;
-        if (this.isSuspended != other.isSuspended) {
+        if (this.suspended != other.suspended) {
             return false;
         }
         if (!Objects.equals(this.firstName, other.firstName)) {
@@ -116,6 +117,6 @@ public class User {
         if (!Objects.equals(this.password, other.password)) {
             return false;
         }
-        return Objects.equals(this.idUser, other.idUser);
+        return Objects.equals(this.id, other.id);
     }
 }

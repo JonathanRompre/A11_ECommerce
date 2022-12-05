@@ -19,9 +19,9 @@ class ConstantesDao {
         
     protected static final String GET_ALL_USERS = "SELECT * FROM USER";
     
-    protected static final String RESET_HIBERNATE_SEQUENCE_USER = "UPDATE hibernate_sequence SET next_val = 1";
+    protected static final String RESET_HIBERNATE_SEQUENCE = "UPDATE hibernate_sequence SET next_val = 1";
     // HQL
-    protected static final String GET_USER_ID_FROM_EMAIL_PASSWORD = "SELECT user_id FROM USER where email=:email AND password=:password";
+    protected static final String GET_USER_ID_FROM_EMAIL_PASSWORD = "SELECT u.id FROM User u where u.email = :email AND u.password = :password";
     
     /// PRODUCT
     // SQL
@@ -32,6 +32,7 @@ class ConstantesDao {
     protected static final String GET_ALL_PRODUCTS = "SELECT * FROM PRODUCT";
     
     /// Cart
+    // SQL
     protected static final String GET_CART_FROM_ID = "SELECT * FROM CART WHERE panier_id = ";
     
     protected static final String GET_CURRENT_CART_ID_FOR_USER_ID = "SELECT panier_id FROM CART WHERE current = 1 AND user_id = ";
@@ -43,6 +44,9 @@ class ConstantesDao {
     protected static final String GET_ALL_CARTS = "SELECT * FROM CART";
     
     protected static final String SET_CART_CURRENT_FALSE_FOR_USER_ID = "UPDATE CART SET current = 0 WHERE user_id = ";
+    
+    //HQL
+    protected static final String GET_CURRENT_CART_EXISTS_FOR_USER_ID_HQL = "SELECT c.current FROM Cart c WHERE c.user.id = :id";
     
     
     

@@ -91,9 +91,10 @@ public class UserDaoImpl implements IUserDao {
             Query query = entityManager.createQuery(ConstantesDao.GET_USER_ID_FROM_EMAIL_PASSWORD);
             query.setParameter("email", email);
             query.setParameter("password", password);
-            Integer returnId = query.executeUpdate();
+            String tmpString = query.toString();
+            List<Integer> returnId = query.getResultList();
             entityManager.getTransaction().commit();
-            return returnId;
+            return returnId.get(0);
         }catch(Exception e){
             entityManager.getTransaction().rollback();
             e.printStackTrace();
@@ -191,7 +192,7 @@ public class UserDaoImpl implements IUserDao {
             }
             // reset sequence
             entityManager.getTransaction().begin();
-            entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE_USER).executeUpdate();
+            entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE).executeUpdate();
             entityManager.getTransaction().commit();
             return true;
         }catch(Exception e){

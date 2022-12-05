@@ -67,7 +67,7 @@ public class UserDaoImplTest {
         /// actual test
         // Get all users
         User userGet = userDaoImpl.getAllUsers().get(0);
-        result = userDaoImpl.userIdExists(userGet.getIdUser());
+        result = userDaoImpl.userIdExists(userGet.getId());
         assertTrue("Test for id exists",result);
     }
 
@@ -103,7 +103,7 @@ public class UserDaoImplTest {
         /// actual test
         // Get all users
         User userGet = userDaoImpl.getAllUsers().get(0);
-        User resultUser = userDaoImpl.getUserById(userGet.getIdUser());
+        User resultUser = userDaoImpl.getUserById(userGet.getId());
         assertEquals(userGet, resultUser);
     }
 
@@ -118,6 +118,9 @@ public class UserDaoImplTest {
         userSet.setPassword("password");
         boolean result = userDaoImpl.saveUser(userSet);
         assertTrue("Set up for getUserIdByEmailPassword",result);
+        Integer resultId = userDaoImpl.getUserIdByEmailPassword(userSet.getEmail(), userSet.getPassword());
+        User user = userDaoImpl.getAllUsers().get(0);
+        assertEquals(user.getId(), resultId);
     }
 
     /**
@@ -146,7 +149,7 @@ public class UserDaoImplTest {
         user.setFirstName("fn2");
         user.setLastName("ln2");
         user.setEmail("testmail2");
-        user.setIsSuspended(true);
+        user.setSuspended(true);
         user.setPassword("testPw");
         User expUserResult = user;
         boolean result = userDaoImpl.updateUser(user);
@@ -163,7 +166,7 @@ public class UserDaoImplTest {
         System.out.println("updateUserEmailFromId");
         userDaoImpl.saveUser(new User("fn1","ln1","testmail1"));
         User user = userDaoImpl.getAllUsers().get(0);
-        Integer id = user.getIdUser();
+        Integer id = user.getId();
         String newEmail = "testmail2";
         boolean result = userDaoImpl.updateUserEmailFromId(id, newEmail);
         assertTrue(result);
@@ -180,7 +183,7 @@ public class UserDaoImplTest {
         System.out.println("updateUserPasswordFromId");
         userDaoImpl.saveUser(new User("fn1","ln1","testmail1"));
         User user = userDaoImpl.getAllUsers().get(0);
-        Integer id = user.getIdUser();
+        Integer id = user.getId();
         String newPassword = "testPw1";
         boolean result = userDaoImpl.updateUserPasswordFromId(id, newPassword);
         assertTrue(result);

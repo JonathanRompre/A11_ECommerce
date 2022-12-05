@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
 public class CartDaoImplTest {
     CartDaoImpl cartDaoImpl = new CartDaoImpl();
     UserDaoImpl userDaoImpl = new UserDaoImpl();
+    User user;
     
     public CartDaoImplTest() {
     }
@@ -35,6 +36,8 @@ public class CartDaoImplTest {
 
     @Before
     public void setUp() {
+        userDaoImpl.saveUser(new User("fn1", "ln1", "mail"));
+        user = userDaoImpl.getAllUsers().get(0);
     }
 
     @After
@@ -49,8 +52,6 @@ public class CartDaoImplTest {
     @Test
     public void testSaveCart() {
         System.out.println("saveCart");
-        userDaoImpl.saveUser(new User("fn1", "ln1", "mail"));
-        User user = userDaoImpl.getAllUsers().get(0);
         Cart cart = new Cart(user, true);
         boolean result = cartDaoImpl.saveCart(cart);
         assertTrue(result);
@@ -62,8 +63,6 @@ public class CartDaoImplTest {
     @Test
     public void testGetCartById() {
         System.out.println("getCartById");
-        boolean tmp = userDaoImpl.saveUser(new User("fn1", "ln1", "mail"));
-        User user = userDaoImpl.getAllUsers().get(0);
         boolean result = cartDaoImpl.saveCart(new Cart(user, true));
         assertTrue(result);
         Cart cart = cartDaoImpl.getAllCartsForUserId(1).get(0);
@@ -77,13 +76,11 @@ public class CartDaoImplTest {
     @Test
     public void testGetCurrentCartIdByUserId() {
         System.out.println("getCurrentCartIdByUserId");
-        Integer id = null;
-        CartDaoImpl instance = new CartDaoImpl();
-        Integer expResult = null;
-        Integer result = instance.getCurrentCartIdByUserId(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        boolean result = cartDaoImpl.saveCart(new Cart(user, true));
+        assertTrue(result);
+        Cart cart = cartDaoImpl.getAllCartsForUserId(1).get(0);
+        int cartCurrentId = cartDaoImpl.getCurrentCartIdByUserId(user.getId());
+        assertEquals((int) cart.getId(), cartCurrentId);
     }
 
     /**
@@ -92,13 +89,13 @@ public class CartDaoImplTest {
     @Test
     public void testHasActiveCartForUserId() {
         System.out.println("hasActiveCartForUserId");
-        Integer id = null;
-        CartDaoImpl instance = new CartDaoImpl();
-        boolean expResult = false;
-        boolean result = instance.hasActiveCartForUserId(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        boolean result = cartDaoImpl.saveCart(new Cart(user, true));
+        assertTrue(result);
+        boolean hasActive = cartDaoImpl.hasActiveCartForUserId(user.getId());
+        assertTrue(hasActive);
+        cartDaoImpl.setCartCurrentFalseForUserId(user.getId());
+        hasActive = cartDaoImpl.hasActiveCartForUserId(user.getId());
+        assertFalse(hasActive);
     }
 
     /**
@@ -107,13 +104,15 @@ public class CartDaoImplTest {
     @Test
     public void testGetAllCartsForUserId() {
         System.out.println("getAllCartsForUserId");
-        Integer id = null;
-        CartDaoImpl instance = new CartDaoImpl();
-        List<Cart> expResult = null;
-        List<Cart> result = instance.getAllCartsForUserId(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, false)));
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, false)));
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, false)));
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, false)));
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, true)));
+        int expectedSize = 5;
+        
+        List<Cart> cartList = cartDaoImpl.getAllCartsForUserId(user.getId());
+        assertEquals(expectedSize, cartList.size());
     }
 
     /**
@@ -122,13 +121,14 @@ public class CartDaoImplTest {
     @Test
     public void testDeleteCart() {
         System.out.println("deleteCart");
-        Cart cart = null;
-        CartDaoImpl instance = new CartDaoImpl();
-        boolean expResult = false;
-        boolean result = instance.deleteCart(cart);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, false)));
+        List<Cart> cartResultList = cartDaoImpl.getAllCartsForUserId(user.getId());
+        int expectedSize = 1;
+        assertEquals(expectedSize, cartResultList.size());
+        assertTrue(cartDaoImpl.deleteCart(cartResultList.get(0)));
+        expectedSize = 0;
+        cartResultList = cartDaoImpl.getAllCartsForUserId(user.getId());
+        assertEquals(expectedSize, cartResultList.size());
     }
 
     /**
@@ -137,13 +137,14 @@ public class CartDaoImplTest {
     @Test
     public void testDeleteCartByCartId() {
         System.out.println("deleteCartByCartId");
-        Integer id = null;
-        CartDaoImpl instance = new CartDaoImpl();
-        boolean expResult = false;
-        boolean result = instance.deleteCartByCartId(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, false)));
+        List<Cart> cartResultList = cartDaoImpl.getAllCartsForUserId(user.getId());
+        int expectedSize = 1;
+        assertEquals(expectedSize, cartResultList.size());
+        assertTrue(cartDaoImpl.deleteCartByCartId(cartResultList.get(0).getId()));
+        expectedSize = 0;
+        cartResultList = cartDaoImpl.getAllCartsForUserId(user.getId());
+        assertEquals(expectedSize, cartResultList.size());
     }
 
     /**
@@ -152,12 +153,21 @@ public class CartDaoImplTest {
     @Test
     public void testDeleteAllCarts() {
         System.out.println("deleteAllCarts");
-        CartDaoImpl instance = new CartDaoImpl();
-        boolean expResult = false;
-        boolean result = instance.deleteAllCarts();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, false)));
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, false)));
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, false)));
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, false)));
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, true)));
+        int expectedSize = 5;
+        
+        List<Cart> cartList = cartDaoImpl.getAllCartsForUserId(user.getId());
+        assertEquals(expectedSize, cartList.size());
+        
+        assertTrue(cartDaoImpl.deleteAllCarts());
+        expectedSize = 0;
+        cartList = cartDaoImpl.getAllCartsForUserId(user.getId());
+        assertEquals(expectedSize, cartList.size());
+        
     }
 
     /**
@@ -166,13 +176,8 @@ public class CartDaoImplTest {
     @Test
     public void testSetCartCurrentFalseForUserId() {
         System.out.println("setCartCurrentFalseForUserId");
-        Integer id = null;
-        CartDaoImpl instance = new CartDaoImpl();
-        boolean expResult = false;
-        boolean result = instance.setCartCurrentFalseForUserId(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(cartDaoImpl.saveCart(new Cart(user, true)));
+        assertTrue(cartDaoImpl.setCartCurrentFalseForUserId(user.getId()));
+        assertFalse(cartDaoImpl.getAllCartsForUserId(user.getId()).get(0).isCurrent());
     }
-    
 }
