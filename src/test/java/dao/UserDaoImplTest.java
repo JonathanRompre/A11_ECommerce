@@ -146,7 +146,7 @@ public class UserDaoImplTest {
         user.setFirstName("fn2");
         user.setLastName("ln2");
         user.setEmail("testmail2");
-        user.setIsSuspended(true);
+        user.setSuspended(true);
         user.setPassword("testPw");
         User expUserResult = user;
         boolean result = userDaoImpl.updateUser(user);

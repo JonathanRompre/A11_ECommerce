@@ -34,28 +34,29 @@ public class ConfigDatabase extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ConfigDatabaseDaoImpl configDatabaseDaoImpl = new ConfigDatabaseDaoImpl();
+        try{
         //list of Product
         List<Product> productList = new ArrayList<Product>();
-        Product product1 = new Product("Chicken dry food for adult large breed dog", "dogFoodDry.jpg", Integer.SIZE, 74.99, true, true);
-        Product product2 = new Product("White fish wet food for adult dog", "dogFoodWet.jpg", Integer.SIZE, 3.89, true, true);
-        Product product3 = new Product("Dog Raw Food, Beef and Chicken", "dogFoodRaw.jpg", Integer.SIZE, 79.99, true, true);
-        Product product4 = new Product("Hips and Joints Adult Dog Biscuits", "dogBiscuit.jpg", Integer.SIZE, 7.99, true, true);
-        Product product5 = new Product("Beef marrow bone 18 to 23 cm, 400g", "dogBoneMarrow.jpg", Integer.SIZE, 8.29, true, true);
-        Product product6 = new Product("Training pads for puppies and small dogs, 150 un.", "dogPad.jpg", Integer.SIZE, 49.99, true, true);
-        Product product7 = new Product("Indoor turf dog potty with absorbent pad", "dogTurfPad.jpg", Integer.SIZE, 51.99, true, true);
-        Product product8 = new Product("Luxurious Ultra Soft Pet Bed, dark grey", "dogBed.jpg", Integer.SIZE, 89.99, true, false);
-        Product product9 = new Product("Hyper Fetch dog toy", "dogFetchToy.jpg", Integer.SIZE, 99.99, true, false);
-        Product product10 = new Product("Squeezz Dental Stick", "dogToyKong.jpg", Integer.SIZE, 18.49, true, false);
-        Product product11 = new Product("Chicken Wet Food for Senior Cats", "catFoodWet.jpg", Integer.SIZE, 2.59, true, true);
-        Product product12 = new Product("Chicken wet food for adult cats", "catFoodWet2.jpg", Integer.SIZE, 1.25, true, true);
-        Product product13 = new Product("Grain Free Chicken, Chicken Liver & Duck Treats, 30 g (1 oz)", "catTreat.jpg", Integer.SIZE, 74.99, true, true);
-        Product product14 = new Product("Nibbly cat treats, chicken & liver", "catTreat2.jpg", Integer.SIZE, 3.99, true, true);
-        Product product15 = new Product("Chicken dry food for indoor adult cats", "catFoodDry.jpg", Integer.SIZE, 60.99, true, true);
-        Product product16 = new Product("Clumping litter", "dogFood.jpg", Integer.SIZE, 13.99, true, true);
-        Product product17 = new Product("Recycled jumbo scoop, grey", "catLitterScoop.jpg", Integer.SIZE, 1.89, true, false);
-        Product product18 = new Product("Kaia 4-Level Cat Tree", "CatTree.jpg", Integer.SIZE, 179.99, true, false);
-        Product product19 = new Product("Laser Toy", "catLaser.jpg", Integer.SIZE, 6.99, true, true);
-        Product product20 = new Product("Cat-teaser wand with a feathered fish", "catToy.jpg", Integer.SIZE, 9.99, true, true);
+        Product product1 = new Product(6984, "Chicken dry food for adult large breed dog", "dogFoodDry.jpg", 1, 74.99, "dog", true, true);
+        Product product2 = new Product(9843, "White fish wet food for adult dog", "dogFoodWet.jpg", 1, 3.89, "dog", true, true);
+        Product product3 = new Product(1456, "Dog Raw Food, Beef and Chicken", "dogFoodRaw.jpg", 1, 79.99, "dog", true, true);
+        Product product4 = new Product(9432,"Hips and Joints Adult Dog Biscuits", "dogBiscuit.jpg", 1, 7.99, "dog", true, true);
+        Product product5 = new Product(5684,"Beef marrow bone 18 to 23 cm, 400g", "dogBoneMarrow.jpg", 1, 8.29, "dog", true, true);
+        Product product6 = new Product(3574, "Training pads for puppies and small dogs, 150 un.", "dogPad.jpg", 1, 49.99, "dog", true, true);
+        Product product7 = new Product(7591, "Indoor turf dog potty with absorbent pad", "dogTurfPad.jpg", 1, 51.99, "dog", true, true);
+        Product product8 = new Product(9438, "Luxurious Ultra Soft Pet Bed, dark grey", "dogBed.jpg", 1, 89.99, "dog", true, false);
+        Product product9 = new Product(6674, "Hyper Fetch dog toy", "dogFetchToy.jpg", 1, 99.99, "dog", true, false);
+        Product product10 = new Product(4489, "Squeezz Dental Stick", "dogToyKong.jpg", 1, 18.49, "dog", true, false);
+        Product product11 = new Product(3784, "Chicken Wet Food for Senior Cats", "catFoodWet.jpg", 1, 2.59, "cat", true, true);
+        Product product12 = new Product(1124, "Chicken wet food for adult cats", "catFoodWet2.jpg", 1, 1.25, "cat", true, true);
+        Product product13 = new Product(7748, "Grain Free Chicken, Chicken Liver & Duck Treats, 30 g (1 oz)", "catTreat.jpg", 1, 74.99, "cat", true, true);
+        Product product14 = new Product(3784, "Nibbly cat treats, chicken & liver", "catTreat2.jpg", 1, 3.99, "cat", true, true);
+        Product product15 = new Product(6971, "Chicken dry food for indoor adult cats", "catFoodDry.jpg", 1, 60.99, "cat", true, true);
+        Product product16 = new Product(3748, "Clumping litter", "dogFood.jpg", 1, 13.99, "cat", true, true);
+        Product product17 = new Product(3945, "Recycled jumbo scoop, grey", "catLitterScoop.jpg", 1, 1.89, "cat", true, false);
+        Product product18 = new Product(3942, "Kaia 4-Level Cat Tree", "CatTree.jpg", 1, 179.99, "cat", true, false);
+        Product product19 = new Product(7789, "Laser Toy", "catLaser.jpg", 1, 6.99, "cat", true, true);
+        Product product20 = new Product(3942, "Cat-teaser wand with a feathered fish", "catToy.jpg", 1, 9.99, "cat", true, true);
         //Add to the list of product
         productList.add(product1);
         productList.add(product2);
@@ -80,12 +81,12 @@ public class ConfigDatabase extends HttpServlet {
         //Send to database
         for (int i = 0; i < productList.size(); i++) {
             configDatabaseDaoImpl.addDatabaseProduct(productList.get(i));
+            System.out.println(productList.get(i));
         }
-        
-        
+
         //list of user
         List<User> userList = new ArrayList<User>();
-        
+
         User user1 = new User("Luc", "Gendron", "LGendron@site.com");
         User user2 = new User("Lucie", "Dufort", "MissDufort@site.com");
         User user3 = new User("Fred", "Cailloux", "Flintstone@site.com");
@@ -101,8 +102,11 @@ public class ConfigDatabase extends HttpServlet {
         for (int i = 0; i < userList.size(); i++) {
             configDatabaseDaoImpl.addDatabaseUser(userList.get(i));
         }
-        
-        
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+       
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

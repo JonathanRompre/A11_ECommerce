@@ -16,13 +16,13 @@ import javax.persistence.Id;
 @Entity
 public class Product {
     @Id
-    @GeneratedValue
     @Column(name = "product_id")
     private Integer id;
     private String description;
     private String imageName;
     private Integer quantity;
     private double price;
+    private String categorie;
     private boolean active;
     @Column(name = "recurrent_possible")
     private boolean recurrentPossible;
@@ -30,14 +30,39 @@ public class Product {
     public Product() {
     }
 
-    public Product(String description, String imageName, Integer quantity, double price, boolean active, boolean recurrentPossible) {
+    public Product(Integer id, String description, String imageName, Integer quantity, double price, String categorie, boolean active, boolean recurrentPossible) {
+        this.id = id;
         this.description = description;
         this.imageName = imageName;
         this.quantity = quantity;
         this.price = price;
+        this.categorie = categorie;
         this.active = active;
         this.recurrentPossible = recurrentPossible;
     }
+    
+
+    public Product(String description, String imageName, Integer quantity, double price, String categorie, boolean active, boolean recurrentPossible) {
+        this.id = id;
+        this.description = description;
+        this.imageName = imageName;
+        this.quantity = quantity;
+        this.price = price;
+        this.categorie = categorie;
+        this.active = active;
+        this.recurrentPossible = recurrentPossible;
+    }
+            
+
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+
+    
     
     
 
@@ -92,9 +117,11 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
     @Override
     public String toString() {
-        return "Produit{" + "id=" + id + ", description=" + description + ", imageName=" + imageName + ", quantite=" + quantity + ", actif=" + active + ", recurrent_possible=" + recurrentPossible + '}';
+        return "Product{" + "id=" + id + ", description=" + description + ", imageName=" + imageName + ", quantity=" + quantity + ", price=" + price + ", categorie=" + categorie + ", active=" + active + ", recurrentPossible=" + recurrentPossible + '}';
     }
+    
+    
 }

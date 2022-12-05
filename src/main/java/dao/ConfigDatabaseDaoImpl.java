@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import modele.Administrator;
 import modele.Product;
 import modele.User;
@@ -20,22 +21,24 @@ import org.hibernate.boot.model.relational.Database;
  */
 public class ConfigDatabaseDaoImpl implements IConfigDatabaseDao {
 
-    private static Connection connection;
+    private EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
+
+    public ConfigDatabaseDaoImpl() {
+        entityManagerFactory = Persistence.createEntityManagerFactory(ConstantesDao.PERSISTENCE_NAME);
+        entityManager = entityManagerFactory.createEntityManager();
+    }
 
     @Override
     public boolean addDatabaseProduct(Product product) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(ConstantesDao.DATABASE_Product);
-            preparedStatement.setString(1, product.getDescription());
-            preparedStatement.setString(1, product.getImageName());
-            preparedStatement.setInt(1, product.getQuantity());
-            preparedStatement.setDouble(1, product.getPrice());
-            preparedStatement.setBoolean(1, product.isActive());
-            preparedStatement.setBoolean(1, product.isRecurrentPossible());
-
-            preparedStatement.executeUpdate();
-            return true;
+            entityManager.getTransaction().begin();
+            entityManager.persist(product);
+            entityManager.getTransaction().commit();
+           
+            return true; 
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
         }
@@ -44,16 +47,13 @@ public class ConfigDatabaseDaoImpl implements IConfigDatabaseDao {
     @Override
     public boolean addDatabaseUser(User user) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(ConstantesDao.DATABASE_USER);
-            preparedStatement.setString(1, user.getFirstName());
-            preparedStatement.setString(1, user.getLastName());
-            preparedStatement.setString(1, user.getEmail());
-            preparedStatement.setString(1, user.getPassword());
-            preparedStatement.setBoolean(1, user.isIsSuspended());
-
-            preparedStatement.executeUpdate();
+            entityManager.getTransaction().begin();
+            entityManager.persist(user);
+            entityManager.getTransaction().commit();
+  
             return true;
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
         }

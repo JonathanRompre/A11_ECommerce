@@ -31,9 +31,8 @@ class ConstantesDao {
 
     // HQL
     protected static final String GET_USER_ID_FROM_EMAIL_PASSWORD = "SELECT user_id FROM USER where email=:email AND password=:password";
-
-    //Database
-    protected static final String DATABASE_USER = "INSERT INTO user(firstName, lastName, email, password, isSuspended) Values(?, ?, ?, ?, ?)";
     
-    protected static final String DATABASE_Product = "INSERT INTO product(description, imageName, quantity, price, active, recurrentPossible) Values(?, ?, ?, ?, ?, ?)";
+    //Config database
+    protected static final String PRODUCT_EXIST = "SELECT description FROM product where description = :description";
+
 }

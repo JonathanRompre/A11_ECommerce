@@ -9,6 +9,6 @@
         <title>Acceuil</title>
     </head>
     <body>
-        <jsp:include page="/NewServlet" /> 
+        <jsp:include page="/ConfigDatabase" /> 
     </body>
 </html>
