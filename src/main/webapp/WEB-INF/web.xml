@@ -8,6 +8,14 @@
         <servlet-name>AccueuilTest</servlet-name>
         <servlet-class>servlets.AccueuilTest</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConfigDatabase</servlet-name>
+        <servlet-class>servlets.ConfigDatabase</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>servlets.NewServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CheckSessionAccueuil</servlet-name>
         <url-pattern>/CheckSessionAccueuil</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>AccueuilTest</servlet-name>
         <url-pattern>/AccueuilTest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfigDatabase</servlet-name>
+        <url-pattern>/ConfigDatabase</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewServlet</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
