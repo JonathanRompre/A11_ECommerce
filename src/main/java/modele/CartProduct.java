@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -35,13 +36,13 @@ public class CartProduct {
     
     private int quantity;
     
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateAjout;
 
     public CartProduct() {
     }
 
-    public CartProduct(Integer id, Cart cart, Product product, int quantity, Date dateAjout) {
-        this.id = id;
+    public CartProduct(Cart cart, Product product, int quantity, Date dateAjout) {
         this.cart = cart;
         this.product = product;
         this.quantity = quantity;

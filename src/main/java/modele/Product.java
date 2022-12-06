@@ -43,7 +43,6 @@ public class Product {
     
 
     public Product(String description, String imageName, Integer quantity, double price, String categorie, boolean active, boolean recurrentPossible) {
-        this.id = id;
         this.description = description;
         this.imageName = imageName;
         this.quantity = quantity;
