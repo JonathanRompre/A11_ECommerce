@@ -5,6 +5,7 @@
 package modele;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,19 +28,18 @@ public class Cart {
     private Integer id;
     
     @OneToOne
-    @JoinColumn(name ="id_user")
+    @JoinColumn(name ="user_id")
     private User user;
     
     private boolean current;
     
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartProduct> cartProducts;
 
     public Cart() {
     }
 
-    public Cart(Integer id, User user, boolean current) {
-        this.id = id;
+    public Cart(User user, boolean current) {
         this.user = user;
         this.current = current;
     }

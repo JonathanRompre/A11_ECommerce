@@ -9,5 +9,6 @@ package modele;
  * @author Jon
  */
 public class Constantes {
-    
+    public static final String CATEGORIE_PRODUIT_CHIEN = "chien";
+    public static final String CATEGORIE_PRODUIT_CHAT = "chat";
 }
