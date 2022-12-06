@@ -27,6 +27,7 @@ public class ProductDaoImpl implements IProductDao {
 
     @Override
     public boolean saveProduct(Product product) {
+        if(entityManager.find(Product.class, product.getId())== null){
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(product);
@@ -36,7 +37,8 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
-        }
+        }}
+        return false;
     }
 
     @Override

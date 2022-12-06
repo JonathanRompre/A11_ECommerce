@@ -18,6 +18,7 @@ public class Product {
     @Id
     @Column(name = "product_id")
     private Integer id;
+    private String name;
     private String description;
     private String imageName;
     private Integer quantity;
@@ -30,8 +31,9 @@ public class Product {
     public Product() {
     }
 
-    public Product(Integer id, String description, String imageName, Integer quantity, double price, String categorie, boolean active, boolean recurrentPossible) {
+    public Product(Integer id, String name, String description, String imageName, Integer quantity, double price, String categorie, boolean active, boolean recurrentPossible) {
         this.id = id;
+        this.name = name;
         this.description = description;
         this.imageName = imageName;
         this.quantity = quantity;
@@ -40,17 +42,8 @@ public class Product {
         this.active = active;
         this.recurrentPossible = recurrentPossible;
     }
-    
 
-    public Product(String description, String imageName, Integer quantity, double price, String categorie, boolean active, boolean recurrentPossible) {
-        this.description = description;
-        this.imageName = imageName;
-        this.quantity = quantity;
-        this.price = price;
-        this.categorie = categorie;
-        this.active = active;
-        this.recurrentPossible = recurrentPossible;
-    }
+    
             
 
     public String getCategorie() {
@@ -59,6 +52,14 @@ public class Product {
 
     public void setCategorie(String categorie) {
         this.categorie = categorie;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     
@@ -119,8 +120,10 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", description=" + description + ", imageName=" + imageName + ", quantity=" + quantity + ", price=" + price + ", categorie=" + categorie + ", active=" + active + ", recurrentPossible=" + recurrentPossible + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", description=" + description + ", imageName=" + imageName + ", quantity=" + quantity + ", price=" + price + ", categorie=" + categorie + ", active=" + active + ", recurrentPossible=" + recurrentPossible + '}';
     }
+
+    
     
     
 }
