@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import modele.Product;
 import modele.User;
 
 public class UserDaoImpl implements IUserDao {
@@ -24,16 +25,20 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public boolean saveUser(User user) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(user);
-            entityManager.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            e.printStackTrace();
-            return false;
+        if (entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL + "'" + user.getEmail() + "'").getResultList().size() == 0) {
+            try {
+                entityManager.getTransaction().begin();
+                entityManager.persist(user);
+                entityManager.getTransaction().commit();
+                return true;
+            } catch (Exception e) {
+                entityManager.getTransaction().rollback();
+                e.printStackTrace();
+                return false;
+
+            }
         }
+        return false;
     }
 
     @Override
@@ -56,7 +61,7 @@ public class UserDaoImpl implements IUserDao {
         boolean emailExists;
         try {
             entityManager.getTransaction().begin();
-            emailExists = !entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL +"'"+email+"'").getResultList().isEmpty();
+            emailExists = !entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL + "'" + email + "'").getResultList().isEmpty();
             entityManager.getTransaction().commit();
             return emailExists;
         } catch (Exception e) {
@@ -72,7 +77,7 @@ public class UserDaoImpl implements IUserDao {
         try {
             entityManager.getTransaction().begin();
             List<User> tmpUserList = entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_ID + id, User.class).getResultList();
-            if(!tmpUserList.isEmpty()){
+            if (!tmpUserList.isEmpty()) {
                 user = tmpUserList.get(0);
             }
             entityManager.getTransaction().commit();
@@ -86,7 +91,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public Integer getUserIdByEmailPassword(String email, String password) {
-        try{
+        try {
             entityManager.getTransaction().begin();
             Query query = entityManager.createQuery(ConstantesDao.GET_USER_ID_FROM_EMAIL_PASSWORD);
             query.setParameter("email", email);
@@ -94,7 +99,7 @@ public class UserDaoImpl implements IUserDao {
             Integer returnId = query.executeUpdate();
             entityManager.getTransaction().commit();
             return returnId;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return null;
@@ -118,12 +123,12 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public boolean updateUser(User user) {
-        try{
+        try {
             entityManager.getTransaction().begin();
             entityManager.merge(user);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
@@ -132,7 +137,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public boolean updateUserEmailFromId(Integer id, String newEmail) {
-        try{
+        try {
             // get user from id
             User user = getUserById(id);
             // update user
@@ -141,7 +146,7 @@ public class UserDaoImpl implements IUserDao {
             entityManager.merge(user);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
@@ -150,7 +155,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public boolean updateUserPasswordFromId(Integer id, String newPassword) {
-        try{
+        try {
             // get user from id
             User user = getUserById(id);
             // update user
@@ -159,21 +164,22 @@ public class UserDaoImpl implements IUserDao {
             entityManager.merge(user);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
-        }    }
+        }
+    }
 
     @Override
     public boolean deleteUser(User user) {
-        try{
+        try {
             entityManager.getTransaction().begin();
             User userMerged = entityManager.merge(user);
             entityManager.remove(userMerged);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
@@ -182,18 +188,18 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public boolean deleteAllUsers() {
-        try{
+        try {
             // start by getting all users
             List<User> userList = this.getAllUsers();
             // delete each user.
-            for(User u: userList){
+            for (User u : userList) {
                 this.deleteUser(u);
             }
             entityManager.getTransaction().begin();
             entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE).executeUpdate();
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
