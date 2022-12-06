@@ -4,7 +4,9 @@
  */
 package servlets;
 
-import dao.ConfigDatabaseDaoImpl;
+
+import dao.ProductDaoImpl;
+import dao.UserDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -33,7 +35,8 @@ public class ConfigDatabase extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ConfigDatabaseDaoImpl configDatabaseDaoImpl = new ConfigDatabaseDaoImpl();
+        ProductDaoImpl productDaoImpl = new ProductDaoImpl();
+        UserDaoImpl userDaoImpl = new UserDaoImpl();
         try{
         //list of Product
         List<Product> productList = new ArrayList<Product>();
@@ -80,7 +83,7 @@ public class ConfigDatabase extends HttpServlet {
         productList.add(product20);
         //Send to database
         for (int i = 0; i < productList.size(); i++) {
-            configDatabaseDaoImpl.addDatabaseProduct(productList.get(i));
+            productDaoImpl.saveProduct(productList.get(i));
             System.out.println(productList.get(i));
         }
 
@@ -100,7 +103,7 @@ public class ConfigDatabase extends HttpServlet {
         userList.add(user5);
         //Send to database
         for (int i = 0; i < userList.size(); i++) {
-            configDatabaseDaoImpl.addDatabaseUser(userList.get(i));
+            userDaoImpl.saveUser(userList.get(i));
         }
         }catch (Exception e) {
             e.printStackTrace();
