@@ -1,6 +1,6 @@
 <%-- 
-    Document   : login
-    Created on : Nov. 16, 2022, 2:12:01 p.m.
+    Document   : init
+    Created on : Dec. 6, 2022, 10:19:20 a.m.
     Author     : Jon
 --%>
 
@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <jsp:include page="../ConfigDatabase"></jsp:include>
+        <jsp:forward page="../login.jsp"></jsp:forward>
+            
     </body>
 </html>
