@@ -12,6 +12,14 @@
         <servlet-name>ConfigDatabase</servlet-name>
         <servlet-class>servlets.ConfigDatabase</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginValidation</servlet-name>
+        <servlet-class>servlets.LoginValidation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterValidation</servlet-name>
+        <servlet-class>servlets.RegisterValidation</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CheckSessionAccueuil</servlet-name>
         <url-pattern>/CheckSessionAccueuil</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>ConfigDatabase</servlet-name>
         <url-pattern>/ConfigDatabase</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginValidation</servlet-name>
+        <url-pattern>/LoginValidation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterValidation</servlet-name>
+        <url-pattern>/RegisterValidation</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
