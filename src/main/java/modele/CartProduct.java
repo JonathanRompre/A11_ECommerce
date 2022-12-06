@@ -42,8 +42,7 @@ public class CartProduct {
     public CartProduct() {
     }
 
-    public CartProduct(Integer id, Cart cart, Product product, int quantity, Date dateAjout) {
-        this.id = id;
+    public CartProduct(Cart cart, Product product, int quantity, Date dateAjout) {
         this.cart = cart;
         this.product = product;
         this.quantity = quantity;
