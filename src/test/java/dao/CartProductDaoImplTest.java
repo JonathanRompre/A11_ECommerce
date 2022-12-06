@@ -60,9 +60,9 @@ public class CartProductDaoImplTest {
         cartDaoImpl.saveCart(cart1);
 
         //Préparation de produits
-        product1 = new Product(5449, "description product 1", "imageProduct1.jpg", 10, 19.99, Constantes.CATEGORIE_PRODUIT_CHAT, true, true);
+        product1 = new Product(5449, "Name", "description product 1", "imageProduct1.jpg", 10, 19.99, Constantes.CATEGORIE_PRODUIT_CHAT, true, true);
         productDaoImpl.saveProduct(product1);
-        product2 = new Product(5450, "description product 2", "imageProduct2.jpg", 20, 29.99, Constantes.CATEGORIE_PRODUIT_CHIEN, false, true);
+        product2 = new Product(5450, "Name", "description product 2", "imageProduct2.jpg", 20, 29.99, Constantes.CATEGORIE_PRODUIT_CHIEN, false, true);
         productDaoImpl.saveProduct(product2);
     }
 

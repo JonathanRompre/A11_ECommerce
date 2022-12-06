@@ -47,7 +47,7 @@ public class ProductDaoImplTest {
     @Test
     public void testSaveProduct() {
         System.out.println("saveUser");
-        Product product = new Product(1, "desc1", "img1", 1, 10.00, "dog", true, false);
+        Product product = new Product(1, "Name", "desc1", "img1", 1, 10.00, "dog", true, false);
         boolean expResult = true;
         boolean result = productDaoImpl.saveProduct(product);
         assertEquals(expResult, result);
@@ -59,7 +59,7 @@ public class ProductDaoImplTest {
     @Test
     public void testGetProductById() {
         System.out.println("getProductById");
-        Product productSet = new Product(1, "desc1", "img1", 1, 10.00, "dog", true, false);
+        Product productSet = new Product(1, "Name", "desc1", "img1", 1, 10.00, "dog", true, false);
         // set up for test
         boolean result = productDaoImpl.saveProduct(productSet);
         assertTrue("Set up for getProductById", result);
@@ -76,7 +76,7 @@ public class ProductDaoImplTest {
     @Test
     public void testIsProductActive() {
         System.out.println("isProductActive");
-        Product product = new Product(1, "desc1", "img1", 1, 10.00, "dog", true, false);
+        Product product = new Product(1, "Name", "desc1", "img1", 1, 10.00, "dog", true, false);
         productDaoImpl.saveProduct(product);
         product = productDaoImpl.getAllProducts().get(0);
         boolean result = productDaoImpl.isProductActive(product.getId());
@@ -89,7 +89,7 @@ public class ProductDaoImplTest {
     @Test
     public void testUpdateProduct() {
         System.out.println("updateProduct");
-        productDaoImpl.saveProduct(new Product(1, "desc1", "img1", 1, 10.10, "dog", true, false));
+        productDaoImpl.saveProduct(new Product(1, "Name", "desc1", "img1", 1, 10.10, "dog", true, false));
         Product product = productDaoImpl.getAllProducts().get(0);
         product.setActive(false);
         product.setDescription("desc2");
@@ -110,7 +110,7 @@ public class ProductDaoImplTest {
     @Test
     public void testUpdateProductPriceFromId() {
         System.out.println("updateProductPriceFromId");
-        productDaoImpl.saveProduct(new Product(1, "desc1", "img1", 1, 10.10, "dog", true, false));
+        productDaoImpl.saveProduct(new Product(1, "Name", "desc1", "img1", 1, 10.10, "dog", true, false));
         Product product = productDaoImpl.getAllProducts().get(0);
         double newPrice = 20.20;
         int id = product.getId();
@@ -127,7 +127,7 @@ public class ProductDaoImplTest {
     @Test
     public void testUpdateProductDescriptionFromId() {
         System.out.println("updateProductDescriptionFromId");
-        productDaoImpl.saveProduct(new Product(1, "desc1", "img1", 1, 10.10, "dog", true, false));
+        productDaoImpl.saveProduct(new Product(1, "Name", "desc1", "img1", 1, 10.10, "dog", true, false));
         Product product = productDaoImpl.getAllProducts().get(0);
         String newDesc = "desc2";
         int id = product.getId();
@@ -144,7 +144,7 @@ public class ProductDaoImplTest {
     @Test
     public void testUpdateProductQuantityFromId() {
         System.out.println("updateProductQuantityFromId");
-        productDaoImpl.saveProduct(new Product(1, "desc1", "img1", 1, 10.10, "dog", true, false));
+        productDaoImpl.saveProduct(new Product(1, "Name", "desc1", "img1", 1, 10.10, "dog", true, false));
         Product product = productDaoImpl.getAllProducts().get(0);
         int newQte = 2;
         int id = product.getId();
@@ -161,9 +161,9 @@ public class ProductDaoImplTest {
     @Test
     public void testDeleteAllProducts() {
         System.out.println("deleteAllProducts");
-        productDaoImpl.saveProduct(new Product(1, "desc1", "img1", 1, 10.10, "dog", true, true));
-        productDaoImpl.saveProduct(new Product(2, "desc2", "img2", 2, 20.20, "dog", false, false));
-        productDaoImpl.saveProduct(new Product(3, "desc3", "img3", 3, 30.30, "dog", true, true));
+        productDaoImpl.saveProduct(new Product(1, "Name1", "desc1", "img1", 1, 10.10, "dog", true, true));
+        productDaoImpl.saveProduct(new Product(2, "Name2", "desc2", "img2", 2, 20.20, "dog", false, false));
+        productDaoImpl.saveProduct(new Product(3, "Name3", "desc3", "img3", 3, 30.30, "dog", true, true));
         int expectedSize = 3;
         int result = productDaoImpl.getAllProducts().size();
         assertEquals(expectedSize, result);
@@ -181,7 +181,7 @@ public class ProductDaoImplTest {
     @Test
     public void testDeleteProduct() {
         System.out.println("deleteProduct");
-        productDaoImpl.saveProduct(new Product(1, "desc1", "img1", 1, 10.10, "dog", true, true));
+        productDaoImpl.saveProduct(new Product(1, "Name", "desc1", "img1", 1, 10.10, "dog", true, true));
         int expectedSize = 1;
         int result = productDaoImpl.getAllProducts().size();
         assertEquals(expectedSize, result);
@@ -199,9 +199,9 @@ public class ProductDaoImplTest {
     @Test
     public void testGetAllProducts() {
         System.out.println("getAllProducts");
-        productDaoImpl.saveProduct(new Product(1, "desc1", "img1", 1, 10.10, "dog", true, true));
-        productDaoImpl.saveProduct(new Product(2, "desc2", "img2", 2, 20.20, "dog", false, false));
-        productDaoImpl.saveProduct(new Product(3, "desc3", "img3", 3, 30.30, "dog", true, true));
+        productDaoImpl.saveProduct(new Product(1, "Name1", "desc1", "img1", 1, 10.10, "dog", true, true));
+        productDaoImpl.saveProduct(new Product(2, "Name2", "desc2", "img2", 2, 20.20, "dog", false, false));
+        productDaoImpl.saveProduct(new Product(3, "Name3", "desc3", "img3", 3, 30.30, "dog", true, true));
         int expectedSize = 3;
         int result = productDaoImpl.getAllProducts().size();
         assertEquals(expectedSize, result);
