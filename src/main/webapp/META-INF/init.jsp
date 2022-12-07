@@ -12,8 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <jsp:include page="../ConfigDatabase"></jsp:include>
-        <jsp:forward page="../login.jsp"></jsp:forward>
+        <jsp:include page="../ConfigDatabase"/>
+        <jsp:forward page="../CreateProductList"/>
             
     </body>
 </html>

@@ -5,10 +5,6 @@
         <servlet-class>servlets.CheckSessionAccueuil</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AccueuilTest</servlet-name>
-        <servlet-class>servlets.AccueuilTest</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ConfigDatabase</servlet-name>
         <servlet-class>servlets.ConfigDatabase</servlet-class>
     </servlet>
@@ -20,13 +16,13 @@
         <servlet-name>RegisterValidation</servlet-name>
         <servlet-class>servlets.RegisterValidation</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateProductList</servlet-name>
+        <servlet-class>servlets.CreateProductList</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CheckSessionAccueuil</servlet-name>
         <url-pattern>/CheckSessionAccueuil</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AccueuilTest</servlet-name>
-        <url-pattern>/AccueuilTest</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ConfigDatabase</servlet-name>
@@ -40,12 +36,16 @@
         <servlet-name>RegisterValidation</servlet-name>
         <url-pattern>/RegisterValidation</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProductList</servlet-name>
+        <url-pattern>/CreateProductList</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>accueuil.jsp</welcome-file>
+        <welcome-file>/META-INF/init.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

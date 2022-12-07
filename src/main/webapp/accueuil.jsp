@@ -9,6 +9,11 @@
         <title>Acceuil</title>
     </head>
     <body>
-        <jsp:include page="/ConfigDatabase" /> 
+        <h1>accueil</h1>
+        <c:forEach var="product" items="${listProducts}">
+            <div>
+                <span>${product.name}</span>
+            </div>
+        </c:forEach>
     </body>
 </html>
