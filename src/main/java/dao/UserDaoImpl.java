@@ -23,16 +23,20 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public boolean saveUser(User user) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(user);
-            entityManager.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            e.printStackTrace();
-            return false;
+        if (entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL + "'" + user.getEmail() + "'").getResultList().size() == 0) {
+            try {
+                entityManager.getTransaction().begin();
+                entityManager.persist(user);
+                entityManager.getTransaction().commit();
+                return true;
+            } catch (Exception e) {
+                entityManager.getTransaction().rollback();
+                e.printStackTrace();
+                return false;
+
+            }
         }
+        return false;
     }
 
     @Override
