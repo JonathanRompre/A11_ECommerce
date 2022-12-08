@@ -13,7 +13,7 @@
     </head>
     <body>
         <jsp:include page="../ConfigDatabase"/>
-        <jsp:forward page="../CreateProductList"/>
+        <jsp:forward page="../Accueil"/>
             
     </body>
 </html>

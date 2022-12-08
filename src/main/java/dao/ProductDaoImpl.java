@@ -27,17 +27,18 @@ public class ProductDaoImpl implements IProductDao {
 
     @Override
     public boolean saveProduct(Product product) {
-        if(entityManager.find(Product.class, product.getId())== null){
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(product);
-            entityManager.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            e.printStackTrace();
-            return false;
-        }}
+        if (entityManager.find(Product.class, product.getId()) == null) {
+            try {
+                entityManager.getTransaction().begin();
+                entityManager.persist(product);
+                entityManager.getTransaction().commit();
+                return true;
+            } catch (Exception e) {
+                entityManager.getTransaction().rollback();
+                e.printStackTrace();
+                return false;
+            }
+        }
         return false;
     }
 
@@ -79,12 +80,12 @@ public class ProductDaoImpl implements IProductDao {
 
     @Override
     public boolean updateProduct(Product product) {
-        try{
+        try {
             entityManager.getTransaction().begin();
             entityManager.merge(product);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
@@ -93,7 +94,7 @@ public class ProductDaoImpl implements IProductDao {
 
     @Override
     public boolean updateProductPriceFromId(Integer id, double newPrice) {
-        try{
+        try {
             // get product from id
             Product product = getProductById(id);
             // update product
@@ -102,7 +103,7 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.merge(product);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
@@ -111,7 +112,7 @@ public class ProductDaoImpl implements IProductDao {
 
     @Override
     public boolean updateProductDescriptionFromId(Integer id, String locale, String newDesc) {
-        try{
+        try {
             // get product from id
             Product product = getProductById(id);
             // update product
@@ -120,7 +121,7 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.merge(product);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
@@ -129,7 +130,7 @@ public class ProductDaoImpl implements IProductDao {
 
     @Override
     public boolean updateProductQuantityFromId(Integer id, Integer newQuantity) {
-        try{
+        try {
             // get product from id
             Product product = getProductById(id);
             // update product
@@ -138,7 +139,7 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.merge(product);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;

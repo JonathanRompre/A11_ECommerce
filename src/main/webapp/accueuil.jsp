@@ -9,6 +9,14 @@
         <title>Acceuil</title>
     </head>
     <body>
+        <c:choose>
+            <c:when test="${requestScope.user == null}">
+                <a href="login.jsp">Login</a>
+            </c:when>
+            <c:otherwise>
+                ${user.firstName} ${user.lastName} <a href="Logout">Logout</a>
+            </c:otherwise>
+        </c:choose>
         <h1>accueil</h1>
         <c:forEach var="product" items="${listProducts}">
             <div>

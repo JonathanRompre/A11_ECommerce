@@ -90,6 +90,7 @@ public class ConfigDatabase extends HttpServlet {
         List<User> userList = new ArrayList<User>();
 
         User user1 = new User("Luc", "Gendron", "LGendron@site.com");
+        user1.setPassword("password");
         User user2 = new User("Lucie", "Dufort", "MissDufort@site.com");
         User user3 = new User("Fred", "Cailloux", "Flintstone@site.com");
         User user4 = new User("Laurent", "Dauphin", "TheRealFlipper@site.com");

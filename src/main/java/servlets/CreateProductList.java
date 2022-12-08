@@ -5,6 +5,7 @@
 package servlets;
 
 import dao.ProductDaoImpl;
+import dao.UserDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Product;
+import modele.User;
 
 /**
  *
@@ -35,6 +37,13 @@ public class CreateProductList extends HttpServlet {
         ProductDaoImpl productDaoImpl = new ProductDaoImpl();
         
         List<Product> listProducts = productDaoImpl.getAllProducts();
+        
+        if(request.getSession().getAttribute("uid") != null){
+            UserDaoImpl userDaoImpl = new UserDaoImpl();
+            Integer id = (int) request.getSession().getAttribute("uid");
+            User user = userDaoImpl.getUserById(id);
+            request.setAttribute("user", user);
+        }
         
         request.setAttribute("listProducts", listProducts);
         

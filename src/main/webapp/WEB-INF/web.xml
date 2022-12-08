@@ -17,8 +17,12 @@
         <servlet-class>servlets.RegisterValidation</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreateProductList</servlet-name>
+        <servlet-name>Accueil</servlet-name>
         <servlet-class>servlets.CreateProductList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>servlets.Logout</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CheckSessionAccueuil</servlet-name>
@@ -37,8 +41,12 @@
         <url-pattern>/RegisterValidation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CreateProductList</servlet-name>
-        <url-pattern>/CreateProductList</url-pattern>
+        <servlet-name>Accueil</servlet-name>
+        <url-pattern>/Accueil</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -46,6 +54,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>/META-INF/init.jsp</welcome-file>
+        <welcome-file>/WEB-INF/init.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

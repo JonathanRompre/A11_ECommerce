@@ -10,13 +10,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Jon
  */
-public class CheckSessionAccueuil extends HttpServlet {
+public class Logout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,17 +29,8 @@ public class CheckSessionAccueuil extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        /*
-            Do I need to check session at start? Or can I do it directly from the jsp with jstl?
-            I can probably conditional check if session param exists?
-            If I haven't set it yet, it shouldn't exist, so the elems I don't want showing won't.
-            Do I wanna use cookies?
-        */
-        
-        HttpSession session = request.getSession();
-        if(session.getAttribute("uid") == null)
-            session.setAttribute("uid", -1);
-        
+        request.getSession().setAttribute("uid", null);
+        response.sendRedirect("Accueil");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

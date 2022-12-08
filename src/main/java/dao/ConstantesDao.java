@@ -14,7 +14,7 @@ class ConstantesDao {
 
     /// USER
     // SQL
-    protected static final String GET_USER_FROM_ID = "SELECT user_id FROM USER WHERE user_id = ";
+    protected static final String GET_USER_FROM_ID = "SELECT * FROM USER WHERE user_id = ";
 
     protected static final String GET_USER_FROM_EMAIL = "SELECT * FROM USER WHERE email = ";
 
