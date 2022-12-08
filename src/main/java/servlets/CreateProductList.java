@@ -9,6 +9,7 @@ import dao.UserDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import modele.User;
 
 /**
  *
+ * @author Samuel
  * @author Jon
  */
 public class CreateProductList extends HttpServlet {
@@ -35,8 +37,8 @@ public class CreateProductList extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ProductDaoImpl productDaoImpl = new ProductDaoImpl();
-        
-        List<Product> listProducts = productDaoImpl.getAllProducts();
+
+        List<Product> listProduct = productDaoImpl.getAllProducts();
         
         if(request.getSession().getAttribute("uid") != null){
             UserDaoImpl userDaoImpl = new UserDaoImpl();
@@ -45,9 +47,10 @@ public class CreateProductList extends HttpServlet {
             request.setAttribute("user", user);
         }
         
-        request.setAttribute("listProducts", listProducts);
-        
-        request.getRequestDispatcher("/accueuil.jsp").forward(request, response);
+        request.setAttribute("listProduct", listProduct);
+
+        RequestDispatcher disp = getServletContext().getRequestDispatcher("/acceuil.jsp");
+        disp.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

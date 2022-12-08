@@ -13,8 +13,16 @@
         <servlet-class>servlets.LoginValidation</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CreateProductsList</servlet-name>
+        <servlet-class>servlets.CreateProductsList</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>RegisterValidation</servlet-name>
         <servlet-class>servlets.RegisterValidation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateProductList</servlet-name>
+        <servlet-class>servlets.CreateProductList</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Accueil</servlet-name>
@@ -37,8 +45,16 @@
         <url-pattern>/LoginValidation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>CreateProductsList</servlet-name>
+        <url-pattern>/CreateProductsList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>RegisterValidation</servlet-name>
         <url-pattern>/RegisterValidation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProductList</servlet-name>
+        <url-pattern>/CreateProductList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Accueil</servlet-name>

@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modele.Constantes;
 import modele.Product;
 import modele.User;
 
@@ -39,26 +40,26 @@ public class ConfigDatabase extends HttpServlet {
         try{
         //list of Product
         List<Product> productList = new ArrayList<Product>();
-        Product product1 = new Product(6984, "Dog food", "Chicken dry food for adult large breed dog", "dogFoodDry.jpg", 1, 74.99, "dog", true, true);
-        Product product2 = new Product(9843, "Dog food", "White fish wet food for adult dog", "dogFoodWet.jpg", 1, 3.89, "dog", true, true);
-        Product product3 = new Product(1456, "Dog food", "Dog Raw Food, Beef and Chicken", "dogFoodRaw.jpg", 1, 79.99, "dog", true, true);
-        Product product4 = new Product(9432, "Dog treat","Hips and Joints Adult Dog Biscuits", "dogBiscuit.jpg", 1, 7.99, "dog", true, true);
-        Product product5 = new Product(5684, "Dog treat","Beef marrow bone 18 to 23 cm, 400g", "dogBoneMarrow.jpg", 1, 8.29, "dog", true, true);
-        Product product6 = new Product(3574, "Dog supply", "Training pads for puppies and small dogs, 150 un.", "dogPad.jpg", 1, 49.99, "dog", true, true);
-        Product product7 = new Product(7591, "Dog supply", "Indoor turf dog potty with absorbent pad", "dogTurfPad.jpg", 1, 51.99, "dog", true, true);
-        Product product8 = new Product(9438, "Dog bed", "Luxurious Ultra Soft Pet Bed, dark grey", "dogBed.jpg", 1, 89.99, "dog", true, false);
-        Product product9 = new Product(6674, "Dog toy", "Hyper Fetch dog toy", "dogFetchToy.jpg", 1, 99.99, "dog", true, false);
-        Product product10 = new Product(4489, "Dog toy", "Squeezz Dental Stick", "dogToyKong.jpg", 1, 18.49, "dog", true, false);
-        Product product11 = new Product(3784, "Cat food", "Chicken Wet Food for Senior Cats", "catFoodWet.jpg", 1, 2.59, "cat", true, true);
-        Product product12 = new Product(1124, "Cat food", "Chicken wet food for adult cats", "catFoodWet2.jpg", 1, 1.25, "cat", true, true);
-        Product product13 = new Product(7748, "Cat treat", "Grain Free Chicken, Chicken Liver & Duck Treats, 30 g (1 oz)", "catTreat.jpg", 1, 74.99, "cat", true, true);
-        Product product14 = new Product(3784, "Cat treat", "Nibbly cat treats, chicken & liver", "catTreat2.jpg", 1, 3.99, "cat", true, true);
-        Product product15 = new Product(6971, "Cat food", "Chicken dry food for indoor adult cats", "catFoodDry.jpg", 1, 60.99, "cat", true, true);
-        Product product16 = new Product(3748, "Cat litter", "Clumping litter", "dogFood.jpg", 1, 13.99, "cat", true, true);
-        Product product17 = new Product(3945, "Cat litter", "Recycled jumbo scoop, grey", "catLitterScoop.jpg", 1, 1.89, "cat", true, false);
-        Product product18 = new Product(3942, "Cat toy", "Kaia 4-Level Cat Tree", "CatTree.jpg", 1, 179.99, "cat", true, false);
-        Product product19 = new Product(7789, "Cat toy", "Laser Toy", "catLaser.jpg", 1, 6.99, "cat", true, true);
-        Product product20 = new Product(3942, "Cat toy", "Cat-teaser wand with a feathered fish", "catToy.jpg", 1, 9.99, "cat", true, true);
+        Product product1 = new Product(6984, Constantes.TYPE_FOOD, "Chicken dry food for adult large breed dog", "dogFoodDry.jpg", 1, 74.99, Constantes.CATEGORIE_PRODUIT_CHIEN, true, true);
+        Product product2 = new Product(9843, Constantes.TYPE_FOOD, "White fish wet food for adult dog", "dogFoodWet.jpg", 1, 3.89, Constantes.CATEGORIE_PRODUIT_CHIEN, true, true);
+        Product product3 = new Product(1456, Constantes.TYPE_FOOD, "Dog Raw Food, Beef and Chicken", "dogFoodRaw.jpg", 1, 79.99, Constantes.CATEGORIE_PRODUIT_CHIEN, true, true);
+        Product product4 = new Product(9432, Constantes.TYPE_TREAT,"Hips and Joints Adult Dog Biscuits", "dogBiscuit.jpg", 1, 7.99, Constantes.CATEGORIE_PRODUIT_CHIEN, true, true);
+        Product product5 = new Product(5684, Constantes.TYPE_TREAT,"Beef marrow bone 18 to 23 cm, 400g", "dogBoneMarrow.jpg", 1, 8.29, Constantes.CATEGORIE_PRODUIT_CHIEN, true, true);
+        Product product6 = new Product(3574, Constantes.TYPE_SUPPLY, "Training pads for puppies and small dogs, 150 un.", "dogPad.jpg", 1, 49.99, Constantes.CATEGORIE_PRODUIT_CHIEN, true, true);
+        Product product7 = new Product(7591, Constantes.TYPE_SUPPLY, "Indoor turf dog potty with absorbent pad", "dogTurfPad.jpg", 1, 51.99, Constantes.CATEGORIE_PRODUIT_CHIEN, true, true);
+        Product product8 = new Product(9438, Constantes.TYPE_SUPPLY, "Luxurious Ultra Soft Pet Bed, dark grey", "dogBed.jpg", 1, 89.99, Constantes.CATEGORIE_PRODUIT_CHIEN, true, false);
+        Product product9 = new Product(6674, Constantes.TYPE_TOY, "Hyper Fetch dog toy", "dogFetchToy.jpg", 1, 99.99, Constantes.CATEGORIE_PRODUIT_CHIEN, true, false);
+        Product product10 = new Product(4489, Constantes.TYPE_TOY, "Squeezz Dental Stick", "dogToyKong.jpg", 1, 18.49, Constantes.CATEGORIE_PRODUIT_CHIEN, true, false);
+        Product product11 = new Product(3784, Constantes.TYPE_FOOD, "Chicken Wet Food for Senior Cats", "catFoodWet.jpg", 1, 2.59, Constantes.CATEGORIE_PRODUIT_CHAT, true, true);
+        Product product12 = new Product(1124, Constantes.TYPE_FOOD, "Chicken wet food for adult cats", "catFoodWet2.jpg", 1, 1.25, Constantes.CATEGORIE_PRODUIT_CHAT, true, true);
+        Product product13 = new Product(7748, Constantes.TYPE_TREAT, "Grain Free Chicken, Chicken Liver & Duck Treats, 30 g (1 oz)", "catTreat.jpg", 1, 74.99, Constantes.CATEGORIE_PRODUIT_CHAT, true, true);
+        Product product14 = new Product(3784, Constantes.TYPE_TREAT, "Nibbly cat treats, chicken & liver", "catTreat2.jpg", 1, 3.99, Constantes.CATEGORIE_PRODUIT_CHAT, true, true);
+        Product product15 = new Product(6971, Constantes.TYPE_FOOD, "Chicken dry food for indoor adult cats", "catFoodDry.jpg", 1, 60.99, Constantes.CATEGORIE_PRODUIT_CHAT, true, true);
+        Product product16 = new Product(3748, Constantes.TYPE_SUPPLY, "Clumping litter", "catLitter.jpg", 1, 13.99, Constantes.CATEGORIE_PRODUIT_CHAT, true, true);
+        Product product17 = new Product(3945, Constantes.TYPE_SUPPLY, "Recycled jumbo scoop, grey", "catLitterScoop.jpg", 1, 1.89, Constantes.CATEGORIE_PRODUIT_CHAT, true, false);
+        Product product18 = new Product(3942, Constantes.TYPE_TOY, "Kaia 4-Level Cat Tree", "catTree.jpg", 1, 179.99, Constantes.CATEGORIE_PRODUIT_CHAT, true, false);
+        Product product19 = new Product(7789, Constantes.TYPE_TOY, "Laser Toy", "catLaser.jpg", 1, 6.99, Constantes.CATEGORIE_PRODUIT_CHAT, true, true);
+        Product product20 = new Product(3942, Constantes.TYPE_TOY, "Cat-teaser wand with a feathered fish", "catToy.jpg", 1, 9.99, Constantes.CATEGORIE_PRODUIT_CHAT, true, true);
         //Add to the list of product
         productList.add(product1);
         productList.add(product2);
@@ -89,12 +90,11 @@ public class ConfigDatabase extends HttpServlet {
         //list of user
         List<User> userList = new ArrayList<User>();
 
-        User user1 = new User("Luc", "Gendron", "LGendron@site.com");
-        user1.setPassword("password");
-        User user2 = new User("Lucie", "Dufort", "MissDufort@site.com");
-        User user3 = new User("Fred", "Cailloux", "Flintstone@site.com");
-        User user4 = new User("Laurent", "Dauphin", "TheRealFlipper@site.com");
-        User user5 = new User("Dieudonné", "Jean", "DJ@site.com");
+        User user1 = new User("Luc", "Gendron", "LGendron@site.com","PwLucGendron",true);
+        User user2 = new User("Lucie", "Dufort", "MissDufort@site.com","PwLucieDufort",true);
+        User user3 = new User("Fred", "Cailloux", "Flintstone@site.com","PwFredCailloux",false);
+        User user4 = new User("Laurent", "Dauphin", "TheRealFlipper@site.com","PwLaurentDauphin",true);
+        User user5 = new User("Dieudonné", "Jean", "DJ@site.com","PwDieudonnéJean",true);
         //add user to the list
         userList.add(user1);
         userList.add(user2);
