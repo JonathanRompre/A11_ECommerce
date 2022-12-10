@@ -5,6 +5,7 @@
 
 <html>
     <head>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         <script type="text/javascript">
             function clearSearch() {
                 $('input:checked').removeAttr('checked');
@@ -39,6 +40,7 @@
             <br>
             <br>
             <div class="container col-11 m-2">
+                <div class="row" id="test"></div>
                 <div class="row">
                     <div class="col-3">
                         <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick=""/>
@@ -53,7 +55,6 @@
                                     <input type="radio" name="companion" id="dog">
                                     <label for="ugly" class="pl-1 pt-sm-0 pt-1">Dog</label>
                                 </div>
-
                             </form>
                             <h6>Type</h6>
                             <form class="ml-md-2">
@@ -110,7 +111,7 @@
                     <div class="col-9">
                         <div class="row">
                             <c:forEach var="product" items="${requestScope.listProduct}" >
-                                <div class="col-md-4 col-sm-6 d-inline-flex card h-150 " style="margin-bottom: 10px;">
+                                <div class="col-md-4 col-sm-6 d-inline-flex card h-150 " id="productCard${product.id}" style="margin-bottom: 10px;">
                                     <div class="card-body d-flex flex-column align-items-center">
                                         <div class="">
                                             <div class="d-flex flex-row mb-3" >
