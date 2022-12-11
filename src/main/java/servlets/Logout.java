@@ -15,11 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Samuel
  */
-<<<<<<<< HEAD:src/main/java/servlets/Logout.java
 public class Logout extends HttpServlet {
-========
-public class CreateProductsList extends HttpServlet {
->>>>>>>> 3aa4b335371bb6e70e8b756dfa77845782879f3e:src/main/java/servlets/CreateProductsList.java
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,14 +28,9 @@ public class CreateProductsList extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<<<<<<<< HEAD:src/main/java/servlets/Logout.java
         response.setContentType("text/html;charset=UTF-8");
         request.getSession().setAttribute("uid", null);
         response.sendRedirect("Accueil");
-========
-        
-        
->>>>>>>> 3aa4b335371bb6e70e8b756dfa77845782879f3e:src/main/java/servlets/CreateProductsList.java
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
