@@ -97,6 +97,9 @@ public class UserDaoImpl implements IUserDao {
             String tmpString = query.toString();
             List<Integer> returnId = query.getResultList();
             entityManager.getTransaction().commit();
+            if(returnId.isEmpty()){
+                return null;
+            }
             return returnId.get(0);
         }catch(Exception e){
             entityManager.getTransaction().rollback();

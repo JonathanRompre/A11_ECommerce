@@ -5,14 +5,16 @@
 
 <html>
     <head>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         <script type="text/javascript">
-            function clearSearch(){
-            $('input:checked').removeAttr('checked');}
-});
+            function clearSearch() {
+                $('input:checked').removeAttr('checked');
+            }
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Acceuil</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="scripts/accueil.js"></script>
     </head>
     <body>
         <div class="d-flex flex-column ">
@@ -20,8 +22,15 @@
                 <nav class="navbar navbar-dark  " style="float: right">
                     <a href="login.jsp">EN</a>&nbsp;&nbsp;
                     <a href="login.jsp">FR</a>&nbsp;&nbsp;
-                    <a class="btn btn-light " role="button" href="login.jsp">Log in</a>
-                    <a class="btn btn-light " role="button" href="login.jsp">Signup</a>
+                    <c:choose>
+                        <c:when test="${requestScope.user == null}">
+                            <a class="btn btn-light " role="button" href="login.jsp">Log in</a>
+                            <a class="btn btn-light " role="button" href="register.jsp">Signup</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="btn btn-light " role="button" href="Logout">Log out</a>
+                        </c:otherwise>
+                    </c:choose>
                 </nav>
             </div>
             <div class="bg-secondary m-2 p-1 d-flex flex-row">
@@ -32,9 +41,10 @@
             <br>
             <br>
             <div class="container col-11 m-2">
+                <div class="row" id="test"></div>
                 <div class="row">
                     <div class="col-3">
-                        <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick=""/>
+                        <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick="filter('/CreateFilters?filter1n=Companion&filter1v=Cat')"/>
                         <div>
                             <h6>Companion</h6>
                             <form class="ml-md-2">
@@ -46,7 +56,6 @@
                                     <input type="radio" name="companion" id="dog">
                                     <label for="ugly" class="pl-1 pt-sm-0 pt-1">Dog</label>
                                 </div>
-
                             </form>
                             <h6>Type</h6>
                             <form class="ml-md-2">
@@ -102,8 +111,8 @@
                     </div>
                     <div class="col-9">
                         <div class="row">
-                            <c:forEach var="product" items="${requestScope.listProduct}" >
-                                <div class="col-md-4 col-sm-6 d-inline-flex card h-150 " style="margin-bottom: 10px;">
+                            <c:forEach var="product" items="${sessionScope.listProduct}" >
+                                <div class="col-md-4 col-sm-6 d-inline-flex card h-150 " id="productCard${product.id}" style="margin-bottom: 10px;">
                                     <div class="card-body d-flex flex-column align-items-center">
                                         <div class="">
                                             <div class="d-flex flex-row mb-3" >

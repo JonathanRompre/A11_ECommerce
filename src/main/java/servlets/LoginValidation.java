@@ -4,19 +4,24 @@
  */
 package servlets;
 
+import dao.UserDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Objects;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Jon
  */
-public class CheckSessionAccueuil extends HttpServlet {
+public class LoginValidation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,18 +34,38 @@ public class CheckSessionAccueuil extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        UserDaoImpl userDaoImpl = new UserDaoImpl();
+
         response.setContentType("text/html;charset=UTF-8");
-        /*
-            Do I need to check session at start? Or can I do it directly from the jsp with jstl?
-            I can probably conditional check if session param exists?
-            If I haven't set it yet, it shouldn't exist, so the elems I don't want showing won't.
-            Do I wanna use cookies?
-        */
-        
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        System.out.println(email + " " + password);
+        boolean emailExists = userDaoImpl.userEmailExists(email);
+        System.out.println("======= email exists: " + emailExists);
+        Integer id = null;
+        boolean loginSuccess = false;
+        if (emailExists) {
+            id = userDaoImpl.getUserIdByEmailPassword(email, password);
+            if (id == null) {
+                System.out.println("====== email and password combination does not exist: " + email + " | " + password);
+            } else {
+                System.out.println("====== valid: " + email + " | " + password);
+                loginSuccess = true;
+            }
+        }
         HttpSession session = request.getSession();
-        if(session.getAttribute("uid") == null)
-            session.setAttribute("uid", -1);
-        
+        session.setAttribute("uid", id);
+        session.setMaxInactiveInterval(30 * 60);
+        JSONObject sampleObject = new JSONObject();
+        sampleObject.put("emailExists", emailExists);
+        sampleObject.put("loginSuccess", loginSuccess);
+
+        PrintWriter out = response.getWriter();
+        try {
+            out.print(sampleObject.toString());
+        } finally {
+            out.close();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

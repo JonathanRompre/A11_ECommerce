@@ -4,6 +4,8 @@
  */
 package modele;
 
+import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,7 @@ import javax.persistence.Id;
  * @author Jon
  */
 @Entity
-public class Product {
+public class Product implements Serializable {
     @Id
     @Column(name = "product_id")
     private Integer id;
@@ -42,10 +44,7 @@ public class Product {
         this.active = active;
         this.recurrentPossible = recurrentPossible;
     }
-
     
-            
-
     public String getCategorie() {
         return categorie;
     }
@@ -61,11 +60,7 @@ public class Product {
     public void setType(String type) {
         this.type = type;
     }
-
     
-    
-    
-
     public Integer getId() {
         return id;
     }
@@ -122,8 +117,43 @@ public class Product {
     public String toString() {
         return "Product{" + "id=" + id + ", name=" + type + ", description=" + description + ", imageName=" + imageName + ", quantity=" + quantity + ", price=" + price + ", categorie=" + categorie + ", active=" + active + ", recurrentPossible=" + recurrentPossible + '}';
     }
-
     
-    
-    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Product other = (Product) obj;
+        if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price)) {
+            return false;
+        }
+        if (this.active != other.active) {
+            return false;
+        }
+        if (this.recurrentPossible != other.recurrentPossible) {
+            return false;
+        }
+        if (!Objects.equals(this.type, other.type)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.imageName, other.imageName)) {
+            return false;
+        }
+        if (!Objects.equals(this.categorie, other.categorie)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return Objects.equals(this.quantity, other.quantity);
+    }
 }
