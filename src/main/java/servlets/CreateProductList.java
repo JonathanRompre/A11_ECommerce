@@ -47,7 +47,7 @@ public class CreateProductList extends HttpServlet {
             request.setAttribute("user", user);
         }
         
-        request.setAttribute("listProduct", listProduct);
+        request.getSession().setAttribute("listProduct", listProduct);
 
         RequestDispatcher disp = getServletContext().getRequestDispatcher("/acceuil.jsp");
         disp.forward(request, response);

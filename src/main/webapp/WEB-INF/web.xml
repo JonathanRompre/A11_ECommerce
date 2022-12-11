@@ -32,6 +32,10 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>servlets.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateFilters</servlet-name>
+        <servlet-class>servlets.CreateFilterSidebar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CheckSessionAccueuil</servlet-name>
         <url-pattern>/CheckSessionAccueuil</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateFilters</servlet-name>
+        <url-pattern>/CreateFilters</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

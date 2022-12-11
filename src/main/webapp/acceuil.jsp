@@ -14,6 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Acceuil</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="scripts/accueil.js"></script>
     </head>
     <body>
         <div class="d-flex flex-column ">
@@ -43,7 +44,7 @@
                 <div class="row" id="test"></div>
                 <div class="row">
                     <div class="col-3">
-                        <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick=""/>
+                        <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick="filter('/CreateFilters?filter1n=Companion&filter1v=Cat')"/>
                         <div>
                             <h6>Companion</h6>
                             <form class="ml-md-2">
@@ -110,7 +111,7 @@
                     </div>
                     <div class="col-9">
                         <div class="row">
-                            <c:forEach var="product" items="${requestScope.listProduct}" >
+                            <c:forEach var="product" items="${sessionScope.listProduct}" >
                                 <div class="col-md-4 col-sm-6 d-inline-flex card h-150 " id="productCard${product.id}" style="margin-bottom: 10px;">
                                     <div class="card-body d-flex flex-column align-items-center">
                                         <div class="">
