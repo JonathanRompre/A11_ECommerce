@@ -113,6 +113,7 @@
                         <div class="row">
                             <c:forEach var="product" items="${sessionScope.listProduct}" >
                                 <div class="col-md-4 col-sm-6 d-inline-flex card h-150 " id="productCard${product.id}" style="margin-bottom: 10px;">
+                                    <form name="curentCartForm" action="CurrentCart" method="POST">
                                     <div class="card-body d-flex flex-column align-items-center">
                                         <div class="">
                                             <div class="d-flex flex-row mb-3" >
@@ -134,9 +135,13 @@
                                         </div>
                                     </div>
                                     <div class="d-flex align-self-center" style="width: 85% ; margin-bottom:5px">
-                                        <button type="button" class="quickview btn btn-secondary col-12 mt-2" >Add to cart</button>
+                                        <c:choose>
+                                            <c:when test="${requestScope.user != null}">
+                                                <button type="submit" class="quickview btn btn-secondary col-12 mt-2" >Add to cart</button>
+                                            </c:when>
+                                        </c:choose>
                                     </div>
-
+                                    </form>
                                 </div>
                             </c:forEach>
                         </div>

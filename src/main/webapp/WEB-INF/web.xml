@@ -36,6 +36,14 @@
         <servlet-name>CreateFilters</servlet-name>
         <servlet-class>servlets.CreateFilterSidebar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CurrentCart</servlet-name>
+        <servlet-class>servlets.CurrentCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToCart</servlet-name>
+        <servlet-class>servlets.AddToCart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CheckSessionAccueuil</servlet-name>
         <url-pattern>/CheckSessionAccueuil</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>CreateFilters</servlet-name>
         <url-pattern>/CreateFilters</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CurrentCart</servlet-name>
+        <url-pattern>/CurrentCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/AddToCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

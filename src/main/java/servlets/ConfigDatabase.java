@@ -95,12 +95,14 @@ public class ConfigDatabase extends HttpServlet {
         User user3 = new User("Fred", "Cailloux", "Flintstone@site.com","PwFredCailloux",false);
         User user4 = new User("Laurent", "Dauphin", "TheRealFlipper@site.com","PwLaurentDauphin",true);
         User user5 = new User("Dieudonné", "Jean", "DJ@site.com","PwDieudonnéJean",true);
+        User user6 = new User("Test", "Test", "Test","Test",true);
         //add user to the list
         userList.add(user1);
         userList.add(user2);
         userList.add(user3);
         userList.add(user4);
         userList.add(user5);
+        userList.add(user6);
         //Send to database
         for (int i = 0; i < userList.size(); i++) {
             userDaoImpl.saveUser(userList.get(i));
