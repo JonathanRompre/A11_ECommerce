@@ -100,4 +100,11 @@ public interface IProductDao {
      * @return a list of all the products
      */
     List<Product> getAllProducts();
+    
+    /**
+     * creates the product list from the filter
+     * @param query built from the buildQueryFromUrl method.
+     * @return the list of products matching the requested filter.
+     */
+    List<Product> getProductListFromCustomFilter(String query);
 }

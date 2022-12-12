@@ -7,23 +7,21 @@ package dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import modele.User;
 
 public class UserDaoImpl implements IUserDao {
 
     private EntityManagerFactory entityManagerFactory;
-    private EntityManager entityManager;
 
     public UserDaoImpl() {
-        entityManagerFactory = Persistence.createEntityManagerFactory(ConstantesDao.PERSISTENCE_NAME);
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManagerFactory = ConnectionManager.getInstance().getEntityManagerFactory();
     }
 
     @Override
     public boolean saveUser(User user) {
-        if (entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL + "'" + user.getEmail() + "'").getResultList().size() == 0) {
+        if (!userEmailExists(user.getEmail())) {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
             try {
                 entityManager.getTransaction().begin();
                 entityManager.persist(user);
@@ -34,6 +32,8 @@ public class UserDaoImpl implements IUserDao {
                 e.printStackTrace();
                 return false;
 
+            } finally {
+                entityManager.close();
             }
         }
         return false;
@@ -41,6 +41,7 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public boolean userIdExists(Integer id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         boolean idExists = false;
         try {
             entityManager.getTransaction().begin();
@@ -51,31 +52,37 @@ public class UserDaoImpl implements IUserDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        } finally {
+            entityManager.close();
         }
     }
 
     @Override
     public boolean userEmailExists(String email) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         boolean emailExists;
         try {
             entityManager.getTransaction().begin();
-            emailExists = !entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL +"'"+email+"'").getResultList().isEmpty();
+            emailExists = !entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_EMAIL + "'" + email + "'").getResultList().isEmpty();
             entityManager.getTransaction().commit();
             return emailExists;
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        } finally {
+            entityManager.close();
         }
     }
 
     @Override
     public User getUserById(Integer id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         User user = null;
         try {
             entityManager.getTransaction().begin();
             List<User> tmpUserList = entityManager.createNativeQuery(ConstantesDao.GET_USER_FROM_ID + id, User.class).getResultList();
-            if(!tmpUserList.isEmpty()){
+            if (!tmpUserList.isEmpty()) {
                 user = tmpUserList.get(0);
             }
             entityManager.getTransaction().commit();
@@ -84,12 +91,15 @@ public class UserDaoImpl implements IUserDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return null;
+        } finally {
+            entityManager.close();
         }
     }
 
     @Override
     public Integer getUserIdByEmailPassword(String email, String password) {
-        try{
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
             entityManager.getTransaction().begin();
             Query query = entityManager.createQuery(ConstantesDao.GET_USER_ID_FROM_EMAIL_PASSWORD);
             query.setParameter("email", email);
@@ -97,19 +107,23 @@ public class UserDaoImpl implements IUserDao {
             String tmpString = query.toString();
             List<Integer> returnId = query.getResultList();
             entityManager.getTransaction().commit();
-            if(returnId.isEmpty()){
+            if (returnId.isEmpty()) {
                 return null;
             }
             return returnId.get(0);
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return null;
+        } finally {
+            entityManager.close();
         }
+        
     }
 
     @Override
     public List<User> getAllUsers() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<User> users;
         try {
             entityManager.getTransaction().begin();
@@ -120,26 +134,32 @@ public class UserDaoImpl implements IUserDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return null;
+        } finally {
+            entityManager.close();
         }
     }
 
     @Override
     public boolean updateUser(User user) {
-        try{
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
             entityManager.getTransaction().begin();
             entityManager.merge(user);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        } finally {
+            entityManager.close();
         }
     }
 
     @Override
     public boolean updateUserEmailFromId(Integer id, String newEmail) {
-        try{
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
             // get user from id
             User user = getUserById(id);
             // update user
@@ -148,16 +168,19 @@ public class UserDaoImpl implements IUserDao {
             entityManager.merge(user);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        } finally {
+            entityManager.close();
         }
     }
 
     @Override
     public boolean updateUserPasswordFromId(Integer id, String newPassword) {
-        try{
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
             // get user from id
             User user = getUserById(id);
             // update user
@@ -166,34 +189,41 @@ public class UserDaoImpl implements IUserDao {
             entityManager.merge(user);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
-        }    }
+        } finally {
+            entityManager.close();
+        }
+    }
 
     @Override
     public boolean deleteUser(User user) {
-        try{
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
             entityManager.getTransaction().begin();
             User userMerged = entityManager.merge(user);
             entityManager.remove(userMerged);
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        } finally {
+            entityManager.close();
         }
     }
 
     @Override
     public boolean deleteAllUsers() {
-        try{
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
             // start by getting all users
             List<User> userList = this.getAllUsers();
             // delete each user.
-            for(User u: userList){
+            for (User u : userList) {
                 this.deleteUser(u);
             }
             // reset sequence
@@ -201,9 +231,12 @@ public class UserDaoImpl implements IUserDao {
             entityManager.createNativeQuery(ConstantesDao.RESET_HIBERNATE_SEQUENCE).executeUpdate();
             entityManager.getTransaction().commit();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        } finally {
+            entityManager.close();
         }
     }
 }

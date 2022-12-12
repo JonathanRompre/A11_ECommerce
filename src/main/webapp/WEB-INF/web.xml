@@ -36,6 +36,10 @@
         <servlet-name>CreateFilters</servlet-name>
         <servlet-class>servlets.CreateFilterSidebar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductList</servlet-name>
+        <servlet-class>servlets.ProductList</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CheckSessionAccueuil</servlet-name>
         <url-pattern>/CheckSessionAccueuil</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>CreateFilters</servlet-name>
         <url-pattern>/CreateFilters</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductList</servlet-name>
+        <url-pattern>/ProductList</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
-
-
 function filter(url){
     requete = new XMLHttpRequest();
     requete.onreadystatechange = testFiltre;
@@ -14,7 +12,6 @@ function filter(url){
     requete.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     
     requete.send();
-    
 }
 
 function testFiltre(){
@@ -22,6 +19,29 @@ function testFiltre(){
         filterBar = requete.responseText;
         
         $('#filterContainer').html(filterBar);
+        
+        productList();
+    }
+}
+
+function productList(){
+    requete = new XMLHttpRequest();
+    requete.onreadystatechange = setProducts;
+    
+    url = "ProductList";
+    
+    requete.open("GET",url,true);
+    
+    requete.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    
+    requete.send();
+}
+
+function setProducts(){
+    if((requete.readyState === 4) && (requete.status === 200)){
+        products = requete.responseText;
+        
+        $('#productContainer').html(products);
     }
 }
 

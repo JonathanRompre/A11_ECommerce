@@ -100,7 +100,6 @@ public class CartProductDaoImplTest {
         int resultSize = cartProductDaoImpl.getAllCartProductsWithCartId(cart1.getId()).size();
         int expectedSize = 0;
         assertEquals(expectedSize, resultSize);
-
     }
 
     /**

@@ -18,6 +18,7 @@ import modele.Category;
 import modele.Product;
 import modele.Constantes;
 import modele.ItemCategorie;
+import modele.ProductUtilitaire;
 import modele.Utilitaire;
 
 /**
@@ -42,10 +43,14 @@ public class CreateFilterSidebar extends HttpServlet {
         String baseUrl = request.getRequestURI();
         String baseSearchQuery = request.getQueryString();
         
-        Utilitaire.getQueryFromUrl(baseSearchQuery);
+        request.getSession().setAttribute("listProduct", 
+                    ProductUtilitaire.getFilteredProductList(baseSearchQuery)
+                );
         
         List<Product> listeProduct = (List<Product>) request.getSession().getAttribute("listProduct");
 
+        System.out.println("Product count: "+listeProduct.size());
+        
         Set<ItemCategorie> uniqueCategorie = new TreeSet<>();
         Set<ItemCategorie> uniqueType = new TreeSet<>();
         Set<ItemCategorie> priceRanges = new TreeSet<>();
@@ -132,7 +137,7 @@ public class CreateFilterSidebar extends HttpServlet {
         );
 
         request.setAttribute("filterCategories", categories);
-        request.getRequestDispatcher("testGenFiltres.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/testGenFiltres.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

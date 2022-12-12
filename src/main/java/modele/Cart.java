@@ -5,6 +5,7 @@
 package modele;
 
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,6 @@ public class Cart {
     @Id
     @Column (name = "panier_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     private Integer id;
     
     @OneToOne
@@ -32,9 +32,6 @@ public class Cart {
     private User user;
     
     private boolean current;
-    
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    private List<CartProduct> cartProducts;
 
     public Cart() {
     }
@@ -72,6 +69,29 @@ public class Cart {
     public String toString() {
         return "Panier{" + "id=" + id + ", user=" + user + ", current=" + current + '}';
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cart other = (Cart) obj;
+        if (this.current != other.current) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return Objects.equals(this.user, other.user);
+    }
+    
+    
     
     
 }

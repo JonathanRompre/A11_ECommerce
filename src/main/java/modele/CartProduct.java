@@ -5,6 +5,7 @@
 package modele;
 
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -92,6 +93,33 @@ public class CartProduct {
     @Override
     public String toString() {
         return "CartProduct{" + "id=" + id + ", cart=" + cart + ", product=" + product + ", quantity=" + quantity + ", dateAjout=" + dateAjout + '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CartProduct other = (CartProduct) obj;
+        if (this.quantity != other.quantity) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.cart, other.cart)) {
+            return false;
+        }
+        if (!Objects.equals(this.product, other.product)) {
+            return false;
+        }
+        return Objects.equals(this.dateAjout, other.dateAjout);
     }
     
     

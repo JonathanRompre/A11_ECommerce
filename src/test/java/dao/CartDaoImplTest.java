@@ -67,6 +67,7 @@ public class CartDaoImplTest {
         assertTrue(result);
         Cart cart = cartDaoImpl.getAllCartsForUserId(1).get(0);
         Cart resultCart = cartDaoImpl.getCartById(cart.getId());
+        assertTrue(cart.equals(resultCart));
         assertEquals(cart, resultCart);
     }
 

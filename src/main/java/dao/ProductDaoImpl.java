@@ -4,12 +4,11 @@
  */
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import modele.Product;
-import modele.User;
 
 /**
  *
@@ -18,17 +17,18 @@ import modele.User;
 public class ProductDaoImpl implements IProductDao {
 
     private EntityManagerFactory entityManagerFactory;
-    private EntityManager entityManager;
 
     public ProductDaoImpl() {
-        entityManagerFactory = Persistence.createEntityManagerFactory(ConstantesDao.PERSISTENCE_NAME);
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManagerFactory = ConnectionManager.getInstance().getEntityManagerFactory();
     }
 
     @Override
     public boolean saveProduct(Product product) {
+        EntityManager entityManager;
+        entityManager = entityManagerFactory.createEntityManager();
         if (entityManager.find(Product.class, product.getId()) == null) {
             try {
+                
                 entityManager.getTransaction().begin();
                 entityManager.persist(product);
                 entityManager.getTransaction().commit();
@@ -37,6 +37,8 @@ public class ProductDaoImpl implements IProductDao {
                 entityManager.getTransaction().rollback();
                 e.printStackTrace();
                 return false;
+            }finally{
+                entityManager.close();
             }
         }
         return false;
@@ -44,6 +46,7 @@ public class ProductDaoImpl implements IProductDao {
 
     @Override
     public Product getProductById(Integer id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         Product product = null;
         try {
             entityManager.getTransaction().begin();
@@ -57,11 +60,14 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return null;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public boolean isProductActive(Integer id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         boolean productActive = false;
         try {
             entityManager.getTransaction().begin();
@@ -75,11 +81,14 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public boolean updateProduct(Product product) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             entityManager.merge(product);
@@ -89,17 +98,20 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public boolean updateProductPriceFromId(Integer id, double newPrice) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             // get product from id
-            Product product = getProductById(id);
             // update product
-            product.setPrice(newPrice);
             entityManager.getTransaction().begin();
+            Product product = (Product) entityManager.createNativeQuery(ConstantesDao.GET_PRODUCT_FROM_ID + id, Product.class).getResultList().get(0);
+            product.setPrice(newPrice);
             entityManager.merge(product);
             entityManager.getTransaction().commit();
             return true;
@@ -107,11 +119,14 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public boolean updateProductDescriptionFromId(Integer id, String locale, String newDesc) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             // get product from id
             Product product = getProductById(id);
@@ -125,11 +140,14 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public boolean updateProductQuantityFromId(Integer id, Integer newQuantity) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             // get product from id
             Product product = getProductById(id);
@@ -143,11 +161,14 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public boolean deleteAllProducts() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             // start by getting all products
             List<Product> productList = this.getAllProducts();
@@ -160,13 +181,17 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
+            entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public boolean deleteProduct(Product product) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             Product productMerged = entityManager.merge(product);
@@ -177,11 +202,14 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public List<Product> getAllProducts() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<Product> products;
         try {
             entityManager.getTransaction().begin();
@@ -192,7 +220,26 @@ public class ProductDaoImpl implements IProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return null;
+        }finally{
+            entityManager.close();
         }
     }
 
+    @Override
+    public List<Product> getProductListFromCustomFilter(String query) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        List<Product> products = new ArrayList<>();
+        try{
+            entityManager.getTransaction().begin();
+            products = entityManager.createNativeQuery(query, Product.class).getResultList();
+            entityManager.getTransaction().commit();
+            return products;
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return new ArrayList<Product>();
+        }finally{
+            entityManager.close();
+        }
+    }
 }

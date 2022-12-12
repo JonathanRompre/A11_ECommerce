@@ -26,7 +26,7 @@ class ConstantesDao {
 
     /// PRODUCT
     // SQL
-    protected static final String GET_PRODUCT_FROM_ID = "SELECT product_id FROM PRODUCT WHERE product_id = ";
+    protected static final String GET_PRODUCT_FROM_ID = "SELECT * FROM PRODUCT WHERE product_id = ";
 
     protected static final String GET_PRODUCT_ACTIVE_STATUS = "SELECT active FROM PRODUCT WHERE product_id = ";
 

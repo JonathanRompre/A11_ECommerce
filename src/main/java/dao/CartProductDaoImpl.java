@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import modele.CartProduct;
 
 /**
@@ -18,15 +17,14 @@ import modele.CartProduct;
 public class CartProductDaoImpl implements ICartProductDao {
 
     private EntityManagerFactory entityManagerFactory;
-    private EntityManager entityManager;
 
     public CartProductDaoImpl() {
-        entityManagerFactory = Persistence.createEntityManagerFactory(ConstantesDao.PERSISTENCE_NAME);
-        entityManager = entityManagerFactory.createEntityManager();
+        entityManagerFactory = ConnectionManager.getInstance().getEntityManagerFactory();
     }
 
     @Override
     public boolean saveCartProduct(CartProduct cartProduct) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(cartProduct);
@@ -36,11 +34,14 @@ public class CartProductDaoImpl implements ICartProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public boolean deleteCartProduct(CartProduct cartProduct) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             CartProduct cartProductMerged = entityManager.merge(cartProduct);
@@ -51,11 +52,14 @@ public class CartProductDaoImpl implements ICartProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public boolean updateCartProductQuantity(CartProduct cartProduct, Integer newQuantity) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             cartProduct.setQuantity(newQuantity);
             entityManager.getTransaction().begin();
@@ -66,11 +70,14 @@ public class CartProductDaoImpl implements ICartProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public List<CartProduct> getAllCartProductsWithCartId(Integer cartId) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<CartProduct> tmpList = new ArrayList<>();
         try {
             entityManager.getTransaction().begin();
@@ -81,11 +88,14 @@ public class CartProductDaoImpl implements ICartProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return tmpList;
+        }finally{
+            entityManager.close();
         }
     }
 
     @Override
     public boolean deleteAllCartProducts() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             List<CartProduct> tmpList = entityManager.createNativeQuery(ConstantesDao.GET_ALL_CART_PRODUCTS, CartProduct.class).getResultList();
@@ -98,6 +108,8 @@ public class CartProductDaoImpl implements ICartProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
+        }finally{
+            entityManager.close();
         }
     }
 
