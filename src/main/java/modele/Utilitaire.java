@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
@@ -95,5 +96,88 @@ public class Utilitaire {
                 i.remove();
             }
         }
+    }
+
+    public static String getQueryFromUrl(String url) {
+        // split on & to get fitler#n and filter#v and change to list
+        String baseQuery = "SELECT * FROM PRODUCT";
+        if(url.isBlank())
+            return baseQuery;
+        ArrayList<String> filterList = new ArrayList<>(Arrays.asList(url.split("&")));
+
+        List<String> queryBits = new ArrayList<>();
+        StringBuilder resultQuery = new StringBuilder();
+
+        for (String findCategories : filterList) {
+            if (findCategories.matches("filter(\\d+)n.*")) {  // a filter#n was found
+                String filterNum = Character.toString(findCategories.charAt(6));
+                for (String findValues : filterList) {
+                    if (findValues.matches("filter" + filterNum + "v.*")) {
+                        System.out.println(findCategories+" | "+findValues);
+                        String tmpValues = findValues.substring(findValues.indexOf("=") + 1);
+                        String tmpQuery = getQueryFromValues(findCategories.substring(findCategories.indexOf("=") + 1), findValues.substring(findValues.indexOf("=") + 1));
+                        queryBits.add(tmpQuery);
+                    }
+                }
+            }
+        }
+        resultQuery.append(baseQuery);
+        if(!queryBits.isEmpty()){
+            resultQuery.append(" WHERE ");
+            resultQuery.append(String.join(" AND ", queryBits));
+        }
+        System.out.println(resultQuery.toString());
+        return resultQuery.toString();
+    }
+
+    private static String getQueryFromValues(String category, String values) {
+        String queryBit = "";
+        switch (category) {
+            case "Companion":
+                queryBit = "categorie in (" + prepValuesForQuery(values) + ")";
+                break;
+            case "Type":
+                queryBit = "type in (" + prepValuesForQuery(values) + ")";
+                break;
+            case "Availability":
+                int valueCount = (values.split(",")).length;
+                // if valueCount == 2, wanted both available and not available. Encompasses everything.
+                if(valueCount == 1){
+                    if(values.equals(Constantes.AVAILABILITY_NOT_AVAILABLE)){
+                        queryBit = "(quantity = 0 OR active = 0)";
+                    }else{
+                        queryBit = "quantity > 0 AND active = 1";
+                    }
+                }
+                break;
+            case "Price":
+                // split the values on comma
+                List<String> splitValues = new ArrayList<>(Arrays.asList(values.split(",")));
+                List<String> formattedValues = new ArrayList<>();
+                for(String tmpValue:splitValues){
+                    List<String> splitPrices = new ArrayList<>(Arrays.asList(tmpValue.split("-")));
+                    String thisValue = "price between "+String.join(" AND ",splitPrices);
+                    formattedValues.add(thisValue);
+                }
+                queryBit = "("+String.join(" OR ", formattedValues)+")";
+                break;
+        }
+        return queryBit;
+    }
+    /**
+     * Adds ' around the values to fit "in" sql statement. Only use for
+     * columns that can be used with "in".
+     * @param values comma separated.
+     * @return values comma separated but with ' around the words.
+     */
+    private static String prepValuesForQuery(String values) {
+        System.out.println("Values: "+values);
+        String[] tmpOrigValues = values.split(",");
+        String[] tmpConvertedValues = new String[tmpOrigValues.length];
+        for (int i = 0; i < tmpOrigValues.length; i++) {
+            tmpConvertedValues[i] = "'" + tmpOrigValues[i] + "'";
+        }
+        values = String.join(",", tmpConvertedValues);
+        return values;
     }
 }

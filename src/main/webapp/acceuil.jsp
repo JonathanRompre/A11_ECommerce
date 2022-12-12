@@ -42,82 +42,17 @@
             <br>
             <div class="container col-11 m-2">
                 <div class="row">
-                    <div class="col-3" >
+                    <div class="col-2" >
                         <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick="filter('/A11_TP2/CreateFilters?')"/>
                         <div id="filterContainer">
-                            
-                        </div>
-                        <%--
-                        <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick="filter('/A11_TP2/CreateFilters?filter1n=Companion&filter1v=Cat')"/>
-                        <div>
-                            <h6>Companion</h6>
-                            <form class="ml-md-2">
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="companion" id="cat">
-                                    <label for="boring" class="pl-1 pt-sm-0 pt-1">Cat</label>
-                                </div>
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="companion" id="dog">
-                                    <label for="ugly" class="pl-1 pt-sm-0 pt-1">Dog</label>
-                                </div>
-                            </form>
-                            <h6>Type</h6>
-                            <form class="ml-md-2">
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="type" id="Food">
-                                    <label for="food" class="pl-1 pt-sm-0 pt-1">Food</label>
-                                </div>
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="type" id="Supply">
-                                    <label for="supply" class="pl-1 pt-sm-0 pt-1">Supply</label>
-                                </div>
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="type" id="Toy">
-                                    <label for="Toy" class="pl-1 pt-sm-0 pt-1">Toy</label>
-                                </div>
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="type" id="Treat">
-                                    <label for="Treat" class="pl-1 pt-sm-0 pt-1">Treat</label>
-                                </div>
-                            </form>
-                            <h6>Price</h6>
-                            <form class="ml-md-2">
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="price" id="price0-20">
-                                    <label for="price0-20" class="pl-1 pt-sm-0 pt-1">$0-$19.99</label>
-                                </div>
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="price" id="price20-50">
-                                    <label for="price20-50" class="pl-1 pt-sm-0 pt-1">$20-$49.99</label>
-                                </div>
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="price" id="price50-100">
-                                    <label for="price50-100" class="pl-1 pt-sm-0 pt-1">$50-$99.99</label>
-                                </div>
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="price" id="price100-500">
-                                    <label for="price100-500" class="pl-1 pt-sm-0 pt-1">$100-$499.99</label>
-                                </div>
-                            </form>
-                            <h6>Available in store</h6>
-                            <form class="ml-md-2">
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="available" id="available">
-                                    <label for="available" class="pl-1 pt-sm-0 pt-1">Available</label>
-                                </div>
-                                <div class="form-inline border rounded p-sm-2 my-2">
-                                    <input type="radio" name="available" id="notAvailable">
-                                    <label for="notAvailable" class="pl-1 pt-sm-0 pt-1">Not available</label>
-                                </div>     
-                            </form>
 
                         </div>
-                        --%>
                     </div>
-                    <div class="col-9">
-                        <div class="row">
+                    <div class="col-10">
+                        <div class="row d-flex flex-row justify-content-around">
                             <c:forEach var="product" items="${sessionScope.listProduct}" >
-                                <div class="col-md-4 col-sm-6 d-inline-flex card h-150 " id="productCard${product.id}" style="margin-bottom: 10px;">
+                                <%--<div class="col-md-3 col-sm-6 d-inline-flex card h-150 m-1" id="productCard${product.id}" style="margin-bottom: 10px;">--%>
+                                <div class="col-sm-6 d-inline-flex card h-150" id="productCard${product.id}" style="margin-bottom: 10px;max-width: 32%">
                                     <div class="card-body d-flex flex-column align-items-center">
                                         <div class="">
                                             <div class="d-flex flex-row mb-3" >
@@ -141,7 +76,6 @@
                                     <div class="d-flex align-self-center" style="width: 85% ; margin-bottom:5px">
                                         <button type="button" class="quickview btn btn-secondary col-12 mt-2" >Add to cart</button>
                                     </div>
-
                                 </div>
                             </c:forEach>
                         </div>

@@ -41,11 +41,10 @@ public class CreateFilterSidebar extends HttpServlet {
 
         String baseUrl = request.getRequestURI();
         String baseSearchQuery = request.getQueryString();
-
+        
+        Utilitaire.getQueryFromUrl(baseSearchQuery);
+        
         List<Product> listeProduct = (List<Product>) request.getSession().getAttribute("listProduct");
-        for (Product p : listeProduct) {
-            //System.out.println(p);
-        }
 
         Set<ItemCategorie> uniqueCategorie = new TreeSet<>();
         Set<ItemCategorie> uniqueType = new TreeSet<>();

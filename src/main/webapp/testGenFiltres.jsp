@@ -13,20 +13,15 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <div class="col-3">
-            
-            <div>
-                <c:forEach var="categorie" items="${filterCategories}">
-                    <h6>${categorie.name}</h6>
-                    <form class="ml-md-2">
-                        <c:forEach var="item" items="${categorie.items}">
-                            <div class="form-inline border rounded p-sm-2 my-2">
-                                <input type="button" value="${item.name}" onclick="filter('${item.url}')"/>
-                            </div>
-                        </c:forEach>
-                    </form>
+        <div>
+            <c:forEach var="categorie" items="${filterCategories}">
+                <h6>${categorie.name}</h6>
+                <c:forEach var="item" items="${categorie.items}">
+                    <div class="form-inline border rounded p-sm-2 my-2">
+                        <input type="button" class="w-100" value="${item.name}" onclick="filter('${item.url}')"/>
+                    </div>
                 </c:forEach>
-            </div>
+            </c:forEach>
         </div>
     </body>
 </html>

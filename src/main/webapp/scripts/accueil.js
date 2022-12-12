@@ -24,3 +24,7 @@ function testFiltre(){
         $('#filterContainer').html(filterBar);
     }
 }
+
+$(function(){
+    filter("/A11_TP2/CreateFilters?");
+});
