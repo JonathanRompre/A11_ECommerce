@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -23,7 +21,6 @@ public class Utilitaire {
         boolean categoryInFilter = baseQueryString.contains(itemCategory);
         boolean itemInFilter = baseQueryString.contains(itemName);
         // split the query on &
-        //String[] filterList = baseQueryString.split("&");
         ArrayList<String> filterList = new ArrayList<>(Arrays.asList(baseQueryString.split("&")));
         removeBlankFields(filterList);
         // length / 2 is number of filters

@@ -41,10 +41,14 @@
             <br>
             <br>
             <div class="container col-11 m-2">
-                <div class="row" id="test"></div>
                 <div class="row">
-                    <div class="col-3">
-                        <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick="filter('/CreateFilters?filter1n=Companion&filter1v=Cat')"/>
+                    <div class="col-3" >
+                        <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick="filter('/A11_TP2/CreateFilters?')"/>
+                        <div id="filterContainer">
+                            
+                        </div>
+                        <%--
+                        <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick="filter('/A11_TP2/CreateFilters?filter1n=Companion&filter1v=Cat')"/>
                         <div>
                             <h6>Companion</h6>
                             <form class="ml-md-2">
@@ -108,6 +112,7 @@
                             </form>
 
                         </div>
+                        --%>
                     </div>
                     <div class="col-9">
                         <div class="row">

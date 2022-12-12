@@ -19,6 +19,8 @@ function filter(url){
 
 function testFiltre(){
     if((requete.readyState === 4) && (requete.status === 200)){
-        console.log(requete.responseText);
+        filterBar = requete.responseText;
+        
+        $('#filterContainer').html(filterBar);
     }
 }

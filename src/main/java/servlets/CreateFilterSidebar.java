@@ -5,9 +5,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Enumeration;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -52,6 +51,11 @@ public class CreateFilterSidebar extends HttpServlet {
         Set<ItemCategorie> uniqueType = new TreeSet<>();
         Set<ItemCategorie> priceRanges = new TreeSet<>();
         Set<ItemCategorie> availability = new TreeSet<>();
+        boolean priceRange1Added = false;
+        boolean priceRange2Added = false;
+        boolean priceRange3Added = false;
+        boolean priceRange4Added = false;
+        
         for (Product p : listeProduct) {
             // get unique categories
             ItemCategorie tmp = new ItemCategorie(p.getCategorie(), baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Companion", p.getCategorie()));
@@ -63,7 +67,6 @@ public class CreateFilterSidebar extends HttpServlet {
             tmp = new ItemCategorie(p.getType(), baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Type", p.getType()));
             boolean notEqual = true;
             for(ItemCategorie ic:uniqueType){
-                System.out.println("Set size: "+uniqueType.size()+" "+(tmp.getName().equals(ic.getName()) || tmp.equals(ic) || tmp.compareTo(ic)==0));
                 if(tmp.getName().equals(ic.getName()) || tmp.equals(ic) || tmp.compareTo(ic)==0){
                     notEqual = false;
                 }
@@ -73,22 +76,30 @@ public class CreateFilterSidebar extends HttpServlet {
             }
             
             // get price ranges
-            if (p.getPrice() < 20) {
-                priceRanges.add(
-                        new ItemCategorie(Constantes.PRICE_RANGE_0_1999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_0_1999))
-                );
-            } else if (p.getPrice() < 50) {
-                priceRanges.add(
-                        new ItemCategorie(Constantes.PRICE_RANGE_20_4999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_20_4999))
-                );
-            } else if (p.getPrice() < 100) {
-                priceRanges.add(
-                        new ItemCategorie(Constantes.PRICE_RANGE_50_9999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_50_9999))
-                );
-            } else {
-                priceRanges.add(
-                        new ItemCategorie(Constantes.PRICE_RANGE_100_49999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_100_49999))
-                );
+            if (p.getPrice() > 0 && p.getPrice() < 20 && !priceRange1Added) {
+                if(priceRanges.add(
+                    new ItemCategorie(Constantes.PRICE_RANGE_0_1999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_0_1999))
+                )){
+                    priceRange1Added = true;
+                };
+            } else if (p.getPrice() >= 20 && p.getPrice() < 50 && !priceRange2Added) {
+                if(priceRanges.add(
+                    new ItemCategorie(Constantes.PRICE_RANGE_20_4999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_20_4999))
+                )){
+                    priceRange2Added = true;
+                };
+            } else if (p.getPrice() >= 50 && p.getPrice() < 100 && !priceRange3Added) {
+                if(priceRanges.add(
+                    new ItemCategorie(Constantes.PRICE_RANGE_50_9999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_50_9999))
+                )){
+                    priceRange3Added = true;
+                };
+            } else if(p.getPrice() >= 100 && p.getPrice() < 500 && !priceRange4Added){
+                if(priceRanges.add(
+                    new ItemCategorie(Constantes.PRICE_RANGE_100_49999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_100_49999))
+                )){
+                    priceRange4Added = true;
+                };
             }
 
             // get availability
