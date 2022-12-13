@@ -30,6 +30,7 @@
                     <div class="m-2">
                         <label for="lastName" class="col-3 offset-1"><fmt:message key="lastName"/>:</label>
                         <input type="text" class="col-5" required name="lastName" id="lastName" value="" placeholder="<fmt:message key="lastName"/>"/>
+                    </div>
                     
                     <div class="m-2">
                         <label for="email" class="col-3 offset-1"><fmt:message key="email"/>:</label>
@@ -46,7 +47,7 @@
                         <input type="password" class="col-5" required name="passwordConfirm" id="passwordConfirm" value="" placeholder="<fmt:message key="confirmPassword"/>"/><br>
                     </div>
                     
-                    <button type="submit" class="btn btn-dark offset-1"><fmt:message key="register"/></button>
+                    <button type="submit" class="btn btn-dark col-2 offset-1"><fmt:message key="register"/></button>
                 </form>
             </div>
             <a href="Accueil" class="btn btn-light m-2 border"> <fmt:message key="homePage" /></a>

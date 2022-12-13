@@ -17,31 +17,31 @@
     </head>
     <body>
         <jsp:include page="/WEB-INF/banner.jsp"/>
-        <div class="col-6 offset-3 border mt-5">
+        <div class="col-4 offset-4 border mt-5">
             <fieldset>
                 <legend>Login</legend>
-                <div class="text-center ">
+                <div class="text-center">
                     <form name="loginForm">
                         <div class="m-1">
-                            <input type="text" required name="email" placeholder="email" /><br>
+                            <input type="text" required name="email" placeholder="email" class="w-50" /><br>
                             <div id="invalidEmail" style="display: none">
                                 <span>There is no account associated with this email.</span><br>
                             </div>
                         </div>
                         <div class="m-1">
-                            <input type="password" name="password" placeholder="password"/><br>
+                            <input type="password" name="password" placeholder="password" class="w-50"/><br>
                             <div id="invalidPass" style="display: none">
                                 <span>Invalid password.</span><br>
                             </div>
                         </div>
-                        <div class="m-1">
-                            <button type="button" value="login" onclick="authentifier()">login</button>
+                        <div class="mt-3">
+                            <button type="button" value="login" class="btn btn-outline-secondary" onclick="authentifier()">login</button>
                         </div>
                     </form>
                 </div>
             </fieldset>
-            <a href="Register" class="btn">Register</a><br>
-            <a href="Accueil" class="btn">Retour à l'accueil</a>
+            <a href="Register" class="btn btn-light m-1">Register</a><br>
+            <a href="Accueil" class="btn btn-light m-1">Retour à l'accueil</a>
         </div>
     </body>
 </html>
