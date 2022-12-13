@@ -10,7 +10,7 @@
 <c:forEach var="product" items="${sessionScope.listProduct}" >
     <%--<div class="col-md-3 col-sm-6 d-inline-flex card h-150 m-1" id="productCard${product.id}" style="margin-bottom: 10px;">--%>
     <div class="col-sm-6 d-inline-flex card h-150" id="productCard${product.id}" style="margin-bottom: 10px;max-width: 32%">
-        <form name="curentCartForm" action="CurrentCart" method="POST">
+        <form name="AddToCartForm" action="AddToCart" method="POST">
             <div class="card-body d-flex flex-column align-items-center">
                 <div class="">
                     <div class="d-flex flex-row mb-3" >
@@ -34,8 +34,8 @@
             <input type="hidden" id="pid" name="pid" value="${product.id}"/>
             <div class="d-flex align-self-center" style="width: 85% ; margin-bottom:5px">
                 <c:choose>
-                    <c:when test="${requestScope.user != null}">
-                        <button type="button" class="quickview btn btn-secondary col-12 mt-2" >Add to cart</button>
+                    <c:when test="${sessionScope.uid != null}">
+                        <button type="submit" class="quickview btn btn-secondary col-12 mt-2">Add to cart</button>
                     </c:when>
                 </c:choose>
             </div>

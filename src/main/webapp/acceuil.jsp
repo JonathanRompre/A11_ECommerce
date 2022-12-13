@@ -23,7 +23,7 @@
                     <a href="login.jsp">EN</a>&nbsp;&nbsp;
                     <a href="login.jsp">FR</a>&nbsp;&nbsp;
                     <c:choose>
-                        <c:when test="${requestScope.user == null}">
+                        <c:when test="${sessionScope.uid == null}">
                             <a class="btn btn-light " role="button" href="login.jsp">Log in</a>
                             <a class="btn btn-light " role="button" href="register.jsp">Signup</a>
                         </c:when>
