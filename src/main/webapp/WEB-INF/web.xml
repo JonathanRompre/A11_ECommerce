@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>CheckSessionAccueuil</servlet-name>
-        <servlet-class>servlets.CheckSessionAccueuil</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ConfigDatabase</servlet-name>
         <servlet-class>servlets.ConfigDatabase</servlet-class>
     </servlet>
@@ -29,10 +25,6 @@
         <servlet-class>servlets.CreateProductList</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Logout</servlet-name>
-        <servlet-class>servlets.Logout</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CreateFilters</servlet-name>
         <servlet-class>servlets.CreateFilterSidebar</servlet-class>
     </servlet>
@@ -48,10 +40,26 @@
         <servlet-name>AddToCart</servlet-name>
         <servlet-class>servlets.AddToCart</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>CheckSessionAccueuil</servlet-name>
-        <url-pattern>/CheckSessionAccueuil</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>InitLocale</servlet-name>
+        <servlet-class>servlets.InitLocale</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetLocale</servlet-name>
+        <servlet-class>servlets.SetLocale</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>servlets.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>servlets.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>servlets.Register</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConfigDatabase</servlet-name>
         <url-pattern>/ConfigDatabase</url-pattern>
@@ -77,10 +85,6 @@
         <url-pattern>/Accueil</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Logout</servlet-name>
-        <url-pattern>/Logout</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>CreateFilters</servlet-name>
         <url-pattern>/CreateFilters</url-pattern>
     </servlet-mapping>
@@ -95,6 +99,26 @@
     <servlet-mapping>
         <servlet-name>AddToCart</servlet-name>
         <url-pattern>/AddToCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InitLocale</servlet-name>
+        <url-pattern>/InitLocale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetLocale</servlet-name>
+        <url-pattern>/SetLocale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/Register</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

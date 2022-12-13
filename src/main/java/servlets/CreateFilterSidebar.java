@@ -48,8 +48,6 @@ public class CreateFilterSidebar extends HttpServlet {
                 );
         
         List<Product> listeProduct = (List<Product>) request.getSession().getAttribute("listProduct");
-
-        System.out.println("Product count: "+listeProduct.size());
         
         Set<ItemCategorie> uniqueCategorie = new TreeSet<>();
         Set<ItemCategorie> uniqueType = new TreeSet<>();
@@ -137,7 +135,7 @@ public class CreateFilterSidebar extends HttpServlet {
         );
 
         request.setAttribute("filterCategories", categories);
-        request.getRequestDispatcher("/WEB-INF/testGenFiltres.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/genFiltres.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

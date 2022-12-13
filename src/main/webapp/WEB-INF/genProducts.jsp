@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <c:forEach var="product" items="${sessionScope.listProduct}" >
     <%--<div class="col-md-3 col-sm-6 d-inline-flex card h-150 m-1" id="productCard${product.id}" style="margin-bottom: 10px;">--%>
@@ -34,8 +35,8 @@
             <input type="hidden" id="pid" name="pid" value="${product.id}"/>
             <div class="d-flex align-self-center" style="width: 85% ; margin-bottom:5px">
                 <c:choose>
-                    <c:when test="${requestScope.user != null}">
-                        <button type="button" class="quickview btn btn-secondary col-12 mt-2" >Add to cart</button>
+                    <c:when test="${sessionScope.uid != null}">
+                        <button type="submit" class="quickview btn btn-secondary col-12 mt-2" >Add to cart</button>
                     </c:when>
                 </c:choose>
             </div>

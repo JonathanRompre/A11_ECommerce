@@ -4,20 +4,19 @@
  */
 package servlets;
 
-import dao.UserDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.User;
 
 /**
  *
  * @author Jon
  */
-public class RegisterValidation extends HttpServlet {
+public class InitLocale extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,37 +30,9 @@ public class RegisterValidation extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        UserDaoImpl userDaoImpl = new UserDaoImpl();
-
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
-        String pw = request.getParameter("password");
-        String pwConfirm = request.getParameter("passwordConfirm");
-
-        //check for email already exists
-        boolean emailExists = userDaoImpl.userEmailExists(email);
-        boolean registrationSucces = false;
-        boolean passwordsMatch = pw.equals(pwConfirm);
-        if (emailExists) {
-        } else {
-            if (passwordsMatch) {
-                User user = new User(firstName, lastName, email);
-                user.setPassword(pw);
-                registrationSucces = userDaoImpl.saveUser(user);
-                if (registrationSucces) {
-                    request.setAttribute("authenticating", false);
-                }
-            }
-        }
-        String url;
-        if (emailExists || (registrationSucces != true)) {
-            url = "Request";
-        }else{
-            url = "Login";
-        }
-        request.getRequestDispatcher(url).include(request, response);
-        //response.sendRedirect(url);
+        Locale locale = request.getLocale();
+        
+        request.getSession().setAttribute("Locale", locale);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -102,4 +73,5 @@ public class RegisterValidation extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }
