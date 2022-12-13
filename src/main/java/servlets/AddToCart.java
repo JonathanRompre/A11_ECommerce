@@ -6,13 +6,20 @@ package servlets;
 
 import dao.CartDaoImpl;
 import dao.CartProductDaoImpl;
+import dao.ProductDaoImpl;
+import dao.UserDaoImpl;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Date;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modele.Cart;
+import modele.CartProduct;
+import modele.Product;
 
 /**
  *
@@ -32,16 +39,52 @@ public class AddToCart extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        UserDaoImpl userDaoImpl = new UserDaoImpl();
         CartDaoImpl cartDaoImpl = new CartDaoImpl();
         CartProductDaoImpl cartProductDaoImpl = new CartProductDaoImpl();
-        
+        ProductDaoImpl productDaoImpl = new ProductDaoImpl();
+
         HttpSession session = request.getSession();
-        Integer cID = (Integer) session.getAttribute("cid");
-        
-       
+        Integer uID = (Integer) session.getAttribute("uid");
+        String pID = (String) request.getParameter("pid");
+        boolean cartActive = cartDaoImpl.hasActiveCartForUserId(uID);
+        boolean cartCreationSucces = false;
+        Date date = new Date();
+
+        if (!cartActive) {
+            Cart cart = new Cart(userDaoImpl.getUserById(uID), true);
+            cartCreationSucces = cartDaoImpl.saveCart(cart);
+        }
+
+        if (cartActive || (cartCreationSucces == true)) {
+            Integer cID = cartDaoImpl.getCurrentCartIdByUserId(uID);
+            int aproduct = Integer.parseInt(pID);
+            List<CartProduct> cartProductsList = cartProductDaoImpl.getAllCartProductsWithCartId(cID);
+            CartProduct cartProduct = new CartProduct(cartDaoImpl.getCartById(cID), productDaoImpl.getProductById(Integer.parseInt(pID)), 1, date);
+
+            if (cartProductsList == null) {
+                cartProductDaoImpl.saveCartProduct(cartProduct);
+            } else {
+                boolean exist = false;
+                for (CartProduct c : cartProductsList) {
+                    if (c.getProduct().getId() == aproduct) {
+                        exist = true;
+                        cartProduct = c ;
+                    }
+                }
+                if (!exist) {
+                    cartProductDaoImpl.saveCartProduct(cartProduct);
+                } else {
+                    cartProductDaoImpl.updateCartProductQuantity(cartProduct, (cartProduct.getQuantity() + 1));
+                }
+
+            }
+        }
+        RequestDispatcher disp = getServletContext().getRequestDispatcher("/Accueil");
+        disp.forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -33,10 +33,6 @@
         <servlet-class>servlets.ProductList</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CurrentCart</servlet-name>
-        <servlet-class>servlets.CurrentCart</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AddToCart</servlet-name>
         <servlet-class>servlets.AddToCart</servlet-class>
     </servlet>
@@ -91,10 +87,6 @@
     <servlet-mapping>
         <servlet-name>ProductList</servlet-name>
         <url-pattern>/ProductList</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CurrentCart</servlet-name>
-        <url-pattern>/CurrentCart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddToCart</servlet-name>
