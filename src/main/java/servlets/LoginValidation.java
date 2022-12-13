@@ -39,18 +39,15 @@ public class LoginValidation extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        System.out.println(email + " " + password);
         boolean emailExists = userDaoImpl.userEmailExists(email);
-        System.out.println("======= email exists: " + emailExists);
         Integer id = null;
         boolean loginSuccess = false;
         if (emailExists) {
             id = userDaoImpl.getUserIdByEmailPassword(email, password);
             if (id == null) {
-                System.out.println("====== email and password combination does not exist: " + email + " | " + password);
             } else {
-                System.out.println("====== valid: " + email + " | " + password);
                 loginSuccess = true;
+                request.setAttribute("authenticating", false);
             }
         }
         HttpSession session = request.getSession();

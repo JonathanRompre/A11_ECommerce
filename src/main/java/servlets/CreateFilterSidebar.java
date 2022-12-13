@@ -48,8 +48,6 @@ public class CreateFilterSidebar extends HttpServlet {
                 );
         
         List<Product> listeProduct = (List<Product>) request.getSession().getAttribute("listProduct");
-
-        System.out.println("Product count: "+listeProduct.size());
         
         Set<ItemCategorie> uniqueCategorie = new TreeSet<>();
         Set<ItemCategorie> uniqueType = new TreeSet<>();
@@ -62,13 +60,19 @@ public class CreateFilterSidebar extends HttpServlet {
         
         for (Product p : listeProduct) {
             // get unique categories
-            ItemCategorie tmp = new ItemCategorie(p.getCategorie(), baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Companion", p.getCategorie()));
+            ItemCategorie tmp = new ItemCategorie(p.getCategorie(), baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Companion", p.getCategorie()),
+                    Utilitaire.isActiveFilter(baseSearchQuery, p.getCategorie())
+            );
+            
             uniqueCategorie.add(
                     tmp
             );
 
             // get unique types
-            tmp = new ItemCategorie(p.getType(), baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Type", p.getType()));
+            tmp = new ItemCategorie(p.getType(),
+                    baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Type", p.getType()),
+                    Utilitaire.isActiveFilter(baseSearchQuery, p.getType())
+            );
             boolean notEqual = true;
             for(ItemCategorie ic:uniqueType){
                 if(tmp.getName().equals(ic.getName()) || tmp.equals(ic) || tmp.compareTo(ic)==0){
@@ -82,25 +86,37 @@ public class CreateFilterSidebar extends HttpServlet {
             // get price ranges
             if (p.getPrice() > 0 && p.getPrice() < 20 && !priceRange1Added) {
                 if(priceRanges.add(
-                    new ItemCategorie(Constantes.PRICE_RANGE_0_1999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_0_1999))
+                    new ItemCategorie(Constantes.PRICE_RANGE_0_1999,
+                            baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_0_1999),
+                            Utilitaire.isActiveFilter(baseSearchQuery, Constantes.PRICE_RANGE_0_1999)
+                    )
                 )){
                     priceRange1Added = true;
                 };
             } else if (p.getPrice() >= 20 && p.getPrice() < 50 && !priceRange2Added) {
                 if(priceRanges.add(
-                    new ItemCategorie(Constantes.PRICE_RANGE_20_4999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_20_4999))
+                    new ItemCategorie(Constantes.PRICE_RANGE_20_4999,
+                            baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_20_4999),
+                            Utilitaire.isActiveFilter(baseSearchQuery, Constantes.PRICE_RANGE_20_4999)
+                    )
                 )){
                     priceRange2Added = true;
                 };
             } else if (p.getPrice() >= 50 && p.getPrice() < 100 && !priceRange3Added) {
                 if(priceRanges.add(
-                    new ItemCategorie(Constantes.PRICE_RANGE_50_9999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_50_9999))
+                    new ItemCategorie(Constantes.PRICE_RANGE_50_9999,
+                            baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_50_9999),
+                            Utilitaire.isActiveFilter(baseSearchQuery, Constantes.PRICE_RANGE_50_9999)
+                    )
                 )){
                     priceRange3Added = true;
                 };
             } else if(p.getPrice() >= 100 && p.getPrice() < 500 && !priceRange4Added){
                 if(priceRanges.add(
-                    new ItemCategorie(Constantes.PRICE_RANGE_100_49999, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_100_49999))
+                    new ItemCategorie(Constantes.PRICE_RANGE_100_49999,
+                            baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Price", Constantes.PRICE_RANGE_100_49999),
+                            Utilitaire.isActiveFilter(baseSearchQuery, Constantes.PRICE_RANGE_100_49999)
+                    )
                 )){
                     priceRange4Added = true;
                 };
@@ -109,11 +125,17 @@ public class CreateFilterSidebar extends HttpServlet {
             // get availability
             if (p.getQuantity() > 0 && p.isActive()) {
                 availability.add(
-                        new ItemCategorie(Constantes.AVAILABILITY_AVAILABLE, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Availability", Constantes.AVAILABILITY_AVAILABLE))
+                        new ItemCategorie(Constantes.AVAILABILITY_AVAILABLE,
+                                baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Availability", Constantes.AVAILABILITY_AVAILABLE),
+                                Utilitaire.isActiveFilter(baseSearchQuery, Constantes.AVAILABILITY_AVAILABLE)
+                        )
                 );
             } else {
                 availability.add(
-                        new ItemCategorie(Constantes.AVAILABILITY_NOT_AVAILABLE, baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Availability", Constantes.AVAILABILITY_NOT_AVAILABLE))
+                        new ItemCategorie(Constantes.AVAILABILITY_NOT_AVAILABLE,
+                                baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Availability", Constantes.AVAILABILITY_NOT_AVAILABLE),
+                                Utilitaire.isActiveFilter(baseSearchQuery, Constantes.AVAILABILITY_NOT_AVAILABLE)
+                        )
                 );
             }
         }
@@ -130,14 +152,15 @@ public class CreateFilterSidebar extends HttpServlet {
             );
         }
         categories.add(
-                new Category("Price", priceRanges)
+                new Category("Price", Utilitaire.sortPriceFilters(priceRanges))
         );
+        
         categories.add(
                 new Category("Availability", availability)
         );
 
         request.setAttribute("filterCategories", categories);
-        request.getRequestDispatcher("/WEB-INF/testGenFiltres.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/genFiltres.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Samuel
+ * @author Jon
  */
 public class Logout extends HttpServlet {
 
@@ -29,6 +29,7 @@ public class Logout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         request.getSession().setAttribute("uid", null);
         response.sendRedirect("Accueil");
     }

@@ -21,5 +21,5 @@ public class Constantes {
     public static final String PRICE_RANGE_50_9999 = "50-99.99";
     public static final String PRICE_RANGE_100_49999 = "100-499.99";
     public static final String AVAILABILITY_AVAILABLE = "Available";
-    public static final String AVAILABILITY_NOT_AVAILABLE = "Not Available";
+    public static final String AVAILABILITY_NOT_AVAILABLE = "Unavailable";
 }

@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.Query;
 
 /**
@@ -86,7 +88,7 @@ public class Utilitaire {
         return returnQuery;
     }
 
-    public static int findFilterNumber(List<String> filterList, String itemCategory) {
+    private static int findFilterNumber(List<String> filterList, String itemCategory) {
         int filterNum = 0;
         for (String s : filterList) {
             if (s.matches("filter(\\d+)n=" + itemCategory)) {
@@ -96,7 +98,7 @@ public class Utilitaire {
         return filterNum;
     }
 
-    public static void removeBlankFields(List<String> list) {
+    private static void removeBlankFields(List<String> list) {
         Iterator<String> i = list.iterator();
         while (i.hasNext()) {
             String s = i.next();
@@ -149,11 +151,13 @@ public class Utilitaire {
                 int valueCount = (values.split(",")).length;
                 // if valueCount == 2, wanted both available and not available. Encompasses everything.
                 if (valueCount == 1) {
-                    if (values.equals(Constantes.AVAILABILITY_NOT_AVAILABLE)) {
+                    if (values.contains(Constantes.AVAILABILITY_NOT_AVAILABLE)) {
                         queryBit = "(quantity = 0 OR active = 0)";
                     } else {
                         queryBit = "quantity > 0 AND active = 1";
                     }
+                }else{
+                    queryBit = "quantity is not null";
                 }
                 break;
             case "Price":
@@ -186,5 +190,41 @@ public class Utilitaire {
         }
         values = String.join(",", tmpConvertedValues);
         return values;
+    }
+
+    public static boolean isActiveFilter(String baseQueryUrl, String itemName){
+        return baseQueryUrl.contains(itemName);
+    }
+    
+    public static Set<ItemCategorie> sortPriceFilters(Set<ItemCategorie> unsortedFilters){
+        TreeSet<ItemCategorie> tempSet = new TreeSet<>();
+        
+        if(unsortedFilters.isEmpty() || unsortedFilters.size() == 1)
+            return unsortedFilters;
+        
+        for(int i = 1;i <= unsortedFilters.size();i++){
+            
+            for(ItemCategorie ic: unsortedFilters){
+                if(getPriceRangeOrder(ic.getName()) == i){
+                    tempSet.add(ic);
+                }
+            }
+        }
+        return tempSet;
+    }
+    
+    private static int getPriceRangeOrder(String range){
+        switch(range){
+            case Constantes.PRICE_RANGE_0_1999:
+                return 1;
+            case Constantes.PRICE_RANGE_20_4999:
+                return 2;
+            case Constantes.PRICE_RANGE_50_9999:
+                return 3;
+            case Constantes.PRICE_RANGE_100_49999:
+                return 4;
+            default:
+                return 0;
+        }
     }
 }
