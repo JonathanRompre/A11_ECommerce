@@ -15,10 +15,10 @@
                 <input type="button" class="w-100 btn btn-sm
                        <c:if test="${item.activeFilter == true}">
                            btn-secondary
-                        </c:if>
+                       </c:if>
                        <c:if test="${item.activeFilter == false}">
                            btn-outline-secondary
-                        </c:if>
+                       </c:if>
                        " value="${item.name}" onclick="filter('${item.url}')"/>
             </div>
         </c:forEach>

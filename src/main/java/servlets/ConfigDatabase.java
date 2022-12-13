@@ -84,7 +84,6 @@ public class ConfigDatabase extends HttpServlet {
         //Send to database
         for (int i = 0; i < productList.size(); i++) {
             productDaoImpl.saveProduct(productList.get(i));
-            System.out.println(productList.get(i));
         }
 
         //list of user

@@ -151,11 +151,13 @@ public class Utilitaire {
                 int valueCount = (values.split(",")).length;
                 // if valueCount == 2, wanted both available and not available. Encompasses everything.
                 if (valueCount == 1) {
-                    if (values.equals(Constantes.AVAILABILITY_NOT_AVAILABLE)) {
+                    if (values.contains(Constantes.AVAILABILITY_NOT_AVAILABLE)) {
                         queryBit = "(quantity = 0 OR active = 0)";
                     } else {
                         queryBit = "quantity > 0 AND active = 1";
                     }
+                }else{
+                    queryBit = "quantity is not null";
                 }
                 break;
             case "Price":

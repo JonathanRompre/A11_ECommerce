@@ -38,7 +38,6 @@ public class SetLocale extends HttpServlet {
         }else{
             resultLocale = "en_CA";
         }
-        System.out.println(resultLocale+" | "+locale+" | "+(locale.equals("fr_CA"))); 
         
         request.getSession().setAttribute("Locale", resultLocale);
         

@@ -154,6 +154,7 @@ public class CreateFilterSidebar extends HttpServlet {
         categories.add(
                 new Category("Price", Utilitaire.sortPriceFilters(priceRanges))
         );
+        
         categories.add(
                 new Category("Availability", availability)
         );
