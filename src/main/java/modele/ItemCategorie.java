@@ -14,11 +14,20 @@ public class ItemCategorie implements Comparable<ItemCategorie> {
 
     private String name;
     private String url;
+    private boolean activeFilter;
 
-    public ItemCategorie(String name, String url) {
+//    public ItemCategorie(String name, String url) {
+//        this.name = name;
+//        this.url = url;
+//    }
+
+    public ItemCategorie(String name, String url, boolean activeFilter) {
         this.name = name;
         this.url = url;
+        this.activeFilter = activeFilter;
     }
+    
+    
 
     public String getName() {
         return name;
@@ -36,14 +45,25 @@ public class ItemCategorie implements Comparable<ItemCategorie> {
         this.url = url;
     }
 
+    public boolean isActiveFilter() {
+        return activeFilter;
+    }
+
+    public void setActiveFilter(boolean activeFilter) {
+        this.activeFilter = activeFilter;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.name);
-        hash = 79 * hash + Objects.hashCode(this.url);
+        hash = 71 * hash + Objects.hashCode(this.name);
+        hash = 71 * hash + Objects.hashCode(this.url);
+        hash = 71 * hash + (this.activeFilter ? 1 : 0);
         return hash;
     }
 
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -56,13 +76,14 @@ public class ItemCategorie implements Comparable<ItemCategorie> {
             return false;
         }
         final ItemCategorie other = (ItemCategorie) obj;
+        if (this.activeFilter != other.activeFilter) {
+            return false;
+        }
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return Objects.equals(this.url, other.url);
     }
-
-    
 
     @Override
     public int compareTo(ItemCategorie o) {
