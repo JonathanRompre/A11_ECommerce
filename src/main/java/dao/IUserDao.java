@@ -43,12 +43,28 @@ public interface IUserDao {
     User getUserById(Integer id);
     
     /**
-     * Gets the id of a user matching the given email and password.
-     * @param email of the user to get
-     * @param password of the user to get
-     * @return the id of the queried User, else null
+     * Retrieves the salt for the user matching the given id
+     * @param id of the user for which to get the salt.
+     * @return byte array of the salt saved for this user, null if no salt saved.
      */
-    Integer getUserIdByEmailPassword(String email, String password);
+    byte[] getUserSaltById(Integer id);
+    
+    /**
+     * Retrieves the hashed password for the user matching the given id.
+     * @param id of the user for which to get the password.
+     * @return byte array of the hashed password of the user, else null.
+     */
+    byte[] getUserPasswordById(Integer id);
+    
+    /**
+     * Gets the user id matching the given email. The id is to be used to
+     * authenticate the user by then comparing the given password using the
+     * appropriate method.
+     * @param email of the user for which to retrieve the id.
+     * @return the id of the user matching the email, null if
+     * none exist or error occurs.
+     */
+    Integer getUserIdFromEmail(String email);
     
     /**
      * Gets all the users saved in the database. 
