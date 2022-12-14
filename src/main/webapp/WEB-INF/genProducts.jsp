@@ -9,8 +9,9 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <c:forEach var="product" items="${sessionScope.listProduct}" >
+    
     <div class="col-sm-6 d-inline-flex card" id="productCard${product.id}" style="margin-bottom: 10px;max-width: 32%">
-        <form name="curentCartForm" action="CurrentCart" method="POST">
+        <form name="AddToCartForm" action="AddToCart" method="POST">
             <div class="card-body d-flex flex-column align-items-center">
                 <div class="row" style="">
                     <div class="">

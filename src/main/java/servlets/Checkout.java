@@ -5,22 +5,25 @@
 package servlets;
 
 import dao.CartDaoImpl;
-import dao.UserDaoImpl;
+import dao.CartProductDaoImpl;
+import dao.ProductDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import modele.Cart;
-import modele.User;
+import modele.CartProduct;
+import modele.Product;
 
 /**
  *
  * @author Samuel
  */
-public class CurrentCart extends HttpServlet {
+public class Checkout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,29 +37,15 @@ public class CurrentCart extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        UserDaoImpl userDaoImpl = new UserDaoImpl();
         CartDaoImpl cartDaoImpl = new CartDaoImpl();
-
+        CartProductDaoImpl cartProductDaoImpl = new CartProductDaoImpl();
+        ProductDaoImpl productDaoImpl = new ProductDaoImpl();
+                
         HttpSession session = request.getSession();
-        Integer uID = (Integer) session.getAttribute("uid");
-        boolean cartActive = cartDaoImpl.hasActiveCartForUserId(uID);
-        boolean cartCreationSucces = false;
-
-        if (cartActive) {
-            System.out.println("CartActive");
-        } else {
-            Cart cart = new Cart(userDaoImpl.getUserById(uID), true);
-            cartCreationSucces = cartDaoImpl.saveCart(cart);
-        }
-        String url;
-        if (cartActive || (cartCreationSucces != true)) {
-            url = "Acceuil";
-        } else {
-            url = "AddToCart";
-        }
-        request.getRequestDispatcher(url).include(request, response);
-        Integer id = cartDaoImpl.getCurrentCartIdByUserId(uID);
-        session.setAttribute("cid", id);
+        List<CartProduct> pList = (List) session.getAttribute("cartList");
+        
+        
+        request.getRequestDispatcher("/WEB-INF/checkout.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
