@@ -80,6 +80,9 @@ public class AddToCart extends HttpServlet {
 
             }
         }
+        Integer cID = cartDaoImpl.getCurrentCartIdByUserId(uID);
+        List<CartProduct> cartList = cartProductDaoImpl.getAllCartProductsWithCartId(cID);
+        request.getSession().setAttribute("cartList", cartList);
         RequestDispatcher disp = getServletContext().getRequestDispatcher("/Accueil");
         disp.forward(request, response);
     }

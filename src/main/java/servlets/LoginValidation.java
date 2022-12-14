@@ -4,9 +4,12 @@
  */
 package servlets;
 
+import dao.CartDaoImpl;
+import dao.CartProductDaoImpl;
 import dao.UserDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Objects;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
+import modele.CartProduct;
 import org.json.simple.JSONObject;
 
 /**
@@ -35,6 +39,9 @@ public class LoginValidation extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserDaoImpl userDaoImpl = new UserDaoImpl();
+        CartDaoImpl cartDaoImpl= new CartDaoImpl();
+        CartProductDaoImpl cartProductDaoImpl = new CartProductDaoImpl();
+        
 
         response.setContentType("text/html;charset=UTF-8");
         String email = request.getParameter("email");
@@ -53,6 +60,11 @@ public class LoginValidation extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute("uid", id);
         session.setMaxInactiveInterval(30 * 60);
+        
+        Integer cID = cartDaoImpl.getCurrentCartIdByUserId(id);
+        List<CartProduct> cartList = cartProductDaoImpl.getAllCartProductsWithCartId(cID);
+        session.setAttribute("cartList", cartList);
+       
         JSONObject sampleObject = new JSONObject();
         sampleObject.put("emailExists", emailExists);
         sampleObject.put("loginSuccess", loginSuccess);

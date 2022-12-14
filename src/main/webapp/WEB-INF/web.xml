@@ -17,14 +17,6 @@
         <servlet-class>servlets.RegisterValidation</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreateProductList</servlet-name>
-        <servlet-class>servlets.CreateProductList</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Accueil</servlet-name>
-        <servlet-class>servlets.CreateProductList</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CreateFilters</servlet-name>
         <servlet-class>servlets.CreateFilterSidebar</servlet-class>
     </servlet>
@@ -56,6 +48,18 @@
         <servlet-name>Register</servlet-name>
         <servlet-class>servlets.Register</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Accueil</servlet-name>
+        <servlet-class>servlets.CreateProductList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateProductList</servlet-name>
+        <servlet-class>servlets.CreateProductList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>servlets.Checkout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConfigDatabase</servlet-name>
         <url-pattern>/ConfigDatabase</url-pattern>
@@ -71,14 +75,6 @@
     <servlet-mapping>
         <servlet-name>RegisterValidation</servlet-name>
         <url-pattern>/RegisterValidation</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CreateProductList</servlet-name>
-        <url-pattern>/CreateProductList</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Accueil</servlet-name>
-        <url-pattern>/Accueil</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateFilters</servlet-name>
@@ -111,6 +107,18 @@
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Accueil</servlet-name>
+        <url-pattern>/Accueil</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateProductList</servlet-name>
+        <url-pattern>/CreateProductList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
