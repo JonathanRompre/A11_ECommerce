@@ -4,6 +4,7 @@
  */
 package modele;
 
+import dao.UserDaoImpl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -226,5 +227,15 @@ public class Utilitaire {
             default:
                 return 0;
         }
+    }
+
+    public static boolean validateUserPassword(Integer uid, String password){
+        UserDaoImpl userDaoImpl = new UserDaoImpl();
+        byte[] salt = userDaoImpl.getUserSaltById(uid);
+        byte[] hashed = userDaoImpl.getUserPasswordById(uid);
+        
+        boolean res = Passwords.isExpectedPassword(password.toCharArray(), salt, hashed);
+        password = null;
+        return res;
     }
 }

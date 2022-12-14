@@ -97,30 +97,22 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public Integer getUserIdByEmailPassword(String email, String password) {
+    public byte[] getUserPasswordById(Integer id){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        try {
+        try{
             entityManager.getTransaction().begin();
-            Query query = entityManager.createQuery(ConstantesDao.GET_USER_ID_FROM_EMAIL_PASSWORD);
-            query.setParameter("email", email);
-            query.setParameter("password", password);
-            String tmpString = query.toString();
-            List<Integer> returnId = query.getResultList();
+            byte[] pass = (byte[]) entityManager.createNativeQuery(ConstantesDao.GET_PASSWORD_FROM_USER_ID + id).getResultList().get(0);
             entityManager.getTransaction().commit();
-            if (returnId.isEmpty()) {
-                return null;
-            }
-            return returnId.get(0);
-        } catch (Exception e) {
+            return pass;
+        }catch(Exception e){
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return null;
-        } finally {
+        }finally{
             entityManager.close();
         }
-        
     }
-
+    
     @Override
     public List<User> getAllUsers() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -236,6 +228,44 @@ public class UserDaoImpl implements IUserDao {
             e.printStackTrace();
             return false;
         } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public byte[] getUserSaltById(Integer id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        byte[] tmpSalt = null;
+        try{
+            entityManager.getTransaction().begin();
+            tmpSalt = (byte[]) entityManager.createNativeQuery(ConstantesDao.GET_SALT_FROM_USER_ID + id).getResultList().get(0);
+            entityManager.getTransaction().commit();
+            return tmpSalt;
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return tmpSalt;
+        }finally{
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public Integer getUserIdFromEmail(String email) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Integer id;
+        try{
+            entityManager.getTransaction().begin();
+            System.out.println(ConstantesDao.GET_USER_ID_FROM_EMAIL + email);
+            List<Integer> tmp = entityManager.createNativeQuery(ConstantesDao.GET_USER_ID_FROM_EMAIL + "'"+email+"'").getResultList();
+            id = tmp.get(0);
+            entityManager.getTransaction().commit();
+            return id;
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        }finally{
             entityManager.close();
         }
     }
