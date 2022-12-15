@@ -83,8 +83,8 @@ public class AddToCart extends HttpServlet {
         Integer cID = cartDaoImpl.getCurrentCartIdByUserId(uID);
         List<CartProduct> cartList = cartProductDaoImpl.getAllCartProductsWithCartId(cID);
         request.getSession().setAttribute("cartList", cartList);
-        RequestDispatcher disp = getServletContext().getRequestDispatcher("/Accueil");
-        disp.forward(request, response);
+        request.getRequestDispatcher("/../accueil.jsp").forward(request, response);
+        
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
