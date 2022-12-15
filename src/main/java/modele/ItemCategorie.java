@@ -87,11 +87,17 @@ public class ItemCategorie implements Comparable<ItemCategorie> {
 
     @Override
     public int compareTo(ItemCategorie o) {
+        int res;
         if(this.equals(o)){
-            return 0;
-        }else{
-            return 1;
+            res = 0;
         }
+        if(Utilitaire.getPriceRangeOrder(this.getName()) > Utilitaire.getPriceRangeOrder(o.getName())){
+            res = 1;
+        }else if(Utilitaire.getPriceRangeOrder(this.getName()) < Utilitaire.getPriceRangeOrder(o.getName())){
+            res = -1;
+        }else{
+            res = 0;
+        }
+        return res;
     }
-
 }

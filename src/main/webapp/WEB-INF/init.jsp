@@ -13,7 +13,7 @@
     </head>
     <body>
         <jsp:include page="../ConfigDatabase"/>
-        <jsp:forward page="../Accueil"/>
-            
+        <jsp:include page="../InitLocale"/>
+        <jsp:forward page="../acceuil.jsp"/>
     </body>
 </html>

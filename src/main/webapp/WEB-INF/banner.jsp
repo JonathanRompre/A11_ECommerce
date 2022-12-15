@@ -11,7 +11,7 @@
     <div>
         <nav class="navbar navbar-dark  " style="float: right">
             <c:choose>
-                <c:when test="${sessionScope.Locale == 'en_CA'}">
+                <c:when test="${sessionScope.Locale == 'en_CA' || sessionScope.Locale == 'en_US' }">
                     <a class="text-dark">EN</a>&nbsp;&nbsp;            
                 </c:when>
                 <c:otherwise>

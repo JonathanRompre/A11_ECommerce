@@ -214,7 +214,7 @@ public class Utilitaire {
         return tempSet;
     }
     
-    private static int getPriceRangeOrder(String range){
+    public static int getPriceRangeOrder(String range){
         switch(range){
             case Constantes.PRICE_RANGE_0_1999:
                 return 1;
@@ -223,6 +223,18 @@ public class Utilitaire {
             case Constantes.PRICE_RANGE_50_9999:
                 return 3;
             case Constantes.PRICE_RANGE_100_49999:
+                return 4;
+            case Constantes.CATEGORIE_PRODUIT_CHAT:
+                return 1;
+            case Constantes.CATEGORIE_PRODUIT_CHIEN:
+                return 2;
+            case Constantes.TYPE_FOOD:
+                return 1;
+            case Constantes.TYPE_SUPPLY:
+                return 2;
+            case Constantes.TYPE_TOY:
+                return 3;
+            case Constantes.TYPE_TREAT:
                 return 4;
             default:
                 return 0;
