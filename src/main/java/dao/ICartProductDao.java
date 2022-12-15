@@ -56,4 +56,21 @@ public interface ICartProductDao {
      * @return true if deletion successful, else false.
      */
     boolean deleteAllCartProducts();
+    
+     /**
+     * Updates the quantity of the given CartProduct with the given newQuantity.
+     * 
+     * @param cartProductId for which the quantity is to be updated
+     * @param newQuantity to give the CartProduct
+     * @return true on successful update, else false.
+     */
+    public boolean updateCartProductQuantityById(Integer cartProductId, Integer newQuantity);
+    /**
+     * Deletes a CartProduct from the database. 
+     * This will remove the CartProduct from the associated cart.
+     *
+     * @param cartProductId to delete from the database
+     * @return true if sucess, else false
+     */
+    boolean deleteCartProductById(Integer cartProductId);
 }

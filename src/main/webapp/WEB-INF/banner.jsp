@@ -35,7 +35,7 @@
                     <c:otherwise>
                         <a class="btn btn-light " role="button" href="Logout">Log out</a>
                         <a class="btn btn-light" href="Checkout">Cart 
-                            <span class="badge badge-danger">${cartList.size()}</span>
+                            <span id="cartSize" class="badge badge-danger"></span>
                         </a>
                     </c:otherwise>
                 </c:choose>

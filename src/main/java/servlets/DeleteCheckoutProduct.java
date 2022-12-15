@@ -4,27 +4,21 @@
  */
 package servlets;
 
-import dao.CartDaoImpl;
 import dao.CartProductDaoImpl;
-import dao.ProductDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import modele.CartProduct;
-import modele.Product;
-import modele.CheckoutItem;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Samuel
  */
-public class Checkout extends HttpServlet {
+public class DeleteCheckoutProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,32 +32,21 @@ public class Checkout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        CartDaoImpl cartDaoImpl = new CartDaoImpl();
         CartProductDaoImpl cartProductDaoImpl = new CartProductDaoImpl();
-        ProductDaoImpl productDaoImpl = new ProductDaoImpl();
-        
-        
-        HttpSession session = request.getSession();
-        Integer uID = (Integer) session.getAttribute("uid");
-        Integer cID = cartDaoImpl.getCurrentCartIdByUserId(uID);
-                
-        List<CartProduct> cartProductsList = cartProductDaoImpl.getAllCartProductsWithCartId(cID);
-        List<CheckoutItem> listCheckoutItems = new ArrayList<>();
-        
-        for (CartProduct cartProduct : cartProductsList) {
-            Product product  = cartProduct.getProduct();
-            CheckoutItem checkoutItem = new CheckoutItem(cartProduct, product);
-            listCheckoutItems.add(checkoutItem);
+
+        String cpid = request.getParameter("cpid");
+        boolean deleteSucess = cartProductDaoImpl.deleteCartProductById(Integer.parseInt(cpid));
+
+        JSONObject sampleObject = new JSONObject();
+        sampleObject.put("deleteSucess", deleteSucess);
+        PrintWriter out = response.getWriter();
+        try {
+            out.print(sampleObject.toString());
+        } finally {
+            out.close();
         }
         
-        session.setAttribute("checkoutList", listCheckoutItems);
-                    
-        
-        request.getRequestDispatcher("/WEB-INF/checkout.jsp").forward(request, response);
     }
-    
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

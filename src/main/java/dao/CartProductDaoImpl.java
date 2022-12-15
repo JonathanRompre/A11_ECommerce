@@ -34,7 +34,7 @@ public class CartProductDaoImpl implements ICartProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
-        }finally{
+        } finally {
             entityManager.close();
         }
     }
@@ -52,7 +52,7 @@ public class CartProductDaoImpl implements ICartProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
-        }finally{
+        } finally {
             entityManager.close();
         }
     }
@@ -70,7 +70,30 @@ public class CartProductDaoImpl implements ICartProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
-        }finally{
+        } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public boolean updateCartProductQuantityById(Integer cartProductId, Integer newQuantity) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        CartProduct cartProduct = null;
+        try {
+            List<CartProduct> tmpCartProductList = entityManager.createNativeQuery(ConstantesDao.GET_ALL_CART_PRODUCTS_FOR_CARTPRODUCT_ID + cartProductId, CartProduct.class).getResultList();
+            if (!tmpCartProductList.isEmpty()) {
+                cartProduct = tmpCartProductList.get(0);
+                entityManager.getTransaction().begin();
+                cartProduct.setQuantity(newQuantity);
+                entityManager.merge(cartProduct);
+                entityManager.getTransaction().commit();
+            }
+            return true;
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
             entityManager.close();
         }
     }
@@ -88,7 +111,7 @@ public class CartProductDaoImpl implements ICartProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return tmpList;
-        }finally{
+        } finally {
             entityManager.close();
         }
     }
@@ -99,7 +122,7 @@ public class CartProductDaoImpl implements ICartProductDao {
         try {
             entityManager.getTransaction().begin();
             List<CartProduct> tmpList = entityManager.createNativeQuery(ConstantesDao.GET_ALL_CART_PRODUCTS, CartProduct.class).getResultList();
-            for(CartProduct cp : tmpList){
+            for (CartProduct cp : tmpList) {
                 entityManager.remove(cp);
             }
             entityManager.getTransaction().commit();
@@ -108,9 +131,34 @@ public class CartProductDaoImpl implements ICartProductDao {
             entityManager.getTransaction().rollback();
             e.printStackTrace();
             return false;
-        }finally{
+        } finally {
             entityManager.close();
         }
     }
 
+    @Override
+    public boolean deleteCartProductById(Integer cartProductId) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        CartProduct cartProduct = null;
+        try {
+            List<CartProduct> tmpCartProductList = entityManager.createNativeQuery(ConstantesDao.GET_ALL_CART_PRODUCTS_FOR_CARTPRODUCT_ID + cartProductId, CartProduct.class).getResultList();
+            if (!tmpCartProductList.isEmpty()) {
+                cartProduct = tmpCartProductList.get(0);
+                entityManager.getTransaction().begin();
+                CartProduct cartProductMerged = entityManager.merge(cartProduct);
+                entityManager.remove(cartProductMerged);
+                entityManager.getTransaction().commit();
+                
+            }return true;
+            
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            entityManager.close();
+        }
+    }
 }
+
+
