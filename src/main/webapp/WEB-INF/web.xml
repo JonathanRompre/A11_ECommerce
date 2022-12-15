@@ -60,6 +60,10 @@
         <servlet-name>Checkout</servlet-name>
         <servlet-class>servlets.Checkout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewProfile</servlet-name>
+        <servlet-class>servlets.ViewProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConfigDatabase</servlet-name>
         <url-pattern>/ConfigDatabase</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>Checkout</servlet-name>
         <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewProfile</servlet-name>
+        <url-pattern>/ViewProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
