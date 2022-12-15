@@ -72,6 +72,10 @@
         <servlet-name>DeleteCheckoutProduct</servlet-name>
         <servlet-class>servlets.DeleteCheckoutProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfileUpdate</servlet-name>
+        <servlet-class>servlets.ProfileUpdate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConfigDatabase</servlet-name>
         <url-pattern>/ConfigDatabase</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>DeleteCheckoutProduct</servlet-name>
         <url-pattern>/DeleteCheckoutProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileUpdate</servlet-name>
+        <url-pattern>/ProfileUpdate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

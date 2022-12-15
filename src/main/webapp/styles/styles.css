@@ -7,6 +7,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Author     : Jon
 */
 
-.bannerImage:hover .image{
+.linkImage:hover{
     cursor: pointer;
 }

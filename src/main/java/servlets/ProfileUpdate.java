@@ -5,6 +5,7 @@
 package servlets;
 
 import dao.UserDaoImpl;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,12 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.User;
+import modele.Utilitaire;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Jon
  */
-public class ViewProfile extends HttpServlet {
+public class ProfileUpdate extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,17 +34,69 @@ public class ViewProfile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         UserDaoImpl userDaoImpl = new UserDaoImpl();
-        Integer uid = (Integer) request.getSession().getAttribute("uid");
-        String url;
-        if(uid == null){
-            url = "Accueil";
-        }else{
-            User user = userDaoImpl.getUserById(uid);
-            request.setAttribute("user", user);
-            url = "WEB-INF/profile.jsp";
+
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        String currentPw = request.getParameter("currentPassword");
+        String newPw = request.getParameter("newPassword");
+
+        User user = userDaoImpl.getUserById((Integer) request.getSession().getAttribute("uid"));
+
+        boolean authValid = false;
+        boolean pwChange = false;
+        boolean updateSuccess = false;
+
+        if (currentPw != null && newPw != null && Utilitaire.validateUserPassword((Integer) request.getSession().getAttribute("uid"), currentPw)) {
+            user.setPassword(newPw);
+            if (firstName != null) {
+                user.setFirstName(firstName);
+            }
+            if (lastName != null) {
+                user.setLastName(lastName);
+            }
+            if (email != null) {
+                user.setEmail(email);
+            }
+            pwChange = true;
+            authValid = true;
+        } else {
+            // user trying to change pw but couldn't auth the given current pw
+            // Don't update anything in that case.
+            if (currentPw != null && newPw != null) {
+                authValid = false;
+                pwChange = true;
+            } else {
+                if (firstName != null) {
+                    user.setFirstName(firstName);
+                }
+                if (lastName != null) {
+                    user.setLastName(lastName);
+                }
+                if (email != null) {
+                    user.setEmail(email);
+                }
+            }
         }
-        request.getRequestDispatcher(url).forward(request, response);        
+        
+        if(!pwChange || authValid){
+            updateSuccess = userDaoImpl.updateUser(user);
+        }
+        
+        JSONObject jso = new JSONObject();
+        jso.put("authValid",authValid);
+        jso.put("pwChange",pwChange);
+        jso.put("updateSuccess", updateSuccess);
+        
+        PrintWriter pw = response.getWriter();
+        try{
+            pw.print(jso.toString());
+        }finally{
+            pw.close();
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
