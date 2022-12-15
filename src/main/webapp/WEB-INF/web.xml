@@ -64,6 +64,14 @@
         <servlet-name>ViewProfile</servlet-name>
         <servlet-class>servlets.ViewProfile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateCartQuantity</servlet-name>
+        <servlet-class>servlets.UpdateCartQuantity</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCheckoutProduct</servlet-name>
+        <servlet-class>servlets.DeleteCheckoutProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ConfigDatabase</servlet-name>
         <url-pattern>/ConfigDatabase</url-pattern>
@@ -127,6 +135,14 @@
     <servlet-mapping>
         <servlet-name>ViewProfile</servlet-name>
         <url-pattern>/ViewProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCartQuantity</servlet-name>
+        <url-pattern>/UpdateCartQuantity</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCheckoutProduct</servlet-name>
+        <url-pattern>/DeleteCheckoutProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

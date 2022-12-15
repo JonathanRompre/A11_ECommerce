@@ -61,5 +61,7 @@ class ConstantesDao {
     /// CartProduct
     protected static final String GET_ALL_CART_PRODUCTS_FOR_CART_ID = "SELECT * FROM CARTPRODUCT WHERE cart_id = ";
     
+    protected static final String GET_ALL_CART_PRODUCTS_FOR_CARTPRODUCT_ID = "SELECT * FROM CARTPRODUCT WHERE cartProduct_id = ";
+    
     protected static final String GET_ALL_CART_PRODUCTS = "SELECT * FROM CARTPRODUCT";
 }

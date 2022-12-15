@@ -73,7 +73,43 @@ public class CartProductDaoImplTest {
         userDaoImpl.deleteAllUsers();
         productDaoImpl.deleteAllProducts();
     }
-
+    
+//    /**
+//     * Test of updateCartProductQuantityByid method, of class CartProductDaoImpl.
+//     */
+//    @Test
+//    public void testUpdateCartProductQuantityById() {
+//       System.out.println("updateCartProductQuantityById");
+//        CartProduct cartProduct = new CartProduct(cart1, product1, 1, new Date());
+//        boolean result = cartProductDaoImpl.saveCartProduct(cartProduct);
+//        boolean expectedResult = true;
+//        assertEquals(expectedResult, result);
+//        int newQuantity = 21;
+//        assertTrue(cartProductDaoImpl.updateCartProductQuantityById(cart1.getId(), newQuantity));
+//        int resultQuantity = cartProductDaoImpl.getAllCartProductsWithCartId(cart1.getId()).get(0).getQuantity();
+//        assertEquals(newQuantity, resultQuantity);
+//    }
+//    
+//    /**
+//     * Test of deleteCartProductById method, of class CartProductDaoImpl.
+//     */
+//    @Test
+//    public void testDeleteCartProductById() {
+//        System.out.println("deleteCartProductById");
+//        CartProduct cartProduct = new CartProduct(cart1, product1, 1, new Date());
+//        boolean result = cartProductDaoImpl.saveCartProduct(cartProduct);
+//        boolean expectedResult = true;
+//        assertEquals(expectedResult, result);
+//        assertTrue(cartProductDaoImpl.deleteCartProductById(cart1.getId()));
+//        int resultSize = cartProductDaoImpl.getAllCartProductsWithCartId(cart1.getId()).size();
+//        int expectedSize = 0;
+//        System.out.println("----------------");
+//        System.out.println("expected : " + expectedSize);
+//        System.out.println("Result : " + resultSize);
+//        System.out.println("----------------");
+//        assertEquals(expectedSize, resultSize);
+//        
+//    }
     /**
      * Test of saveCartProduct method, of class CartProductDaoImpl.
      */
@@ -117,7 +153,7 @@ public class CartProductDaoImplTest {
         int resultQuantity = cartProductDaoImpl.getAllCartProductsWithCartId(cart1.getId()).get(0).getQuantity();
         assertEquals(newQuantity, resultQuantity);
     }
-
+    
     /**
      * Test of getAllCartProductsWithCartId method, of class CartProductDaoImpl.
      */

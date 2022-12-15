@@ -9,6 +9,8 @@ import dao.CartProductDaoImpl;
 import dao.ProductDaoImpl;
 import dao.UserDaoImpl;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import modele.Cart;
 import modele.CartProduct;
 import modele.Product;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -46,9 +49,12 @@ public class AddToCart extends HttpServlet {
 
         HttpSession session = request.getSession();
         Integer uID = (Integer) session.getAttribute("uid");
-        String pID = (String) request.getParameter("pid");
+        
+        String pID = request.getParameter("pid");
+      
         boolean cartActive = cartDaoImpl.hasActiveCartForUserId(uID);
         boolean cartCreationSucces = false;
+        boolean addToCartSucess = false;
         Date date = new Date();
 
         if (!cartActive) {
@@ -73,18 +79,27 @@ public class AddToCart extends HttpServlet {
                     }
                 }
                 if (!exist) {
-                    cartProductDaoImpl.saveCartProduct(cartProduct);
+                    addToCartSucess = cartProductDaoImpl.saveCartProduct(cartProduct);
                 } else {
-                    cartProductDaoImpl.updateCartProductQuantity(cartProduct, (cartProduct.getQuantity() + 1));
+                    addToCartSucess = cartProductDaoImpl.updateCartProductQuantity(cartProduct, (cartProduct.getQuantity() + 1));
                 }
 
             }
         }
         Integer cID = cartDaoImpl.getCurrentCartIdByUserId(uID);
         List<CartProduct> cartList = cartProductDaoImpl.getAllCartProductsWithCartId(cID);
-        request.getSession().setAttribute("cartList", cartList);
-        request.getRequestDispatcher("/../accueil.jsp").forward(request, response);
+
         
+        JSONObject sampleObject = new JSONObject();
+        sampleObject.put("cartListSize", cartList.size());
+        sampleObject.put("addToCartSucess", addToCartSucess);
+        PrintWriter out = response.getWriter();
+        try {
+            out.print(sampleObject.toString());
+        } finally {
+            out.close();
+        }
+       
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
