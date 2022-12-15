@@ -203,11 +203,11 @@ public class Utilitaire {
         if(unsortedFilters.isEmpty() || unsortedFilters.size() == 1)
             return unsortedFilters;
         
-        for(int i = 1;i <= unsortedFilters.size();i++){
-            
+        for(int i = 1;i <= 4;i++){
             for(ItemCategorie ic: unsortedFilters){
                 if(getPriceRangeOrder(ic.getName()) == i){
                     tempSet.add(ic);
+                    break;
                 }
             }
         }
