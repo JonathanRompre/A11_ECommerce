@@ -11,7 +11,7 @@
 <c:forEach var="product" items="${sessionScope.listProduct}" >
     
     <div class="col-sm-6 d-inline-flex card" id="productCard${product.id}" style="margin-bottom: 10px;max-width: 32%">
-        <form name="AddToCartForm" action="AddToCart" method="POST">
+        <form name="AddToCartForm" >
             <div class="card-body d-flex flex-column align-items-center">
                 <div class="row" style="">
                     <div class="">
@@ -33,11 +33,11 @@
                         </div>     
                     </div>
                 </div>
-                <input type="hidden" id="pid" name="pid" value="${product.id}"/>
                 <div class="row mb-3 w-75" >
                     <c:choose>
                         <c:when test="${sessionScope.uid != null}">
-                            <button type="button" class="quickview btn btn-secondary col-12 mt-2" >Add to cart</button>
+                            <button type="button" class="quickview btn btn-secondary col-12 mt-2" onclick="addToCart(${product.id})" >Add to cart</button>
+
                         </c:when>
                         <c:otherwise>
                             <button type="button" class="quickview btn btn-secondary col-12 mt-2" onclick="alert('Please login in before adding an item to the cart.')">Add to cart</button>
