@@ -4,6 +4,7 @@
  */
 package modele;
 
+import dao.UserDaoImpl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -202,18 +203,18 @@ public class Utilitaire {
         if(unsortedFilters.isEmpty() || unsortedFilters.size() == 1)
             return unsortedFilters;
         
-        for(int i = 1;i <= unsortedFilters.size();i++){
-            
+        for(int i = 1;i <= 4;i++){
             for(ItemCategorie ic: unsortedFilters){
                 if(getPriceRangeOrder(ic.getName()) == i){
                     tempSet.add(ic);
+                    break;
                 }
             }
         }
         return tempSet;
     }
     
-    private static int getPriceRangeOrder(String range){
+    public static int getPriceRangeOrder(String range){
         switch(range){
             case Constantes.PRICE_RANGE_0_1999:
                 return 1;
@@ -223,8 +224,30 @@ public class Utilitaire {
                 return 3;
             case Constantes.PRICE_RANGE_100_49999:
                 return 4;
+            case Constantes.CATEGORIE_PRODUIT_CHAT:
+                return 1;
+            case Constantes.CATEGORIE_PRODUIT_CHIEN:
+                return 2;
+            case Constantes.TYPE_FOOD:
+                return 1;
+            case Constantes.TYPE_SUPPLY:
+                return 2;
+            case Constantes.TYPE_TOY:
+                return 3;
+            case Constantes.TYPE_TREAT:
+                return 4;
             default:
                 return 0;
         }
+    }
+
+    public static boolean validateUserPassword(Integer uid, String password){
+        UserDaoImpl userDaoImpl = new UserDaoImpl();
+        byte[] salt = userDaoImpl.getUserSaltById(uid);
+        byte[] hashed = userDaoImpl.getUserPasswordById(uid);
+        
+        boolean res = Passwords.isExpectedPassword(password.toCharArray(), salt, hashed);
+        password = null;
+        return res;
     }
 }

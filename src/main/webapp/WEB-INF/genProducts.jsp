@@ -37,6 +37,7 @@
                     <c:choose>
                         <c:when test="${sessionScope.uid != null}">
                             <button type="button" class="quickview btn btn-secondary col-12 mt-2" onclick="addToCart(${product.id})" >Add to cart</button>
+
                         </c:when>
                         <c:otherwise>
                             <button type="button" class="quickview btn btn-secondary col-12 mt-2" onclick="alert('Please login in before adding an item to the cart.')">Add to cart</button>

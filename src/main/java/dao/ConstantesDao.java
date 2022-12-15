@@ -21,6 +21,12 @@ class ConstantesDao {
     protected static final String GET_ALL_USERS = "SELECT * FROM USER";
 
     protected static final String RESET_HIBERNATE_SEQUENCE = "UPDATE hibernate_sequence SET next_val = 1";
+    
+    protected static final String GET_SALT_FROM_USER_ID = "SELECT salt FROM USER WHERE user_id= ";
+    
+    protected static final String GET_PASSWORD_FROM_USER_ID = "SELECT password FROM USER WHERE user_id= ";
+    
+    protected static final String GET_USER_ID_FROM_EMAIL = "SELECT user_id FROM USER WHERE email= ";
     // HQL
     protected static final String GET_USER_ID_FROM_EMAIL_PASSWORD = "SELECT u.id FROM User u where u.email = :email AND u.password = :password";
 

@@ -4,6 +4,7 @@
  */
 package modele;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -22,7 +23,7 @@ import javax.persistence.Temporal;
  * @author Samuel
  */
 @Entity
-public class CartProduct {
+public class CartProduct implements Serializable {
     @Id
     @Column(name = "cartProduct_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

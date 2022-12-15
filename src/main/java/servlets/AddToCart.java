@@ -88,6 +88,7 @@ public class AddToCart extends HttpServlet {
         }
         Integer cID = cartDaoImpl.getCurrentCartIdByUserId(uID);
         List<CartProduct> cartList = cartProductDaoImpl.getAllCartProductsWithCartId(cID);
+
         
         JSONObject sampleObject = new JSONObject();
         sampleObject.put("cartListSize", cartList.size());

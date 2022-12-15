@@ -108,22 +108,6 @@ public class UserDaoImplTest {
     }
 
     /**
-     * Test of getUserIdByEmailPassword method, of class UserDaoImpl.
-     */
-    @Test
-    public void testGetUserIdByEmailPassword() {
-        System.out.println("getUserIdByEmailPassword");
-        // set up for test
-        User userSet = new User("user", "test", "test@mail.com");
-        userSet.setPassword("password");
-        boolean result = userDaoImpl.saveUser(userSet);
-        assertTrue("Set up for getUserIdByEmailPassword",result);
-        Integer resultId = userDaoImpl.getUserIdByEmailPassword(userSet.getEmail(), userSet.getPassword());
-        User user = userDaoImpl.getAllUsers().get(0);
-        assertEquals(user.getId(), resultId);
-    }
-
-    /**
      * Test of getAllUsers method, of class UserDaoImpl.
      */
     @Test

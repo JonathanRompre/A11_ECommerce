@@ -5,7 +5,6 @@
 package modele;
 
 import java.util.Objects;
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,8 +24,9 @@ public class User {
     private String lastName;
     @Column(unique=true)
     private String email;
-    private String password;
+    private byte[] password;
     private boolean suspended;
+    byte[] salt;
 
     public User() {
     }
@@ -41,7 +41,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        setPassword(password);
         this.suspended = suspended;
     }
 
@@ -50,7 +50,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        setPassword(password);
         this.suspended = suspended;
     }
     
@@ -95,12 +95,21 @@ public class User {
         this.suspended = suspended;
     }
 
-    public String getPassword() {
+    public byte[] getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+         this.salt = Passwords.getNextSalt();
+         this.password = Passwords.hash(password.toCharArray(), this.salt);
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
     }
 
     @Override
@@ -130,9 +139,6 @@ public class User {
             return false;
         }
         if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.password, other.password)) {
             return false;
         }
         return Objects.equals(this.id, other.id);

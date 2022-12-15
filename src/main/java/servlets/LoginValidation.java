@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 import modele.CartProduct;
+import modele.Utilitaire;
 import org.json.simple.JSONObject;
 
 /**
@@ -50,10 +51,9 @@ public class LoginValidation extends HttpServlet {
         Integer id = null;
         boolean loginSuccess = false;
         if (emailExists) {
-            id = userDaoImpl.getUserIdByEmailPassword(email, password);
-            if (id == null) {
-            } else {
-                loginSuccess = true;
+            id = userDaoImpl.getUserIdFromEmail(email);
+            if (id != null) {
+                loginSuccess = Utilitaire.validateUserPassword(id, password);
                 request.setAttribute("authenticating", false);
             }
         }

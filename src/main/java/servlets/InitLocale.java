@@ -31,8 +31,8 @@ public class InitLocale extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Locale locale = request.getLocale();
-        
-        request.getSession().setAttribute("Locale", locale);
+        String language = locale.getLanguage()+"_"+locale.getCountry();
+        request.getSession().setAttribute("Locale", language);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
