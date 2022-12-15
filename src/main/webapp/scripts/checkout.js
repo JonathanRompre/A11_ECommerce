@@ -28,6 +28,8 @@ function validUpdateCart() {
         response = JSON.parse(requete.responseText);
         if (response.updateSucess == false) {
             alert("Quantity wasn't changed")
+        }else{
+            
         }
     }
 }
@@ -42,14 +44,31 @@ function deleteProduct(cpid) {
     requete.send();
 
 }
-
 function validDeleteProduct() {
     if ((requete.readyState === 4) && (requete.status === 200)) {
         response = JSON.parse(requete.responseText);
         if (response.updateSucess == false) {
             alert("Product wasn't deleted")
-        } else{
+        } else {
             location.reload();
         }
     }
+}
+
+$(document).ready(function(){
+    update_amounts();
+    $('.qty, .price').on('keyup keypress blur change', function() {
+        update_amounts();
+    });
+});
+function update_amounts(){
+    var sum = 0.0;
+        $('#cartTable > tbody  > tr').each(function() {
+            var qty = $(this).find('.qty').val();
+            var price = $(this).find('.price').text().replace("$","");
+            var amount = (qty*price)
+            sum+=amount;
+            $(this).find('.amount').text(''+amount.toFixed(2));
+        });
+    $('.total').text(sum.toFixed(2));
 }
