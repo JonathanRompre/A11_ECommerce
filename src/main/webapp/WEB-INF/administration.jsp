@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        // Liste des utilisateurs
+        // Liste des produits
     </body>
 </html>

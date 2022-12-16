@@ -64,4 +64,11 @@ class ConstantesDao {
     protected static final String GET_ALL_CART_PRODUCTS_FOR_CARTPRODUCT_ID = "SELECT * FROM CARTPRODUCT WHERE cartProduct_id = ";
     
     protected static final String GET_ALL_CART_PRODUCTS = "SELECT * FROM CARTPRODUCT";
+    
+    /// Admin
+    protected static final String IS_ADMIN_EXISTS = "SELECT COUNT(*) FROM ADMINISTRATOR";
+    
+    protected static final String IS_ADMIN_PASSWORD_SET = "SELECT COUNT(password) FROM ADMINISTRATOR WHERE password IS NOT NULL";
+    
+    protected static final String GET_ADMIN_PASSWORD = "SELECT password FROM ADMINISTRATOR";
 }

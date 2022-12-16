@@ -4,6 +4,7 @@
  */
 package servlets;
 
+import dao.AdminInit;
 import dao.ProductDaoImpl;
 import dao.UserDaoImpl;
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class ConfigDatabase extends HttpServlet {
         ProductDaoImpl productDaoImpl = new ProductDaoImpl();
         UserDaoImpl userDaoImpl = new UserDaoImpl();
         try{
+        AdminInit.initAdmin();
         //list of Product
         List<Product> productList = new ArrayList<Product>();
         Product product1 = new Product(6984, Constantes.TYPE_FOOD, "Chicken dry food for adult large breed dog", "dogFoodDry.jpg", 1, 74.99, Constantes.CATEGORIE_PRODUIT_CHIEN, true, true);

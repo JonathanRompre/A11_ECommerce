@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Samuel
  */
-public class CheckoutItem {
+public class CheckoutItem implements Serializable {
     
     public CartProduct cartProduct;
     public Product product;
@@ -39,6 +39,4 @@ public class CheckoutItem {
     public void setProduct(Product product) {
         this.product = product;
     }
-
-    
 }

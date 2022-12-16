@@ -15,10 +15,10 @@ import modele.User;
  */
 public interface IAdministratorDao  {
     /**
-     * Saves a new user to the database. New is defined by email. 
-     * No two accounts can have the same email. 
+     * Saves the password for an admin
      * @param administrator to save to the database
      * @return true if success, else false
      */
-    boolean saveUserPassword(Administrator administrator);
+    boolean saveAdminPassword(Administrator administrator);
+    
 }

@@ -225,7 +225,7 @@ public class ProductDaoImpl implements IProductDao {
         }
     }
 
-    @Override
+     @Override
     public List<Product> getProductListFromCustomFilter(String query) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<Product> products = new ArrayList<>();

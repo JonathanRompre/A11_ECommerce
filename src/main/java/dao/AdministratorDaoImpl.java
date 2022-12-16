@@ -21,7 +21,7 @@ public class AdministratorDaoImpl implements IAdministratorDao {
     }
 
     @Override
-    public boolean saveUserPassword(Administrator administrator) {
+    public boolean saveAdminPassword(Administrator administrator) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
