@@ -42,7 +42,7 @@
             </c:if>
         </nav>
     </div>
-    <div class="bg-secondary m-2 p-1 d-flex flex-row bannerImage">
+    <div class="bg-dark text-white m-2 p-1 d-flex flex-row bannerImage">
         <img src="<c:url value="/images/headerDog.jpg"/>" class="rounded-circle image" width="100" onclick="window.location='Accueil'"/>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <h1 class="align-self-center">Jo & Sam Petstore</h1> 
