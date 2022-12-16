@@ -4,7 +4,6 @@
  */
 package modele;
 
-import java.io.Serializable;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -12,7 +11,7 @@ import java.util.TreeSet;
  *
  * @author Jon
  */
-public class Category implements Serializable{
+public class Category {
     private String name;
     private Set<ItemCategorie> items;
 
