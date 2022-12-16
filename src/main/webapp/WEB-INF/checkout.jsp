@@ -60,7 +60,5 @@
             <br>
         </div>
     </body>
-    <footer>
-        <jsp:include page="/WEB-INF/footer.jsp"/>
-    </footer>
+    <jsp:include page="/WEB-INF/footer.jsp"/>
 </html>

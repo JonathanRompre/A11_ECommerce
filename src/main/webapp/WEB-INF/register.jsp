@@ -26,31 +26,32 @@
                         <label for="firstName" class="col-3 offset-1"><fmt:message key="firstName"/>:</label>
                         <input type="text" class="col-5" required name="firstName" id="firstName" value="" placeholder="<fmt:message key="firstName"/>"/>
                     </div>
-                    
+
                     <div class="m-2">
                         <label for="lastName" class="col-3 offset-1"><fmt:message key="lastName"/>:</label>
                         <input type="text" class="col-5" required name="lastName" id="lastName" value="" placeholder="<fmt:message key="lastName"/>"/>
                     </div>
-                    
+
                     <div class="m-2">
                         <label for="email" class="col-3 offset-1"><fmt:message key="email"/>:</label>
                         <input type="text" class="col-5" required name="email" id="email" value="" placeholder="<fmt:message key="email"/>"/>
                     </div>
-                    
+
                     <div class="m-2">
                         <label for="password" class="col-3 offset-1"><fmt:message key="password"/>:</label>
                         <input type="password" class="col-5" required name="password" id="password" value="" placeholder="<fmt:message key="password"/>"/>
                     </div>
-                    
+
                     <div class="m-2">
                         <label for="passwordConfirm" class="col-3 offset-1"><fmt:message key="confirm"/>:</label>
                         <input type="password" class="col-5" required name="passwordConfirm" id="passwordConfirm" value="" placeholder="<fmt:message key="confirmPassword"/>"/><br>
                     </div>
-                    
+
                     <button type="submit" class="btn btn-dark col-2 offset-1"><fmt:message key="register"/></button>
                 </form>
             </div>
             <a href="Accueil" class="btn btn-light m-2 border"> <fmt:message key="homePage" /></a>
         </div>
     </body>
+    <jsp:include page="/WEB-INF/footer.jsp"/>
 </html>

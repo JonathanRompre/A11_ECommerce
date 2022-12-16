@@ -11,8 +11,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     cursor: pointer;
 }
 
+.header-footer{
+    background:#263238;
+}
+
 .footer{
-background:#263238;
 padding:30px 0px;
 font-family: 'Play', sans-serif;
 text-align:center;

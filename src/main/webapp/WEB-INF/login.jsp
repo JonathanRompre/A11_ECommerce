@@ -44,4 +44,5 @@
             <a href="Accueil" class="btn btn-light m-1">Retour à l'accueil</a>
         </div>
     </body>
+    <jsp:include page="/WEB-INF/footer.jsp"/>
 </html>
