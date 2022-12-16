@@ -33,7 +33,7 @@
             <div class="container col-11 m-2">
                 <div class="row">
                     <div class="col-2" >
-                        <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick="filter('/A11_TP2/CreateFilters?')"/>
+                        <input type="button" class="quickview btn btn-info col-12 mt-2" value="Clear" id="btnClear" onclick="filter('/CreateFilters?')"/>
                         <div id="filterContainer">
 
                         </div>

@@ -46,7 +46,7 @@ function setProducts() {
 }
 
 $(function () {
-    filter("/A11_TP2/CreateFilters?");
+    filter("/CreateFilters?");
 });
 
 function addToCart(productID) {

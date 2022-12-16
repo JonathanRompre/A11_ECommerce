@@ -4,25 +4,18 @@
  */
 package servlets;
 
-import dao.ProductDaoImpl;
-import dao.UserDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.Product;
-import modele.User;
 
 /**
  *
- * @author Samuel
  * @author Jon
  */
-public class CreateProductList extends HttpServlet {
+public class ViewAccueil extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,21 +29,7 @@ public class CreateProductList extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ProductDaoImpl productDaoImpl = new ProductDaoImpl();
-
-        List<Product> listProduct = productDaoImpl.getAllProducts();
-        
-        if(request.getSession().getAttribute("uid") != null){
-            UserDaoImpl userDaoImpl = new UserDaoImpl();
-            Integer id = (int) request.getSession().getAttribute("uid");
-            User user = userDaoImpl.getUserById(id);
-            request.setAttribute("user", user);
-        }
-        
-        request.getSession().setAttribute("listProduct", listProduct);
-
-        RequestDispatcher disp = getServletContext().getRequestDispatcher("/acceuil.jsp");
-        disp.forward(request, response);
+        request.getRequestDispatcher("/acceuil.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
