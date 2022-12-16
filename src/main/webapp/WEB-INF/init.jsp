@@ -14,6 +14,6 @@
     <body>
         <jsp:include page="../ConfigDatabase"/>
         <jsp:include page="../InitLocale"/>
-        <jsp:forward page="../acceuil.jsp"/>
+        <jsp:forward page="../Accueil"/>
     </body>
 </html>

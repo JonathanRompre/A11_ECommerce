@@ -61,6 +61,10 @@
         <servlet-class>servlets.Checkout</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ViewProfile</servlet-name>
+        <servlet-class>servlets.ViewProfile</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UpdateCartQuantity</servlet-name>
         <servlet-class>servlets.UpdateCartQuantity</servlet-class>
     </servlet>
@@ -71,6 +75,11 @@
     <servlet>
         <servlet-name>Invoice</servlet-name>
         <servlet-class>servlets.Invoice</servlet-class>
+        </servlet>
+        <servlet>
+        <servlet-name>ProfileUpdate</servlet-name>
+        <servlet-class>servlets.ProfileUpdate</servlet-class>
+        </servlet>
     </servlet>
     <servlet-mapping>
         <servlet-name>ConfigDatabase</servlet-name>
@@ -133,6 +142,10 @@
         <url-pattern>/Checkout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ViewProfile</servlet-name>
+        <url-pattern>/ViewProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UpdateCartQuantity</servlet-name>
         <url-pattern>/UpdateCartQuantity</url-pattern>
     </servlet-mapping>
@@ -143,6 +156,11 @@
     <servlet-mapping>
         <servlet-name>Invoice</servlet-name>
         <url-pattern>/Invoice</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+        <servlet-name>ProfileUpdate</servlet-name>
+        <url-pattern>/ProfileUpdate</url-pattern>
+</servlet-mapping>
     </servlet-mapping>
     <session-config>
         <session-timeout>

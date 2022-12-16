@@ -34,6 +34,9 @@
                     </c:when>
                     <c:otherwise>
                         <a class="btn btn-light " role="button" href="Logout">Log out</a>
+                        <c:if test="${not pageContext.request.requestURI.endsWith('/profile.jsp')}">
+                            <img src="<c:url value="/images/profileIcon.png"/>" class="rounded-circle linkImage mx-1" width="35" onclick="window.location='ViewProfile'"/>
+                        </c:if>
                         <a class="btn btn-light" href="Checkout">Cart 
                             <span id="cartSize" class="badge badge-danger"></span>
                         </a>
