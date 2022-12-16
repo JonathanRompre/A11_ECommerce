@@ -24,7 +24,7 @@
                 <jsp:include page="/WEB-INF/banner.jsp"/>
             </div>
             <div class="container my-3 table-responsive">
-              <div class="d-flex py-3"><h3>Total Price: <span id="total" class="total">0</span> $ </h3> <a  class="mx-3 btn btn-primary" href="Invoice"onclick="return confirm('Are you sure you want to checkout this cart?');window.location.reload()">Check Out</a></div>
+                <div class="d-flex py-3"><h3>Total Price: <span id="total" class="total">0</span> $ </h3> <button class="mx-3 btn btn-primary" onclick="produceInvoice(confirm('Are you sure you want to checkout this cart?'))">Check Out</button>  </div>
                 <table id="cartTable" class="table table-light text-center ">
                     <thead>
                         <tr>

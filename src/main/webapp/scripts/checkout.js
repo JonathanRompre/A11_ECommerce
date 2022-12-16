@@ -72,7 +72,13 @@ function update_amounts() {
     });
     $('.total').text(sum.toFixed(2));
 }
-if(!!window.performance && window.performance.navigation.type == 2)
-{
-    window.location.reload();
+
+function produceInvoice(confirmed){
+    if(confirmed){
+        window.open("Invoice");
+        setTimeout(function(){
+            window.location.href = "Accueil";
+        }, 50);
+    }
+    
 }

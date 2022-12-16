@@ -47,8 +47,8 @@ public class Invoice extends HttpServlet {
         response.setContentType("application/pdf");
         OutputStream out = response.getOutputStream();
         Document document = new Document();
-
         try {
+            request.getSession().setAttribute("cartList", 0);
             PdfWriter.getInstance(document, out);
             document.open();
             CartDaoImpl cartDaoImpl = new CartDaoImpl();

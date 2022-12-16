@@ -38,7 +38,7 @@
                             <img src="<c:url value="/images/profileIcon.png"/>" class="rounded-circle linkImage mx-1" width="35" onclick="window.location='ViewProfile'"/>
                         </c:if>
                         <a class="btn btn-light" href="Checkout">Cart 
-                            <span id="cartSize" class="badge badge-danger"></span>
+                            <span id="cartSize" class="badge badge-danger">${sessionScope.cartList}</span>
                         </a>
                     </c:otherwise>
                 </c:choose>
