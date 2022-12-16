@@ -27,9 +27,13 @@
                 <div class="d-flex py-3">
                     <h3>Total Price: <span id="total" class="total">0</span> $ </h3>
                     <c:if test="${sessionScope.cartList > 0}">
-                        <button class="mx-3 btn btn-primary" onclick="produceInvoice(confirm('Are you sure you want to checkout this cart?'))">Check Out</button>  
+                        <button class="mx-3 btn btn-info" onclick="produceInvoice(confirm('Are you sure you want to checkout this cart?'))">Check Out</button>  
                     </c:if>
                 </div>
+                <div>
+                    <a href="Accueil" class="btn btn-light m-1">Continue shopping</a>
+                </div>
+                <br>
                 <table id="cartTable" class="table table-light text-center ">
                     <thead>
                         <tr>
