@@ -28,8 +28,8 @@ function validUpdateCart() {
         response = JSON.parse(requete.responseText);
         if (response.updateSucess == false) {
             alert("Quantity wasn't changed")
-        } else {
-
+        }else{
+            
         }
     }
 }
@@ -55,24 +55,20 @@ function validDeleteProduct() {
     }
 }
 
-$(document).ready(function () {
+$(document).ready(function(){
     update_amounts();
-    $('.qty, .price').on('keyup keypress blur change', function () {
+    $('.qty, .price').on('keyup keypress blur change', function() {
         update_amounts();
     });
 });
-function update_amounts() {
+function update_amounts(){
     var sum = 0.0;
-    $('#cartTable > tbody  > tr').each(function () {
-        var qty = $(this).find('.qty').val();
-        var price = $(this).find('.price').text().replace("$", "");
-        var amount = (qty * price)
-        sum += amount;
-        $(this).find('.amount').text('' + amount.toFixed(2));
-    });
+        $('#cartTable > tbody  > tr').each(function() {
+            var qty = $(this).find('.qty').val();
+            var price = $(this).find('.price').text().replace("$","");
+            var amount = (qty*price)
+            sum+=amount;
+            $(this).find('.amount').text(''+amount.toFixed(2));
+        });
     $('.total').text(sum.toFixed(2));
-}
-if(!!window.performance && window.performance.navigation.type == 2)
-{
-    window.location.reload();
 }

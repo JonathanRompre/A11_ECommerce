@@ -20,12 +20,12 @@ public class Product implements Serializable {
     @Id
     @Column(name = "product_id")
     private Integer id;
-    public String type;
+    private String type;
     private String description;
     private String imageName;
     private Integer quantity;
     private double price;
-    public String categorie;
+    private String categorie;
     private boolean active;
     @Column(name = "recurrent_possible")
     private boolean recurrentPossible;
