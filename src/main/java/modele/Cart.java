@@ -4,6 +4,7 @@
  */
 package modele;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -22,7 +23,7 @@ import javax.persistence.OneToOne;
  * @author Samuel
  */
 @Entity
-public class Cart {
+public class Cart implements Serializable{
     @Id
     @Column (name = "panier_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
