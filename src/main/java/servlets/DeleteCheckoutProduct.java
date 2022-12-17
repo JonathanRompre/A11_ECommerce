@@ -4,7 +4,9 @@
  */
 package servlets;
 
+import dao.CartDaoImpl;
 import dao.CartProductDaoImpl;
+import dao.UserDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -33,10 +35,16 @@ public class DeleteCheckoutProduct extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         CartProductDaoImpl cartProductDaoImpl = new CartProductDaoImpl();
+        CartDaoImpl cartDaoImpl = new CartDaoImpl();
 
+        Integer uid = (Integer) request.getSession().getAttribute("uid");
         String cpid = request.getParameter("cpid");
         boolean deleteSucess = cartProductDaoImpl.deleteCartProductById(Integer.parseInt(cpid));
 
+        int cartId = cartDaoImpl.getCurrentCartIdByUserId(uid);
+        int cartSize = cartProductDaoImpl.getAllCartProductsWithCartId(cartId).size();
+        request.getSession().setAttribute("cartList", cartSize);
+        
         JSONObject sampleObject = new JSONObject();
         sampleObject.put("deleteSucess", deleteSucess);
         PrintWriter out = response.getWriter();

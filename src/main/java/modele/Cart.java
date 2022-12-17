@@ -23,7 +23,7 @@ import javax.persistence.OneToOne;
  * @author Samuel
  */
 @Entity
-public class Cart implements Serializable {
+public class Cart implements Serializable{
     @Id
     @Column (name = "panier_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

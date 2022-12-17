@@ -39,9 +39,6 @@ public class UpdateCartQuantity extends HttpServlet {
         String cpid = request.getParameter("cpid");
         String cpqty = request.getParameter("cpqty");
         boolean updateSucess = cartProductDaoImpl.updateCartProductQuantityById(Integer.parseInt(cpid), Integer.parseInt(cpqty));
-        System.out.println("---------------------");
-        System.out.println(cpid+"  -  "+cpqty);
-        System.out.println("---------------------");
         JSONObject sampleObject = new JSONObject();
         sampleObject.put("qty", Integer.parseInt(cpqty));
         

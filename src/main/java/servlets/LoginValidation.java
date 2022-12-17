@@ -63,7 +63,7 @@ public class LoginValidation extends HttpServlet {
         
         Integer cID = cartDaoImpl.getCurrentCartIdByUserId(id);
         List<CartProduct> cartList = cartProductDaoImpl.getAllCartProductsWithCartId(cID);
-        session.setAttribute("cartList", cartList);
+        session.setAttribute("cartList", cartList.size());
        
         JSONObject sampleObject = new JSONObject();
         sampleObject.put("emailExists", emailExists);

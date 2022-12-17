@@ -4,6 +4,7 @@
  */
 package modele;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ import javax.persistence.Id;
  * @author Jon
  */
 @Entity
-public class User {
+public class User implements Serializable {
     @Id
     @Column(name = "user_id")
     @GeneratedValue

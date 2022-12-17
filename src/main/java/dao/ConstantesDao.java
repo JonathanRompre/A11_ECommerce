@@ -53,7 +53,7 @@ class ConstantesDao {
     protected static final String SET_CART_CURRENT_FALSE_FOR_USER_ID = "UPDATE CART SET current = 0 WHERE user_id = ";
     
     //HQL
-    protected static final String GET_CURRENT_CART_EXISTS_FOR_USER_ID_HQL = "SELECT c.current FROM Cart c WHERE c.user.id = :id";
+    protected static final String GET_CURRENT_CART_EXISTS_FOR_USER_ID_HQL = "SELECT c.current FROM Cart c WHERE c.user.id = :id AND c.current = true";
     
     ///Config database
     protected static final String PRODUCT_EXIST = "SELECT description FROM product where description = :description";

@@ -40,7 +40,7 @@
 
                         </c:when>
                         <c:otherwise>
-                            <button type="button" class="quickview btn btn-secondary col-12 mt-2" onclick="alert('Please login in before adding an item to the cart.')">Add to cart</button>
+                            <button type="button" class="quickview btn btn-secondary col-12 mt-2" onclick="alert('Please log in before adding an item to the cart.')">Add to cart</button>
                         </c:otherwise>
                     </c:choose>
                 </div>

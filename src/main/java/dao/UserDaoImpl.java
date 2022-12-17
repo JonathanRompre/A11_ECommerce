@@ -256,7 +256,6 @@ public class UserDaoImpl implements IUserDao {
         Integer id;
         try{
             entityManager.getTransaction().begin();
-            System.out.println(ConstantesDao.GET_USER_ID_FROM_EMAIL + email);
             List<Integer> tmp = entityManager.createNativeQuery(ConstantesDao.GET_USER_ID_FROM_EMAIL + "'"+email+"'").getResultList();
             id = tmp.get(0);
             entityManager.getTransaction().commit();

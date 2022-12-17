@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Samuel
  */
-public class CheckoutItem implements Serializable {
+public class CheckoutItem implements Serializable{
     
     public CartProduct cartProduct;
     public Product product;

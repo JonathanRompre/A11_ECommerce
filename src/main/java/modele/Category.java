@@ -12,7 +12,7 @@ import java.util.TreeSet;
  *
  * @author Jon
  */
-public class Category implements Serializable {
+public class Category implements Serializable{
     private String name;
     private Set<ItemCategorie> items;
 

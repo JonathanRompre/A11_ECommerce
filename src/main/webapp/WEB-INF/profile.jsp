@@ -49,7 +49,8 @@
                     <button type="button" value="profile" id="saveProfile" class="btn btn-outline-secondary" onclick="updateProfile()">Save changes</button>
                 </div>
             </fieldset>
-            <button type="button" value="Home" class="btn btn-light" onclick="window.location.href='Accueil'">Return to home page.</button>
+            <button type="button" value="Home" class="btn btn-light" onclick="window.location.href = 'Accueil'">Return to home page.</button>
         </div>
     </body>
+    <jsp:include page="/WEB-INF/footer.jsp"/>
 </html>

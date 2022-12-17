@@ -46,12 +46,12 @@ function setProducts() {
 }
 
 $(function () {
-    filter("/A11_TP2/CreateFilters?");
+    filter("/CreateFilters?");
 });
 
 function addToCart(productID) {
     requete = new XMLHttpRequest();
-    requete.onreadystatechange = validAddToCArt;
+    requete.onreadystatechange = validAddToCart;
     url = "AddToCart?pid=" + productID;
     requete.open("GET", url, true);
 
@@ -60,7 +60,7 @@ function addToCart(productID) {
     requete.send();
 }
 
-function validAddToCArt() {
+function validAddToCart() {
     if ((requete.readyState === 4) && (requete.status === 200)) {
         response = JSON.parse(requete.responseText);
         if (response.addToCartSucess == true) {

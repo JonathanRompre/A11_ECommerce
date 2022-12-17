@@ -38,15 +38,15 @@
                             <img src="<c:url value="/images/profileIcon.png"/>" class="rounded-circle linkImage mx-1" width="35" onclick="window.location='ViewProfile'"/>
                         </c:if>
                         <a class="btn btn-light" href="Checkout">Cart 
-                            <span id="cartSize" class="badge badge-danger"></span>
+                            <span id="cartSize" class="badge badge-danger">${sessionScope.cartList}</span>
                         </a>
                     </c:otherwise>
                 </c:choose>
             </c:if>
         </nav>
     </div>
-    <div class="bg-secondary m-2 p-1 d-flex flex-row bannerImage">
-        <img src="<c:url value="/images/headerDog.jpg"/>" class="rounded-circle linkImage" width="100" onclick="window.location='Accueil'"/>
+    <div class="text-white m-2 p-1 d-flex flex-row bannerImage header-footer">
+        <img src="<c:url value="/images/headerDog.jpg"/>" class="rounded-circle image" width="100" onclick="window.location='Accueil'"/>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <h1 class="align-self-center">Jo & Sam Petstore</h1> 
     </div>
