@@ -8,21 +8,21 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 
 ## Actions possibles
 ### Sans connexion
-- Création d'un compte utilisateur
-- Login compte utilisateur
-- Visionner le catalogue des produits
+- DONE - Création d'un compte utilisateur
+- DONE - Login compte utilisateur
+- DONE - Visionner le catalogue des produits
 - Initialiser un compte administrateur (à la première utilisation)
 - Login compte administrateur
 
 ### Avec connexion utilisateur
-- Ajouter des items au panier
-- Supprimer des items du panier
-- Sauvegarder un panier
-- Visionner le panier
+- DONE - Ajouter des items au panier
+- DONE - Supprimer des items du panier
+- DONE - Sauvegarder un panier
+- DONE - Visionner le panier
 - créer une liste d'achats récurrents
-- visionner le profil
+- DONE - visionner le profil
 - supprimer le compte
-- changer le mot de passe
+- DONE - changer le mot de passe
 
 ### Avec connexion admin
 - Visionner la liste des produits
@@ -85,15 +85,15 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 
 ## Pages
 ### Accueil
-- Login (link)
-- Logout (link)
-- Profile (link)
-- Panier (sidebar + full view?) (on page + link) - delay for if time allows
-- Affichage des produits
+- DONE - Login (link)
+- DONE - Logout (link)
+- DONE - Profile (link)
+- PARTIAL - Panier (sidebar + full view?) (on page + link) - delay for if time allows
+- DONE - Affichage des produits
 
 ### Login
-- Input username/password
-- créer compte (link)
+- DONE - Input username/password
+- DONE - créer compte (link)
 - recover pw ? (link) - delay for if time allows
 
 ### Admin
@@ -101,16 +101,16 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 - Visionner la liste des produits
 
 ### Profile
-- Infos utilisateur
-- pw actuel - nouveau pw (pour changer le pw)
-- Modification des autres infos?
+- DONE - Infos utilisateur
+- DONE - pw actuel - nouveau pw (pour changer le pw)
+- DONE - Modification des autres infos?
 
 ### Créer compte
-- Prénom
-- Nom
-- Couriel
-- Pw
-- Pw confirm
+- DONE - Prénom
+- DONE - Nom
+- DONE - Couriel
+- DONE - Pw
+- DONE - Pw confirm
 
 ### Produit
 - Nom produit
@@ -120,12 +120,12 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 - (Opt) Achat récurrent
 
 ### Panier
-- Liste des produits
-- Qté
-- Prix / Produit * qté
-- Prix total
-- Sauvegarder panier
-- Checkout (ne serait pas implémenté?)
+- DONE - Liste des produits
+- DONE - Qté
+- DONE - Prix / Produit * qté
+- DONE - Prix total
+- DONE - Sauvegarder panier
+- DONE - Checkout (ne serait pas implémenté?)
 - Historique des paniers
 <br>
 
