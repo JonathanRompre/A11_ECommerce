@@ -21,11 +21,13 @@ public class AdministratorDaoImpl implements IAdministratorDao {
     }
 
     @Override
-    public boolean saveAdminPassword(Administrator administrator) {
+    public boolean saveAdminPassword(String password) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(administrator);
+            Administrator admin = (Administrator) entityManager.createNativeQuery("SELECT * FROM ADMINISTRATOR").getResultList().get(0);
+            admin.setPassword(password);
+            entityManager.persist(admin);
             entityManager.getTransaction().commit();
             return true;
         } catch (Exception e) {
@@ -34,6 +36,40 @@ public class AdministratorDaoImpl implements IAdministratorDao {
             e.printStackTrace();
             return false;
         } finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public byte[] getAdminPassword() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            byte[] password = (byte[]) entityManager.createNativeQuery("SELECT password FROM ADMINISTRATOR").getResultList().get(0);
+            entityManager.getTransaction().commit();
+            return password;
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        }finally{
+            entityManager.close();
+        }
+    }
+ 
+    @Override
+    public byte[] getAdminSalt() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            byte[] salt = (byte[]) entityManager.createNativeQuery("SELECT salt FROM ADMINISTRATOR").getResultList().get(0);
+            entityManager.getTransaction().commit();
+            return salt;
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return null;
+        }finally{
             entityManager.close();
         }
     }

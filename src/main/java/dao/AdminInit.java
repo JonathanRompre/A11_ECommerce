@@ -35,9 +35,9 @@ public class AdminInit {
         try{
             entityManager.getTransaction().begin();
             
-            if((int)entityManager.createNativeQuery(ConstantesDao.IS_ADMIN_EXISTS).getResultList().get(0) == 0){ // check whether there's an admin.
+            if(((Integer)entityManager.createNativeQuery(ConstantesDao.IS_ADMIN_EXISTS).getResultList().get(0)) == 0){ // check whether there's an admin.
                 isInitialized = false;
-            }else if((int)entityManager.createNativeQuery(ConstantesDao.IS_ADMIN_PASSWORD_SET).getResultList().get(0) == 0){ // check whether the password is set for the admin account.
+            }else if(((Integer)entityManager.createNativeQuery(ConstantesDao.IS_ADMIN_PASSWORD_SET).getResultList().get(0)) == 0){ // check whether the password is set for the admin account.
                 isInitialized = false;
             }else{
                 isInitialized = true;

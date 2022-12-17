@@ -16,9 +16,21 @@ import modele.User;
 public interface IAdministratorDao  {
     /**
      * Saves the password for an admin
-     * @param administrator to save to the database
+     * @param password String of the new password
      * @return true if success, else false
      */
-    boolean saveAdminPassword(Administrator administrator);
+    boolean saveAdminPassword(String password);
+    
+    /**
+     * Retrieves hashed value of the admin password.
+     * @return byte array representing hashed value of the admin password.
+     */
+    byte[] getAdminPassword();
+    
+    /**
+     * Retrieves the salt used to hash the password from the database.
+     * @return byte array representing the salt.
+     */
+    byte[] getAdminSalt();
     
 }

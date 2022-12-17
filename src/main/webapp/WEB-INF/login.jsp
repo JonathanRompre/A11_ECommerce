@@ -42,6 +42,7 @@
             </fieldset>
             <a href="Register" class="btn btn-light m-1">Register</a><br>
             <a href="Accueil" class="btn btn-light m-1">Retour à l'accueil</a>
+            <a href="ViewAdminPage" class="float-right">Administration</a>
         </div>
     </body>
     <jsp:include page="/WEB-INF/footer.jsp"/>

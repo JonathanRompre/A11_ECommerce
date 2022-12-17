@@ -4,20 +4,27 @@
  */
 package servlets;
 
-import dao.UserDaoImpl;
+import dao.CartDaoImpl;
+import dao.CartProductDaoImpl;
+import dao.ProductDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.User;
+import javax.servlet.http.HttpSession;
+import modele.CartProduct;
+import modele.Product;
+import modele.CheckoutItem;
 
 /**
  *
- * @author Jon
+ * @author Samuel
  */
-public class RegisterValidation extends HttpServlet {
+public class ViewCheckout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,38 +38,32 @@ public class RegisterValidation extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        UserDaoImpl userDaoImpl = new UserDaoImpl();
-
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
-        String pw = request.getParameter("password");
-        String pwConfirm = request.getParameter("passwordConfirm");
-
-        //check for email already exists
-        boolean emailExists = userDaoImpl.userEmailExists(email);
-        boolean registrationSucces = false;
-        boolean passwordsMatch = pw.equals(pwConfirm);
-        if (emailExists) {
-        } else {
-            if (passwordsMatch) {
-                User user = new User(firstName, lastName, email);
-                user.setPassword(pw);
-                registrationSucces = userDaoImpl.saveUser(user);
-                if (registrationSucces) {
-                    request.setAttribute("authenticating", false);
-                }
-            }
+        CartDaoImpl cartDaoImpl = new CartDaoImpl();
+        CartProductDaoImpl cartProductDaoImpl = new CartProductDaoImpl();
+        ProductDaoImpl productDaoImpl = new ProductDaoImpl();
+        
+        
+        HttpSession session = request.getSession();
+        Integer uID = (Integer) session.getAttribute("uid");
+        Integer cID = cartDaoImpl.getCurrentCartIdByUserId(uID);
+                
+        List<CartProduct> cartProductsList = cartProductDaoImpl.getAllCartProductsWithCartId(cID);
+        List<CheckoutItem> listCheckoutItems = new ArrayList<>();
+        
+        for (CartProduct cartProduct : cartProductsList) {
+            Product product  = cartProduct.getProduct();
+            CheckoutItem checkoutItem = new CheckoutItem(cartProduct, product);
+            listCheckoutItems.add(checkoutItem);
         }
-        String url;
-        if (emailExists || (registrationSucces != true)) {
-            url = "Request";
-        }else{
-            url = "Login";
-        }
-        request.getRequestDispatcher(url).include(request, response);
-        //response.sendRedirect(url);
+        
+        session.setAttribute("checkoutList", listCheckoutItems);
+                    
+        
+        request.getRequestDispatcher("/WEB-INF/checkout.jsp").forward(request, response);
     }
+    
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -102,4 +103,5 @@ public class RegisterValidation extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

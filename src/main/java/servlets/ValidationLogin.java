@@ -6,25 +6,27 @@ package servlets;
 
 import dao.CartDaoImpl;
 import dao.CartProductDaoImpl;
-import dao.ProductDaoImpl;
+import dao.UserDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 import modele.CartProduct;
-import modele.Product;
-import modele.CheckoutItem;
+import modele.Utilitaire;
+import org.json.simple.JSONObject;
 
 /**
  *
- * @author Samuel
+ * @author Jon
  */
-public class Checkout extends HttpServlet {
+public class ValidationLogin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,33 +39,43 @@ public class Checkout extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        CartDaoImpl cartDaoImpl = new CartDaoImpl();
+        UserDaoImpl userDaoImpl = new UserDaoImpl();
+        CartDaoImpl cartDaoImpl= new CartDaoImpl();
         CartProductDaoImpl cartProductDaoImpl = new CartProductDaoImpl();
-        ProductDaoImpl productDaoImpl = new ProductDaoImpl();
         
-        
-        HttpSession session = request.getSession();
-        Integer uID = (Integer) session.getAttribute("uid");
-        Integer cID = cartDaoImpl.getCurrentCartIdByUserId(uID);
-                
-        List<CartProduct> cartProductsList = cartProductDaoImpl.getAllCartProductsWithCartId(cID);
-        List<CheckoutItem> listCheckoutItems = new ArrayList<>();
-        
-        for (CartProduct cartProduct : cartProductsList) {
-            Product product  = cartProduct.getProduct();
-            CheckoutItem checkoutItem = new CheckoutItem(cartProduct, product);
-            listCheckoutItems.add(checkoutItem);
+
+        response.setContentType("text/html;charset=UTF-8");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        boolean emailExists = userDaoImpl.userEmailExists(email);
+        Integer id = null;
+        boolean loginSuccess = false;
+        if (emailExists) {
+            id = userDaoImpl.getUserIdFromEmail(email);
+            if (id != null) {
+                loginSuccess = Utilitaire.validateUserPassword(id, password);
+                request.setAttribute("authenticating", false);
+            }
         }
+        HttpSession session = request.getSession();
+        session.setAttribute("uid", id);
+        session.setMaxInactiveInterval(30 * 60);
         
-        session.setAttribute("checkoutList", listCheckoutItems);
-                    
-        
-        request.getRequestDispatcher("/WEB-INF/checkout.jsp").forward(request, response);
+        Integer cID = cartDaoImpl.getCurrentCartIdByUserId(id);
+        List<CartProduct> cartList = cartProductDaoImpl.getAllCartProductsWithCartId(cID);
+        session.setAttribute("cartList", cartList.size());
+       
+        JSONObject sampleObject = new JSONObject();
+        sampleObject.put("emailExists", emailExists);
+        sampleObject.put("loginSuccess", loginSuccess);
+
+        PrintWriter out = response.getWriter();
+        try {
+            out.print(sampleObject.toString());
+        } finally {
+            out.close();
+        }
     }
-    
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

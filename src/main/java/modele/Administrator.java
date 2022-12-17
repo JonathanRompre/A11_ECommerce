@@ -14,17 +14,19 @@ import javax.persistence.Id;
  */
 @Entity
 public class Administrator {
-@Id
-@Column(name = "admin_id")
-private Integer id;
-private String password;
+
+    @Id
+    @Column(name = "admin_id")
+    private Integer id;
+    private byte[] password;
+    private byte[] salt;
 
     public Administrator() {
     }
 
     public Administrator(Integer id, String password) {
         this.id = id;
-        this.password = password;
+        setPassword(password);
     }
 
     public Integer getId() {
@@ -35,12 +37,13 @@ private String password;
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
+    public void setPassword(String password) {
+        salt = Passwords.getNextSalt();
+        this.password = Passwords.hash(password.toCharArray(), salt);
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public byte[] getSalt() {
+        return salt;
     }
 
     @Override
@@ -48,6 +51,4 @@ private String password;
         return "Administrator{" + "id=" + id + ", password=" + password + '}';
     }
 
-
 }
-
