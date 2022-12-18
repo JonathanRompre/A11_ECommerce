@@ -236,6 +236,10 @@ public class Utilitaire {
                 return 3;
             case Constantes.TYPE_TREAT:
                 return 4;
+            case Constantes.AVAILABILITY_AVAILABLE:
+                return 1;
+            case Constantes.AVAILABILITY_NOT_AVAILABLE:
+                return 2;
             default:
                 return 0;
         }

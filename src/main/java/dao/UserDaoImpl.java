@@ -268,4 +268,24 @@ public class UserDaoImpl implements IUserDao {
             entityManager.close();
         }
     }
+
+    @Override
+    public boolean isUserSuspended(Integer id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            List<Boolean> tmp = entityManager.createNativeQuery("SELECT suspended FROM USER WHERE user_id = "+id).getResultList();
+            if(tmp.isEmpty())
+                return true;
+            boolean suspended = tmp.get(0);
+            entityManager.getTransaction().commit();
+            return suspended;
+        }catch(Exception e){
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+            return true;
+        }finally{
+            entityManager.close();
+        }
+    }
 }

@@ -24,6 +24,12 @@ public class Administrator {
     public Administrator() {
     }
 
+    public Administrator(Integer id, byte[] password, byte[] salt) {
+        this.id = id;
+        this.password = password;
+        this.salt = salt;
+    }
+
     public Administrator(Integer id, String password) {
         this.id = id;
         setPassword(password);

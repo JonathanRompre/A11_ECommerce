@@ -12,7 +12,7 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 - DONE - Login compte utilisateur
 - DONE - Visionner le catalogue des produits
 - Initialiser un compte administrateur (à la première utilisation)
-- Login compte administrateur
+- DONE - Login compte administrateur
 
 ### Avec connexion utilisateur
 - DONE - Ajouter des items au panier
@@ -25,13 +25,13 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 - DONE - changer le mot de passe
 
 ### Avec connexion admin
-- Visionner la liste des produits
+- DONE - Visionner la liste des produits
 - Modifier la disponibilité des produits (?)
 - Modifier le prix d'un produit
-- Ajouter un produit
-- Désactiver un produit
-- Visionner les utilisateurs
-- Suspendre un utilisateur
+- DONE - Ajouter un produit
+- DONE - Désactiver un produit
+- DONE - Visionner les utilisateurs
+- DONE - Suspendre un utilisateur
 <br>
 
 ## Tables
@@ -97,8 +97,8 @@ Le projet consiste en un site web proposant des produits pour chiens et chats. L
 - recover pw ? (link) - delay for if time allows
 
 ### Admin
-- Visionner la liste des utilisateurs
-- Visionner la liste des produits
+- DONE - Visionner la liste des utilisateurs
+- DONE - Visionner la liste des produits
 
 ### Profile
 - DONE - Infos utilisateur

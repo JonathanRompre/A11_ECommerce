@@ -38,13 +38,13 @@ public class ViewAdminPage extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         ProductDaoImpl productDaoImpl = new ProductDaoImpl();
+        AdministratorDaoImpl adi = new AdministratorDaoImpl();
         UserDaoImpl userDaoImpl = new UserDaoImpl();
         if (action != null) {
             boolean isAdmin = false;
             if ((request.getSession().getAttribute("adminAuth") == null) || ((boolean) request.getSession().getAttribute("adminAuth") == false)) {
                 request.getSession().setAttribute("adminAuth", false);
                 if (action.equals("auth")) {
-                    AdministratorDaoImpl adi = new AdministratorDaoImpl();
                     isAdmin = Passwords.isExpectedPassword(request.getParameter("adminPass").toCharArray(), adi.getAdminSalt(), adi.getAdminPassword());
                     request.getSession().setAttribute("adminAuth", isAdmin);
                 }
@@ -53,30 +53,47 @@ public class ViewAdminPage extends HttpServlet {
                 if (request.getParameter("id") != null) {
                     id = Integer.parseInt(request.getParameter("id"));
                 }
-                if (action.contains("activateProduct")) {
-                    Product p = productDaoImpl.getProductById(id);
-                    p.setActive(!action.contains("deactivate"));
-                    productDaoImpl.updateProduct(p);
-                } else if (action.contains("activateUser")) {
-                    User u = userDaoImpl.getUserById(id);
-                    u.setSuspended(action.contains("deactivate"));
-                    userDaoImpl.updateUser(u);
-                } else if (action.equals("exit")) {
-                    request.getSession().setAttribute("adminAuth", false);
-                } else if (action.equals("addProduct")){
-                    String category = request.getParameter("category");
-                    String type = request.getParameter("type");
-                    String description = request.getParameter("description");
-                    double unitPrice = Double.parseDouble(request.getParameter("unitPrice"));
-                    int stock = Integer.parseInt(request.getParameter("stock"));
-                    String image = request.getParameter("image");
-                    try{
-                        Product p = new Product(5489, type, description, image, stock, unitPrice, category, true, false);
-                        productDaoImpl.saveProduct(p);
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
+                switch(action){
+                    case "activateProduct":
+                        Product p = productDaoImpl.getProductById(id);
+                        p.setActive(!action.contains("deactivate"));
+                        productDaoImpl.updateProduct(p);
+                        break;
+                    case "activateUser":
+                        User u = userDaoImpl.getUserById(id);
+                        u.setSuspended(action.contains("deactivate"));
+                        userDaoImpl.updateUser(u);
+                        break;
+                    case "exit":
+                        request.getSession().setAttribute("adminAuth", false);
+                        break;
+                    case "addProduct":
+                        String category = request.getParameter("category");
+                        String type = request.getParameter("type");
+                        String description = request.getParameter("description");
+                        double unitPrice = Double.parseDouble(request.getParameter("unitPrice"));
+                        int stock = Integer.parseInt(request.getParameter("stock"));
+                        String image = request.getParameter("image");
+                        try{
+                            p = new Product(5489, type, description, image, stock, unitPrice, category, true, false);
+                            productDaoImpl.saveProduct(p);
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+                        break;
+                    case "changeAdminPass":
+                        String pass1 = request.getParameter("adminPassChange");
+                        String pass2 = request.getParameter("adminPassChangeConfirm");
+                        if(pass1.equals(pass2)){
+                            boolean success = adi.saveAdminPassword(pass1);
+                            request.setAttribute("saveSuccess", success);
+                        }
+                    case "deleteProduct":
+                        p = productDaoImpl.getProductById(id);
+                        productDaoImpl.deleteProduct(p);
+                        break;
                 }
+
             }
         }
 

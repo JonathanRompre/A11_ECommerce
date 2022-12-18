@@ -113,4 +113,10 @@ public interface IUserDao {
      * @return true on success, else false.
      */
     boolean deleteAllUsers();
+    
+    /**
+     * Checks whether the user matching the given id is suspended
+     * @return true if user suspended, else false;
+     */
+    boolean isUserSuspended(Integer id);
 }

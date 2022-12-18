@@ -16,7 +16,7 @@
     <body>
         <c:choose>
             <c:when test="${!sessionScope.adminAuth == true}">
-                <fieldset>
+                <fieldset class="m-3">
                     <legend>Authentification</legend>
                     <form name="adminAuthForm" action="ViewAdminPage?action=auth" method="POST">
                         <label for="adminPass">Password</label>
@@ -26,11 +26,29 @@
                 </fieldset>
             </c:when>
             <c:otherwise>
-                <div class="offset-1 bg-secondary p-2">
+                <div class="offset-1 col-10 bg-secondary p-2">
                     <a href="ViewAdminPage?action=exit" class="btn btn-sm btn-outline-light">Exit</a>
                 </div>
-                <%--  Liste des utilisateurs--%>
-                <div class="offset-1 mt-3">
+                <div class="offset-1 col-10 mt-3">
+                    <%-- Options --%>
+                    <div class="border rounded border-secondary form-group p-3">
+                        <form method="POST" action="ViewAdminPage">
+                            <input type="hidden" name="action" value="changeAdminPass"/>
+                            <label for="adminPassChange">text</label>
+                            <input type="text" required id="image" id="adminPassChange" name="adminPassChange" value="" placeholder="New password"/>
+                            <input type="text" required id="image" id="adminPassChangeConfirm" name="adminPassChangeConfirm" value="" placeholder="Confirm new password"/><br>
+                            <button type="submit" class="btn btn-sm btn-secondary m-2"> Confirm change </button>
+                            <c:choose>
+                                <c:when test="${requestScope.saveSuccess == false}">
+                                    <label class="text-danger">Error. password not saved.</label>
+                                </c:when>
+                                <c:when test="${requestScope.saveSuccess == true}">
+                                    <label class="text-success">saved</label>
+                                </c:when>
+                            </c:choose>
+                        </form>
+                    </div>
+                    <%--  Liste des utilisateurs --%>
                     <div class="m-2">
                         <h2>Users</h2>
                         <table class="table table-striped">
@@ -65,9 +83,6 @@
                                         </td>
                                     </tr>
                                 </c:forEach>
-                                <tr>
-
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -76,13 +91,14 @@
                         <h3>Produits</h3>
                         <table class="table table-striped">
                             <thead>
-                            <th >Category</th>
-                            <th >Type</th>
-                            <th >Description</th>
-                            <th >Unit price</th>
-                            <th >Stock</th>
-                            <th >Image</th>
-                            <th >Active status</th>
+                            <th>Category</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Unit price</th>
+                            <th>Stock</th>
+                            <th>Image</th>
+                            <th>Active status</th>
+                            <th>Delete</th>
                             </thead>
                             <tbody>
                                 <c:forEach var="product" items="${productList}">
@@ -109,18 +125,25 @@
                                                 </c:choose>
                                             </form>
                                         </td>
+                                        <td>
+                                            <form method="POST" action="ViewAdminPage" onsubmit="return confirm('Confirm product deletion.');" >
+                                                <input type="hidden" name="action" value="deleteProduct"/>
+                                                <input type="hidden" name="id" value="${product.id}"/>
+                                                <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             <form method="POST" action="ViewAdminPage">
                                 <tr>
-                                    <input type="hidden" name="action" value="addProduct"/>
-                                    <td><input type="text" required id="category" name="category" value="" placeholder="Category"/></td>
-                                    <td><input type="text" required id="type" name="type" value="" placeholder="Type"/></td>
-                                    <td><input type="text" required id="description" name="description" value="" placeholder="Description"/></td>
-                                    <td><input type="number" required id="unitPrice" step="0.01" name="unitPrice" value="" placeholder="Unit Price"/></td>
-                                    <td><input type="text" required id="stock" name="stock" value="" placeholder="Stock"/></td>
-                                    <td><input type="text" required id="image" name="image" value="" placeholder="Image"/></td>
-                                    <td><button type="submit" class="btn btn-sm">Add</button></td>
+                                <input type="hidden" name="action" value="addProduct"/>
+                                <td><input type="text" required id="category" name="category" value="" placeholder="Category"/></td>
+                                <td><input type="text" required id="type" name="type" value="" placeholder="Type"/></td>
+                                <td><input type="text" required id="description" name="description" value="" placeholder="Description"/></td>
+                                <td><input type="number" required id="unitPrice" step="0.01" name="unitPrice" value="" placeholder="Unit Price"/></td>
+                                <td><input type="text" required id="stock" name="stock" value="" placeholder="Stock"/></td>
+                                <td><input type="text" required id="image" name="image" value="" placeholder="Image"/></td>
+                                <td><button type="submit" class="btn btn-sm">Add</button></td>
                                 </tr>
                             </form>
                             </tbody>

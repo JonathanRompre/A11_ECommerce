@@ -124,12 +124,12 @@ public class CreateFilterSidebar extends HttpServlet {
 
             // get availability
             if (p.getQuantity() > 0 && p.isActive()) {
-                if(availability.add(
+                availability.add(
                         new ItemCategorie(Constantes.AVAILABILITY_AVAILABLE,
                                 baseUrl +"?"+ Utilitaire.buildUrl(baseSearchQuery, "Availability", Constantes.AVAILABILITY_AVAILABLE),
                                 Utilitaire.isActiveFilter(baseSearchQuery, Constantes.AVAILABILITY_AVAILABLE)
                         )
-                )){System.out.println(p.toString());};
+                );
             } else {
                 availability.add(
                         new ItemCategorie(Constantes.AVAILABILITY_NOT_AVAILABLE,
@@ -139,7 +139,6 @@ public class CreateFilterSidebar extends HttpServlet {
                 );
             }
         }
-        System.out.println("availability: "+availability.size());
         // assemble list of categories.
         List<Category> categories = new ArrayList<>();
         if (!uniqueCategorie.isEmpty()) {

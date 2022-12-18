@@ -100,4 +100,18 @@ public class ItemCategorie implements Comparable<ItemCategorie> {
         }
         return res;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ItemCategorie{");
+        sb.append("name=").append(name);
+        sb.append(", url=").append(url);
+        sb.append(", activeFilter=").append(activeFilter);
+        sb.append('}');
+        return sb.toString();
+    }
+    
+    
+    
 }

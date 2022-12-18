@@ -4,9 +4,11 @@
  */
 package dao;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import modele.Administrator;
+import modele.User;
 
 /**
  *
@@ -25,7 +27,8 @@ public class AdministratorDaoImpl implements IAdministratorDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            Administrator admin = (Administrator) entityManager.createNativeQuery("SELECT * FROM ADMINISTRATOR").getResultList().get(0);
+            List<Administrator> tmpAdmin = entityManager.createNativeQuery("SELECT * FROM ADMINISTRATOR", Administrator.class).getResultList();
+            Administrator admin = tmpAdmin.get(0);
             admin.setPassword(password);
             entityManager.persist(admin);
             entityManager.getTransaction().commit();

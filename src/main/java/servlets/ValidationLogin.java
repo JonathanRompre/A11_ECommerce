@@ -50,10 +50,13 @@ public class ValidationLogin extends HttpServlet {
         boolean emailExists = userDaoImpl.userEmailExists(email);
         Integer id = null;
         boolean loginSuccess = false;
+        boolean isSuspended = false;
         if (emailExists) {
             id = userDaoImpl.getUserIdFromEmail(email);
             if (id != null) {
-                loginSuccess = Utilitaire.validateUserPassword(id, password);
+                isSuspended = userDaoImpl.isUserSuspended(id);
+                loginSuccess = Utilitaire.validateUserPassword(id, password) && userDaoImpl.isUserSuspended(id);
+                
                 request.setAttribute("authenticating", false);
             }
         }
@@ -68,6 +71,7 @@ public class ValidationLogin extends HttpServlet {
         JSONObject sampleObject = new JSONObject();
         sampleObject.put("emailExists", emailExists);
         sampleObject.put("loginSuccess", loginSuccess);
+        sampleObject.put("isSuspended", isSuspended);
 
         PrintWriter out = response.getWriter();
         try {

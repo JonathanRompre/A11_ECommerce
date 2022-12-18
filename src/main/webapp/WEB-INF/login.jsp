@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
         <script src="scripts/script.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="styles/styles.css" rel="stylesheet" type="text/css"/>
     </head>
@@ -20,6 +21,7 @@
         <div class="col-4 offset-4 border mt-5">
             <fieldset>
                 <legend>Login</legend>
+                <div id="message"></div>
                 <div class="text-center">
                     <form name="loginForm">
                         <div class="m-1">
@@ -42,7 +44,7 @@
             </fieldset>
             <a href="Register" class="btn btn-light m-1">Register</a><br>
             <a href="Accueil" class="btn btn-light m-1">Retour à l'accueil</a>
-            <a href="ViewAdminPage" class="float-right">Administration</a>
+            <a href="ViewAdminPage" class="float-right text-secondary text-decoration-none">Administration</a>
         </div>
     </body>
     <jsp:include page="/WEB-INF/footer.jsp"/>
