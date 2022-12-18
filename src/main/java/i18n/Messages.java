@@ -13,15 +13,27 @@ import java.util.ListResourceBundle;
 public class Messages extends ListResourceBundle {
 
     static final Object[][] contents = {
-        {"registration","Registration"},
-        {"firstName","First name"},
-        {"lastName","Last name"},
-        {"email","Email"},
-        {"password","Password"},
-        {"confirm","Confirm"},
-        {"confirmPassword","Please confirm password"},
-        {"homePage","Back to home page"},
-        {"register","Register"}
+        {"register.registration","Registration"},
+        {"register.firstName","First name"},
+        {"register.lastName","Last name"},
+        {"register.email","Email"},
+        {"register.password","Password"},
+        {"register.confirm","Confirm"},
+        {"register.confirmPassword","Please confirm password"},
+        {"register.homePage","Back to home page"},
+        {"register.register","Register"},
+        {"register.registrationSuccess","Registration successful. Redirecting to login page."},
+        {"register.emailExists","An account with this email already exists."},
+        {"register.passwordMismatch","Passwords must match."},
+        {"login.title","Login"},
+        {"login.email","Email"},
+        {"login.noAccount","There is no account associated with this email."},
+        {"login.password","Password"},
+        {"login.invalidPassword","Invalid password."},
+        {"login.btnLogin","login"},
+        {"login.register","Register"},
+        {"login.homePage","Home page"},
+        {"login.admin","Administration"}
     };
     
     @Override

@@ -55,7 +55,10 @@ public class ValidationLogin extends HttpServlet {
             id = userDaoImpl.getUserIdFromEmail(email);
             if (id != null) {
                 isSuspended = userDaoImpl.isUserSuspended(id);
-                loginSuccess = Utilitaire.validateUserPassword(id, password) && userDaoImpl.isUserSuspended(id);
+                loginSuccess = Utilitaire.validateUserPassword(id, password) && !isSuspended;
+                
+                if(!loginSuccess)
+                    id = null;
                 
                 request.setAttribute("authenticating", false);
             }

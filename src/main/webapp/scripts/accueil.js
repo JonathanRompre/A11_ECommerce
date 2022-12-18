@@ -5,7 +5,7 @@
 
 function filter(url) {
     requete = new XMLHttpRequest();
-    requete.onreadystatechange = testFiltre;
+    requete.onreadystatechange = setFiltres;
 
     requete.open("GET", url, true);
 
@@ -14,7 +14,7 @@ function filter(url) {
     requete.send();
 }
 
-function testFiltre() {
+function setFiltres() {
     if ((requete.readyState === 4) && (requete.status === 200)) {
         filterBar = requete.responseText;
 

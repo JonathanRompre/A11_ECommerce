@@ -54,12 +54,15 @@ public class ViewAdminPage extends HttpServlet {
                     id = Integer.parseInt(request.getParameter("id"));
                 }
                 switch(action){
+                    
                     case "activateProduct":
+                    case "deactivateProduct":
                         Product p = productDaoImpl.getProductById(id);
                         p.setActive(!action.contains("deactivate"));
                         productDaoImpl.updateProduct(p);
                         break;
                     case "activateUser":
+                    case "deactivateUser":
                         User u = userDaoImpl.getUserById(id);
                         u.setSuspended(action.contains("deactivate"));
                         userDaoImpl.updateUser(u);

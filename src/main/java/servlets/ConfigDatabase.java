@@ -91,12 +91,12 @@ public class ConfigDatabase extends HttpServlet {
         //list of user
         List<User> userList = new ArrayList<User>();
 
-        User user1 = new User("Luc", "Gendron", "LGendron@site.com","PwLucGendron",true);
-        User user2 = new User("Lucie", "Dufort", "MissDufort@site.com","PwLucieDufort",true);
-        User user3 = new User("Fred", "Cailloux", "Flintstone@site.com","PwFredCailloux",false);
-        User user4 = new User("Laurent", "Dauphin", "TheRealFlipper@site.com","PwLaurentDauphin",true);
-        User user5 = new User("Dieudonné", "Jean", "DJ@site.com","PwDieudonnéJean",true);
-        User user6 = new User("Test", "Test", "Test","Test",true);
+        User user1 = new User("Luc", "Gendron", "LGendron@site.com","PwLucGendron",false);
+        User user2 = new User("Lucie", "Dufort", "MissDufort@site.com","PwLucieDufort",false);
+        User user3 = new User("Fred", "Cailloux", "Flintstone@site.com","PwFredCailloux",true);
+        User user4 = new User("Laurent", "Dauphin", "TheRealFlipper@site.com","PwLaurentDauphin",false);
+        User user5 = new User("Dieudonné", "Jean", "DJ@site.com","PwDieudonnéJean",false);
+        User user6 = new User("Test", "Test", "Test","Test",false);
         //add user to the list
         userList.add(user1);
         userList.add(user2);

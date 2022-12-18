@@ -41,26 +41,35 @@ public class ValidationRegister extends HttpServlet {
 
         //check for email already exists
         boolean emailExists = userDaoImpl.userEmailExists(email);
-        boolean registrationSucces = false;
+        boolean registrationSuccess = false;
         boolean passwordsMatch = pw.equals(pwConfirm);
         if (emailExists) {
         } else {
             if (passwordsMatch) {
                 User user = new User(firstName, lastName, email);
                 user.setPassword(pw);
-                registrationSucces = userDaoImpl.saveUser(user);
-                if (registrationSucces) {
+                registrationSuccess = userDaoImpl.saveUser(user);
+                if (registrationSuccess) {
                     request.setAttribute("authenticating", false);
                 }
             }
         }
+        request.setAttribute("passwordsMatch", passwordsMatch);
+        request.setAttribute("emailExists", emailExists);
+        request.setAttribute("registrationSuccess", registrationSuccess);
+        
+        // add entries for value on return to register
+        request.setAttribute("firstName", firstName);
+        request.setAttribute("lastName", lastName);
+        request.setAttribute("email", email);
+        
         String url;
-        if (emailExists || (registrationSucces != true)) {
-            url = "Request";
+        if (true || emailExists || (registrationSuccess != true)) {
+            url = "/WEB-INF/register.jsp";
         }else{
             url = "Login";
         }
-        request.getRequestDispatcher(url).include(request, response);
+        request.getRequestDispatcher(url).forward(request, response);
         //response.sendRedirect(url);
     }
 
