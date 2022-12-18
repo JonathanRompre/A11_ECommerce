@@ -111,11 +111,22 @@
                                         </td>
                                     </tr>
                                 </c:forEach>
+                            <form method="POST" action="ViewAdminPage">
+                                <tr>
+                                    <input type="hidden" name="action" value="addProduct"/>
+                                    <td><input type="text" required id="category" name="category" value="" placeholder="Category"/></td>
+                                    <td><input type="text" required id="type" name="type" value="" placeholder="Type"/></td>
+                                    <td><input type="text" required id="description" name="description" value="" placeholder="Description"/></td>
+                                    <td><input type="number" required id="unitPrice" step="0.01" name="unitPrice" value="" placeholder="Unit Price"/></td>
+                                    <td><input type="text" required id="stock" name="stock" value="" placeholder="Stock"/></td>
+                                    <td><input type="text" required id="image" name="image" value="" placeholder="Image"/></td>
+                                    <td><button type="submit" class="btn btn-sm">Add</button></td>
+                                </tr>
+                            </form>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </c:otherwise>
         </c:choose>
     </body>

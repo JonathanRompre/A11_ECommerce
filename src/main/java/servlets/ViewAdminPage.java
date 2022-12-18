@@ -39,40 +39,54 @@ public class ViewAdminPage extends HttpServlet {
         String action = request.getParameter("action");
         ProductDaoImpl productDaoImpl = new ProductDaoImpl();
         UserDaoImpl userDaoImpl = new UserDaoImpl();
-
-        boolean isAdmin = false;
-        if ((request.getSession().getAttribute("adminAuth") == null) || ((boolean) request.getSession().getAttribute("adminAuth") == false)) {
-            request.getSession().setAttribute("adminAuth", false);
-            if (action.equals("auth")) {
-                AdministratorDaoImpl adi = new AdministratorDaoImpl();
-                isAdmin = Passwords.isExpectedPassword(request.getParameter("adminPass").toCharArray(), adi.getAdminSalt(), adi.getAdminPassword());
-                request.getSession().setAttribute("adminAuth", isAdmin);
-            }
-        } else {
-            int id = 0;
-            if (request.getParameter("id") != null) {
-                id = Integer.parseInt(request.getParameter("id"));
-            }
-            if (action.contains("Product")) {
-                Product p = productDaoImpl.getProductById(id);
-                p.setActive(!action.contains("deactivate"));
-                productDaoImpl.updateProduct(p);
-            } else if (action.contains("User")) {
-                User u = userDaoImpl.getUserById(id);
-                u.setSuspended(action.contains("deactivate"));
-                userDaoImpl.updateUser(u);
-            } else if (action.equals("exit")) {
+        if (action != null) {
+            boolean isAdmin = false;
+            if ((request.getSession().getAttribute("adminAuth") == null) || ((boolean) request.getSession().getAttribute("adminAuth") == false)) {
                 request.getSession().setAttribute("adminAuth", false);
+                if (action.equals("auth")) {
+                    AdministratorDaoImpl adi = new AdministratorDaoImpl();
+                    isAdmin = Passwords.isExpectedPassword(request.getParameter("adminPass").toCharArray(), adi.getAdminSalt(), adi.getAdminPassword());
+                    request.getSession().setAttribute("adminAuth", isAdmin);
+                }
+            } else {
+                int id = 0;
+                if (request.getParameter("id") != null) {
+                    id = Integer.parseInt(request.getParameter("id"));
+                }
+                if (action.contains("activateProduct")) {
+                    Product p = productDaoImpl.getProductById(id);
+                    p.setActive(!action.contains("deactivate"));
+                    productDaoImpl.updateProduct(p);
+                } else if (action.contains("activateUser")) {
+                    User u = userDaoImpl.getUserById(id);
+                    u.setSuspended(action.contains("deactivate"));
+                    userDaoImpl.updateUser(u);
+                } else if (action.equals("exit")) {
+                    request.getSession().setAttribute("adminAuth", false);
+                } else if (action.equals("addProduct")){
+                    String category = request.getParameter("category");
+                    String type = request.getParameter("type");
+                    String description = request.getParameter("description");
+                    double unitPrice = Double.parseDouble(request.getParameter("unitPrice"));
+                    int stock = Integer.parseInt(request.getParameter("stock"));
+                    String image = request.getParameter("image");
+                    try{
+                        Product p = new Product(5489, type, description, image, stock, unitPrice, category, true, false);
+                        productDaoImpl.saveProduct(p);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                }
             }
         }
 
-        if ((boolean) request.getSession().getAttribute("adminAuth")) {
+        if (request.getSession().getAttribute("adminAuth") != null && (boolean) request.getSession().getAttribute("adminAuth")) {
             List<Product> prodList = productDaoImpl.getAllProducts();
             List<User> userList = userDaoImpl.getAllUsers();
             request.setAttribute("productList", prodList);
             request.setAttribute("userList", userList);
         }
-        if (action.equals("exit")) {
+        if (action != null && action.equals("exit")) {
             response.sendRedirect("Accueil");
         } else {
             request.getRequestDispatcher("/WEB-INF/administration.jsp").forward(request, response);

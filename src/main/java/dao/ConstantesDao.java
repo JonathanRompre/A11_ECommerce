@@ -44,8 +44,6 @@ class ConstantesDao {
     
     protected static final String GET_CURRENT_CART_ID_FOR_USER_ID = "SELECT panier_id FROM CART WHERE current = 1 AND user_id = ";
     
-    protected static final String GET_CURRENT_CART_EXISTS_FOR_USER_ID = "SELECT COUNT(*) FROM CART WHERE current = 1 AND user_id = ";
-    
     protected static final String GET_ALL_CARTS_FOR_USER_ID = "SELECT * FROM CART WHERE user_id = ";
     
     protected static final String GET_ALL_CARTS = "SELECT * FROM CART";

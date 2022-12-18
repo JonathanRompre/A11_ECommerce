@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import modele.Administrator;
@@ -34,10 +35,9 @@ public class AdminInit {
         boolean isInitialized;
         try{
             entityManager.getTransaction().begin();
-            
-            if(((Integer)entityManager.createNativeQuery(ConstantesDao.IS_ADMIN_EXISTS).getResultList().get(0)) == 0){ // check whether there's an admin.
+            if(((Number)entityManager.createNativeQuery(ConstantesDao.IS_ADMIN_EXISTS).getSingleResult()).intValue() == 0){ // check whether there's an admin.
                 isInitialized = false;
-            }else if(((Integer)entityManager.createNativeQuery(ConstantesDao.IS_ADMIN_PASSWORD_SET).getResultList().get(0)) == 0){ // check whether the password is set for the admin account.
+            }else if(((Number)entityManager.createNativeQuery(ConstantesDao.IS_ADMIN_PASSWORD_SET).getSingleResult()).intValue() == 0){ // check whether the password is set for the admin account.
                 isInitialized = false;
             }else{
                 isInitialized = true;

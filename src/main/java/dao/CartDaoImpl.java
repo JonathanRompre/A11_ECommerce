@@ -88,7 +88,6 @@ public class CartDaoImpl implements ICartDao {
             Query query = entityManager.createQuery(ConstantesDao.GET_CURRENT_CART_EXISTS_FOR_USER_ID_HQL);
             query.setParameter("id", id);
             List<Boolean> tmpList = query.getResultList();
-            //List<BigInteger> tmpList = entityManager.createNativeQuery(ConstantesDao.GET_CURRENT_CART_EXISTS_FOR_USER_ID+id).getResultList();
             entityManager.getTransaction().commit();
             if(tmpList.isEmpty())
                 return false;
